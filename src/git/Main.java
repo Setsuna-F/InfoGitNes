@@ -14,12 +14,12 @@ public class Main {
 		File dir = new File("./INFOGIT/");
 		if (dir.exists()) {
 			try {
-				//tools.recursifDelete(dir);
+				tools.recursifDelete(dir);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		InfoGit ig2=new InfoGit("/Users/S-Setsuna-F/Documents/Master2/Évo. et Restruct/GIT TEST/jawgrind/.git", dir);
+		InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
 
 		ig2.collectBranches();	
 		

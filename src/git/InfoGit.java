@@ -44,18 +44,18 @@ public class InfoGit {
 		
 		
 		//Clonage du git A changer
-		//git = Git.cloneRepository()
-		//			.setURI(url)
-		//			.setDirectory(dir)
-		//			.call();
-		//repo = git.getRepository();
+		git = Git.cloneRepository()
+					.setURI(url)
+					.setDirectory(dir)
+					.call();
+		repo = git.getRepository();
 		
-		try {
+		/*try {
 			repo = new FileRepository("/Users/S-Setsuna-F/Documents/Master2/Évo. et Restruct/GIT TEST/jawgrind/.git");
 			git = new Git(repo);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		walk = new RevWalk(repo);
 	}
