@@ -13,6 +13,7 @@ public class InfoCommit {
 	private  int nbModify; 
 	private  int nbRename; 
 
+	
 	/**
 	 * \brief constructeur
 	 * 
@@ -20,7 +21,7 @@ public class InfoCommit {
 	 * \param d  date du commit qui a ete depose.
 	 * \param m  message du commit qui a ete depose.
 	 * 
-	 */
+	 **/
 	InfoCommit(String id, Date d, String m){ 
 		this.ID 	 = id;
 		this.date 	 = d;
@@ -32,7 +33,8 @@ public class InfoCommit {
 		this.nbRename = 0;
 	}
 
-	/*Getter-Setter*/
+	
+	/*Getter*/
 	public String getID() 		{ return ID; }
 	public Date   getDate() 	{ return date; }
 	public String getMessage()  { return message; }
@@ -41,6 +43,8 @@ public class InfoCommit {
 	public int 	  getNbModify()	{ return nbModify; }
 	public int 	  getNbRename()	{ return nbRename; }
 	
+	
+	/*Setter*/
 	public void   setAdd() 	  { nbAdd++; }
 	public void   setDelete() { nbDelete++; }
 	public void   setModify() { nbModify++; }

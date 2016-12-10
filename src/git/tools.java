@@ -5,6 +5,10 @@ import java.io.IOException;
 
 public class tools {
 	
+	
+	/**
+	 * \brief supprime le dossier s'il existe deja.
+	 **/
 	public static void recursifDelete(File path) throws IOException {
 		if (!path.exists())
 			throw new IOException("File not found '" + path.getAbsolutePath() + "'");

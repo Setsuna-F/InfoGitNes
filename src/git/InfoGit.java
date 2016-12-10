@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.ListBranchCommand.ListMode;
@@ -17,13 +16,12 @@ import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.RawTextComparator;
-import org.eclipse.jgit.internal.storage.file.FileRepository;
-import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
+
 
 public class InfoGit {
 
@@ -35,15 +33,19 @@ public class InfoGit {
 	private RevWalk walk;
 	private Git git;
 	
-	
-	
+	/**
+	 * \brief constructeur
+	 * 
+	 * \param url  url du depot git.
+	 * \param dir  repertoire ou le cloner 
+	 * 
+	 **/
 	InfoGit(String url, File dir) throws InvalidRemoteException, TransportException, GitAPIException, IOException{
 		this.url 		= url;	
 		this.person		= new Hashtable<String, ArrayList<String> >();
 		this.branches 	= new ArrayList<InfoBranch>();
 		
-		
-		//Clonage du git A changer
+		//Clonage du git
 		git = Git.cloneRepository()
 					.setURI(url)
 					.setDirectory(dir)
@@ -51,7 +53,7 @@ public class InfoGit {
 		repo = git.getRepository();
 		
 		/*try {
-			repo = new FileRepository("/Users/S-Setsuna-F/Documents/Master2/Évo. et Restruct/GIT TEST/jawgrind/.git");
+			repo = new FileRepository("/Users/S-Setsuna-F/Documents/Master2/. et Restruct/GIT TEST/jawgrind/.git");
 			git = new Git(repo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +62,12 @@ public class InfoGit {
 		walk = new RevWalk(repo);
 	}
 	
-	void collectBranches() throws IOException, GitAPIException{
+	
+	/**
+	 * \brief collecte toutes les branches du git.
+	 * 
+	 **/
+	public void collectBranches() throws IOException, GitAPIException{
     	InfoBranch infoBranch;
 	    List<Ref> lBranches = git.branchList().setListMode(ListMode.REMOTE).call();
 
@@ -73,14 +80,18 @@ public class InfoGit {
 	    }
 	}
 	
-
+	
+	/**
+	 * \brief collecte tous les commit de la branche passee en parametre.
+	 * 
+	 **/
 	public void collectCommitByBranch(InfoBranch infoBranch) throws GitAPIException, IOException{
 		Iterable<RevCommit> commits = git.log().add(repo.resolve(infoBranch.getBranchName())).call();
+		
         for (RevCommit commit : commits) {
         	InfoCommit infoCommit = new InfoCommit(commit.getName(),  new Date(commit.getCommitTime()), commit.getFullMessage());
         	this.setPerson(commit.getAuthorIdent().getName(), commit.getAuthorIdent().getEmailAddress());	
 
-        	
         	if(commit.getParents().length != 0){
             	RevCommit parent = walk.parseCommit(commit.getParent(0).getId());
 
@@ -100,23 +111,24 @@ public class InfoGit {
             			infoCommit.setDelete();
                	}
         	}
+        	
         	infoBranch.setCommits(commit.getAuthorIdent().getName(), new InfoCommit(commit.getName(), new Date(commit.getCommitTime()), commit.getFullMessage()));
         }
 	}
 
+	
 	/** 
-	 * \brief tous les utilisateurs avec leurs adresses mail
+	 * \return tous les utilisateurs avec leurs adresses mail.
 	 * 
-	 */
+	 **/
 	public Hashtable<String, ArrayList<String>> getPerson() {
 		return person;
 	}
 
+	
 	/**
-	 * \brief regroupe une liste de nom d'utilisateus.
-	 * 
-	 * \return une list d'utilisateurs qui ont fait un commit.
-	 * */
+	 * \return une liste contenant le nom d'utilisateurs qui ont fait un commit.
+	 **/
 	public ArrayList<String> getPersonName(){
 		ArrayList<String> noms=new ArrayList<String>();
 		Iterator it=person.keySet().iterator();
@@ -129,14 +141,18 @@ public class InfoGit {
 	
 	
 	/**
-	 * \brief retourne tous les mails d'un utilisateur donnée.
+	 * \brief retourne tous les mails d'un utilisateur donnee.
 	 * 
 	 * \return une arraylist d'adresse mail. 
-	 */
+	 **/
 	public ArrayList<String> getAllMailOf(String nom){
 		return person.get(nom);
 	}
 	
+	
+	/**
+	 * \brief ajoute l'utilisateur et son email à la liste person.
+	 **/
 	public void setPerson(String utilisateur, String mail) {
 		/*Si l'utilisateur n'est pas encore present dans la hashtable*/
 		if(!this.person.containsKey(utilisateur))
@@ -146,18 +162,29 @@ public class InfoGit {
 			ArrayList<String> mel =  this.person.get(utilisateur);
 			mel.add(mail);
 			this.person.put(utilisateur, mel);/*On ajoute son adresse mail*/
-			//this.utilisateurs.get(utilisateur).add(mail); 
 		}
 	}
 	
+	
+	/**
+	 * \return l'url du git.
+	 **/
 	public String getUrl() {
 		return url;
 	}
 
+	
+	/**
+	 * \return toutes les branches du git.
+	 **/
 	public ArrayList<InfoBranch> getBranches() {
 		return branches;
 	}
 
+	
+	/**
+	 * \return le nombre de branches.
+	 **/
 	public int getNbBranches(){
 		return branches.size();
 	}

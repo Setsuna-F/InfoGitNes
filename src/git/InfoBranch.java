@@ -13,6 +13,13 @@ public class InfoBranch {
 	//private ArrayList<Couple> newBranches;
 	
 	
+	/**
+	 * \brief constructeur
+	 * 
+	 * \param name nom de la branche.
+	 * \param ref  la reference de la branche.
+	 * 
+	 **/
 	InfoBranch(String name, String ref){
 		this.name=name;
 		this.ref=ref;
@@ -20,19 +27,39 @@ public class InfoBranch {
 		this.commits=new Hashtable<String, ArrayList <InfoCommit> >();
 	}
 	
-	public String getBranchName() {
-		return name;
+	
+	/**
+	 * \return le nom de la branche.
+	 * 
+	 **/
+	public String getBranchName() { 
+		return name; 
 	}
 	
-	public String getRef() {
-		return ref;
+	
+	/**
+	 * \return la reference de la branche.
+	 * 
+	 **/
+	public String getRef() { 
+		return ref; 
+	}
+	
+	
+	/**
+	 * \return le nombre de commit pour la branche.
+	 * 
+	 **/
+	public int getNbCommits() {
+		return nbCommits; 
 	}
 
+	
 	/**
-	 * \brief regroupe une liste de nom d'utilisateus.
+	 * \brief regroupe une liste de nom d'utilisateurs.
 	 * 
-	 * \return une list d'utilisateurs qui ont fait un commit.
-	 * */
+	 * \return une liste d'utilisateurs qui ont fait un commit.
+	 **/
 	public ArrayList<String> getTousLesNomDUtilisateur(){
 		ArrayList<String> noms=new ArrayList<String>();
 		Iterator it=commits.keySet().iterator();
@@ -43,14 +70,20 @@ public class InfoBranch {
 		return noms;
 	}
 	
+	
 	/**
-	 * \brief retourne tous les commits avec leurs utilisateurs. 
+	 * \return tous les commits avec leurs utilisateurs. 
 	 *
-	 */
+	 **/
 	public Hashtable<String, ArrayList<InfoCommit>> getCommits() {
 		return commits;
 	}
 
+	
+	/**
+	 * \brief ajoute le commit à l'utilisateur.
+	 * 
+	 **/
 	public void setCommits(String utilisateur, InfoCommit commits) {
 		if(!this.commits.containsKey(utilisateur))
 			this.commits.put(utilisateur, new ArrayList<InfoCommit>()); /*On ajoute l'utilisateur*/
@@ -60,12 +93,7 @@ public class InfoBranch {
 		nbCommits++;
 	}
 
-	public String getName() {
-		return name;
-	}
 
-	public int getNbCommits() {
-		return nbCommits;
-	}
+	//public String getName() { return name; }
 
 }
