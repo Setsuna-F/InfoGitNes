@@ -37,6 +37,14 @@ public class Main {
 				System.out.println( mapKey + " a fait " + listeCommits.get(mapKey).size() + " commits");
 			}
 	        System.out.println("-------------------------------------");
+	        
+	        System.out.println("****Arborescence****");
+	        String deb = listeBranches.get(i).getDebut();
+	        ArrayList<String> p = listeBranches.get(i).getParents().get(deb);
+			tools.affichageParent(p, listeBranches.get(i));
+	        System.out.println("****Fin Arborescence****");
+	        System.out.println("-------------------------------------");
+
 	    }
 	    
         /*System.out.println("-------------------------------------");

@@ -87,7 +87,8 @@ public class InfoGit {
 	 **/
 	public void collectCommitByBranch(InfoBranch infoBranch) throws GitAPIException, IOException{
 		Iterable<RevCommit> commits = git.log().add(repo.resolve(infoBranch.getBranchName())).call();
-		
+		int cpt = 0;
+	
         for (RevCommit commit : commits) {
         	InfoCommit infoCommit = new InfoCommit(commit.getName(),  new Date(commit.getCommitTime()), commit.getFullMessage());
         	this.setPerson(commit.getAuthorIdent().getName(), commit.getAuthorIdent().getEmailAddress());	
@@ -111,6 +112,21 @@ public class InfoGit {
             			infoCommit.setDelete();
                	}
         	}
+        	
+        	//Arborescence
+        	if(cpt == 0){
+        		String s =  commit.getName() + " " + commit.getShortMessage();
+        		infoBranch.setDebut(s);;
+        	}
+        	cpt++;
+
+        	String fils = commit.getName() + " " + commit.getShortMessage();
+        	ArrayList<String> pa = new ArrayList<String>();
+        	for(int i = 0; i < commit.getParentCount(); i++){
+        		pa.add(commit.getParent(i).getName() + " " + commit.getParent(i).getShortMessage());
+        	}
+        	infoBranch.setParents(fils, pa);
+        	//Fin Arborescence
         	
         	infoBranch.setCommits(commit.getAuthorIdent().getName(), new InfoCommit(commit.getName(), new Date(commit.getCommitTime()), commit.getFullMessage()));
         }

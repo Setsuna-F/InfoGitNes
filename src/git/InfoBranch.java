@@ -12,6 +12,10 @@ public class InfoBranch {
 	//private ArrayList<Couple> merges;
 	//private ArrayList<Couple> newBranches;
 	
+	//Arborescence
+	private String debut;
+	private Hashtable<String, ArrayList<String>> parents;
+	
 	
 	/**
 	 * \brief constructeur
@@ -25,6 +29,7 @@ public class InfoBranch {
 		this.ref=ref;
 		this.nbCommits=0;
 		this.commits=new Hashtable<String, ArrayList <InfoCommit> >();
+		parents = new Hashtable<String, ArrayList<String>>();
 	}
 	
 	
@@ -52,6 +57,43 @@ public class InfoBranch {
 	 **/
 	public int getNbCommits() {
 		return nbCommits; 
+	}
+
+	
+	/**
+	 * \return le début de l'arbre.
+	 * 
+	 **/
+	public String getDebut() {
+		return debut;
+	}
+
+
+	/**
+	 * \brief change le début de l'arbre.
+	 * 
+	 **/
+	public void setDebut(String debut) {
+		this.debut = debut;
+	}
+	
+
+	/**
+	 * \return la hashtable parents.
+	 * 
+	 **/
+	public Hashtable<String, ArrayList<String>> getParents() {
+		return parents;
+	}
+
+
+	/**
+	 * \brief change la hashtable parents.
+	 * 
+	 **/
+	public void setParents(String f, ArrayList<String> pa) {
+		parents.put(f, pa);
+
 	}
 
 	
@@ -94,6 +136,5 @@ public class InfoBranch {
 	}
 
 
-	//public String getName() { return name; }
 
 }
