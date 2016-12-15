@@ -29,31 +29,31 @@ public class Main {
 			}
 		}
 		InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
-
+		//InfoGit ig2=new InfoGit("https://github.com/apple/swift", dir);
 		ig2.collectBranches();	
 		
-	    System.out.println("Le nombre de branche est de : \t"+ig2.getNbBranches());
-        System.out.println("-------------------------------------");
+	    //System.out.println("Le nombre de branche est de : \t"+ig2.getNbBranches());
+        //System.out.println("-------------------------------------");
 	    ArrayList<InfoBranch> listeBranches = ig2.getBranches();
 	    for(int i = 0; i < listeBranches.size(); i++){
-	    	System.out.println("Nom de la branche :" +listeBranches.get(i).getBranchName());
-	    	System.out.println("Ref de la branche :" +listeBranches.get(i).getRef());
+	    	//System.out.println("Nom de la branche :" +listeBranches.get(i).getBranchName());
+	    	//System.out.println("Ref de la branche :" +listeBranches.get(i).getRef());
 	    	
-	    	Hashtable<String, ArrayList<InfoCommit>> listeCommits = listeBranches.get(i).getCommits();
-	    	for (String mapKey : listeCommits.keySet()) {
-				System.out.println( mapKey + " a fait " + listeCommits.get(mapKey).size() + " commits");
-				//tojson(listeCommits.get(mapKey));
-			}
-	        System.out.println("-------------------------------------");
+	    	//Hashtable<String, ArrayList<InfoCommit>> listeCommits = listeBranches.get(i).getCommits();
+	    	//for (String mapKey : listeCommits.keySet()) {
+				//System.out.println( mapKey + " a fait " + listeCommits.get(mapKey).size() + " commits");
+				//tojson(listeCommits.get(mapKey), i);
+			//}
+	       // System.out.println("-------------------------------------");
 	        
-	        System.out.println("****Arborescence****");
-	        String deb = listeBranches.get(i).getDebut();
-	        ArrayList<String> p = listeBranches.get(i).getParents().get(deb);
-			tools.affichageParent(p, listeBranches.get(i));
-	        System.out.println("****Fin Arborescence****");
-	        System.out.println("-------------------------------------");
+	       // System.out.println("****Arborescence****");
+	        //String deb = listeBranches.get(i).getDebut();
+	        //ArrayList<String> p = listeBranches.get(i).getParents().get(deb);
+			//tools.affichageParent(p, listeBranches.get(i));
+	        //System.out.println("****Fin Arborescence****");
+	       // System.out.println("-------------------------------------");
 	        
-	        tojson(listeBranches);
+	        tojson(listeBranches, i);
 
 	    }
 	    
@@ -70,11 +70,12 @@ public class Main {
 		
 		System.out.println("Fin");
 	}
-	public static void tojson(Object infos) throws JsonProcessingException
+	public static void tojson(Object infos, int i) throws IOException
 	{
 		ObjectMapper mapper = new ObjectMapper();
-		String jsonInString = mapper.writeValueAsString(infos);
-		System.out.println(jsonInString);
+		//String jsonInString = mapper.writeValueAsString(infos);
+		mapper.writeValue(new File("D:\\Users\\Niels\\Desktop\\branches\\branche_"+i+".json"), infos);
+		//System.out.println(jsonInString);
 	}
 
 }
