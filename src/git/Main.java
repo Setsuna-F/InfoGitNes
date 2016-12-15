@@ -8,6 +8,13 @@ import java.util.Scanner;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
 
+// ne pas toucher les imports jackson meme si eclipse dit qu'ils ne servent pas
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonView;
+
 public class Main {
 
 	public static void main(String []args) throws IOException, GitAPIException{
@@ -35,6 +42,7 @@ public class Main {
 	    	Hashtable<String, ArrayList<InfoCommit>> listeCommits = listeBranches.get(i).getCommits();
 	    	for (String mapKey : listeCommits.keySet()) {
 				System.out.println( mapKey + " a fait " + listeCommits.get(mapKey).size() + " commits");
+				//tojson(listeCommits.get(mapKey));
 			}
 	        System.out.println("-------------------------------------");
 	        
@@ -44,6 +52,8 @@ public class Main {
 			tools.affichageParent(p, listeBranches.get(i));
 	        System.out.println("****Fin Arborescence****");
 	        System.out.println("-------------------------------------");
+	        
+	        tojson(listeBranches);
 
 	    }
 	    
@@ -59,6 +69,12 @@ public class Main {
         System.out.println("-------------------------------------");*/
 		
 		System.out.println("Fin");
+	}
+	public static void tojson(Object infos) throws JsonProcessingException
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonInString = mapper.writeValueAsString(infos);
+		System.out.println(jsonInString);
 	}
 
 }
