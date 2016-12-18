@@ -28,14 +28,16 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-		InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
-		//InfoGit ig2=new InfoGit("https://github.com/apple/swift", dir);
+		//InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
+		InfoGit ig2=new InfoGit("https://github.com/apple/swift", dir);
 		ig2.collectBranches();	
 		
 	    //System.out.println("Le nombre de branche est de : \t"+ig2.getNbBranches());
         //System.out.println("-------------------------------------");
 	    ArrayList<InfoBranch> listeBranches = ig2.getBranches();
-	    for(int i = 0; i < listeBranches.size(); i++){
+	    int nb = 1;
+	    for (InfoBranch infoBranch : listeBranches) {
+			
 	    	//System.out.println("Nom de la branche :" +listeBranches.get(i).getBranchName());
 	    	//System.out.println("Ref de la branche :" +listeBranches.get(i).getRef());
 	    	
@@ -53,7 +55,7 @@ public class Main {
 	        //System.out.println("****Fin Arborescence****");
 	       // System.out.println("-------------------------------------");
 	        
-	        tojson(listeBranches, i);
+	        tojson(infoBranch, nb++);
 
 	    }
 	    
