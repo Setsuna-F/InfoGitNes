@@ -1,0 +1,28 @@
+ign_info_git_homepage:
+    path:     /
+    defaults: { _controller: IGNInfoGitBundle:Begining:home }
+
+ign_info_git_tree:
+    path:     /tree
+    defaults: { _controller: IGNInfoGitBundle:Begining:tree }
+
+
+
+ign_info_git_all_branches:
+    path:     /branches
+    defaults: { _controller: IGNInfoGitBundle:Branches:allbranches }
+
+ign_info_git_a_branch:
+    path:     /branch/{name}
+    defaults: { _controller: IGNInfoGitBundle:Branches:abranch }
+
+
+
+
+ign_info_git_all_contributors:
+    path:     /contributors
+    defaults: { _controller: IGNInfoGitBundle:Contributors:allcontributors }
+
+ign_info_git_a_contributor:
+    path:     /contributor/{name}
+    defaults: { _controller: IGNInfoGitBundle:Contributors:acontributor }
