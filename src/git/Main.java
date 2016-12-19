@@ -20,7 +20,7 @@ public class Main {
 	public static void main(String []args) throws IOException, GitAPIException{
 		System.out.println("Debut");
 
-		File dir = new File("./INFOGIT/");
+		File dir = new File("./INFOGITPROJET/");
 		if (dir.exists()) {
 			try {
 				tools.recursifDelete(dir);
@@ -28,8 +28,12 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-		//InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
-		InfoGit ig2=new InfoGit("https://github.com/apple/swift", dir);
+		
+		File dir2 = new File("./branches/");
+		dir2.mkdir();
+		
+		InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
+		//InfoGit ig2=new InfoGit("https://github.com/apple/swift", dir);
 		ig2.collectBranches();	
 		
 	    //System.out.println("Le nombre de branche est de : \t"+ig2.getNbBranches());
@@ -76,7 +80,7 @@ public class Main {
 	{
 		ObjectMapper mapper = new ObjectMapper();
 		//String jsonInString = mapper.writeValueAsString(infos);
-		mapper.writeValue(new File("D:\\Users\\Niels\\Desktop\\branches\\branche_"+i+".json"), infos);
+		mapper.writeValue(new File("./branches/branche_"+i+".json"), infos);
 		//System.out.println(jsonInString);
 	}
 
