@@ -30,6 +30,13 @@ public class Main {
 		}
 		
 		File dir2 = new File("./branches/");
+		if (dir2.exists()) {
+			try {
+				tools.recursifDelete(dir2);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		dir2.mkdir();
 		
 		InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
