@@ -26,4 +26,16 @@ class BranchesController extends Controller
     {
         return $this->render('IGNInfoGitBundle:Branches:allbranches.html.twig');
     }
+
+
+    /* ----------------------------
+        \function index
+
+
+    */
+    public function acontributorwithbranchAction($contributorName, $branchName)
+    {
+            return $this->render('IGNInfoGitBundle:Branches:acontributorwithbranch.html.twig');
+    }
+
 }

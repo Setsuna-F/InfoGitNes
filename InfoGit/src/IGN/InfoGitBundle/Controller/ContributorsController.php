@@ -11,7 +11,7 @@ class ContributorsController extends Controller
 
 
     */
-    public function acontributorAction()
+    public function acontributorAction($name)
     {
         return $this->render('IGNInfoGitBundle:Contributors:acontributor.html.twig');
     }
