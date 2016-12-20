@@ -1,3 +1,0 @@
-ign_info_git:
-    resource: "@IGNInfoGitBundle/Resources/config/routing.yml"
-    prefix:   /
