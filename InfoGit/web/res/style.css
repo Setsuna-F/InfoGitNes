@@ -182,4 +182,15 @@ header{
     color: white;
 }
 
+
+
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
 /* - FIN CSS POUR LE  - */
