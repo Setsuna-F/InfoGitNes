@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+
+{% block header %}
+    <nav>
+        <ul>
+            <li><a href="{{ path('ign_info_git_homepage') }}"><h1>InfoGit</h1></a></li>
+            <li><a href="{{ path('ign_info_git_tree') }}">Arbre</a></li>
+            <li><a href="{{ path('ign_info_git_all_branches') }}">Branches</a></li>
+            <li><a href="{{ path('ign_info_git_all_contributors') }}">Contributors</a></li>
+            <li>[________|RECHERCHE]</li>
+        </ul>
+    </nav>
+{% endblock %}
+
+
+{% block body %}
+
+<div id="zone_recherche">
+    <input id="texte_recherche" type="text" value="Search" />
+</div>
+
+{% endblock %}

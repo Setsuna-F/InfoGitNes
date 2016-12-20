@@ -1,0 +1,13 @@
+!SESSION 2016-12-20 09:36:27.436 -----------------------------------------------
+eclipse.buildId=4.6.0.I20160606-1100
+java.version=1.8.0_102
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -keyring /Users/S-Setsuna-F/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -data /Users/S-Setsuna-F/Documents/Master2/Évo. et Restruct/InfoGitNes -product org.eclipse.epp.package.java.product -keyring /Users/S-Setsuna-F/.eclipse_keyring
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2016-12-20 10:00:03.552
+!MESSAGE No repository found at jar:file:/Users/S-Setsuna-F/Downloads/mdt-uml2tools-Update-incubation-0.zip!/.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2016-12-20 10:02:58.027
+!MESSAGE No repository found at http://download.eclipse.org/modeling/mdt/uml2tools/downloads/drops/0.9.0/R200906190654/mdt-uml2tools-Update-incubation-0.9.0.zip.md5.

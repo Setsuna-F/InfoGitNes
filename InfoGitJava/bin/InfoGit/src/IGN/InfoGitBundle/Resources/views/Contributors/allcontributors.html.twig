@@ -1,0 +1,43 @@
+{% extends "IGNInfoGitBundle::index.html.twig" %}
+
+{% block body %}
+
+    <section>
+        <h2>Tous les contributeurs_</h2>
+        <article>
+            <h3>Tableau des contributeurs</h3>
+            <p>[nbContributeur] contributeurs</p>
+            <table>
+                <thead> <!-- En-tête du tableau -->
+                    <tr>
+                        <th>Nom ou pseudo</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody> <!-- Corps du tableau -->
+                   <tr>
+                       <td rowspan="2"><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom1'}) }}">nom1</a></td>
+                       <td>email1</td>
+                   </tr>
+                   <tr>
+                       <td>email1</td>
+                   </tr>
+                   <tr>
+                       <td rowspan="1"><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom2'}) }}">nom2</a></td>
+                       <td>email1</td>
+                   </tr>
+                   <tr>
+                       <td rowspan="1"><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom3'}) }}">nom3</a></td>
+                       <td>email1</td>
+                   </tr>
+                   <tr>
+                       <td rowspan="1"><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom4'}) }}">nom4</a></td>
+                       <td>email1</td>
+                   </tr>
+                </tbody>
+            </table>
+        </article>
+    </section>
+    <br />
+   {#{ parent() }#}
+{% endblock %}

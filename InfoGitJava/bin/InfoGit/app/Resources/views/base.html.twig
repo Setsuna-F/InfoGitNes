@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}InfoGit{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('res/style.css') }}" rel="stylesheet" media="all" type="text/css">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        <footer>
+            {% block footer %}Copyright - InfoGitNES 2016{% endblock %}
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+{% extends "IGNInfoGitBundle::index.html.twig" %}
+
+{% block body %}
+
+    <section>
+        <h2>Contributeur</h2>
+        <ul>
+            <li>nom du contributeur : [nomContributeur]</li>
+            <li>adresse mail :
+                <ul>
+                    <li>[mail1]</li>
+                    <li>[mail2]</li>
+                </ul>
+            </li>
+            <li>contribué à [nbBranches] branches</li>
+            <li>A realisé [nbCommits] commits</li>
+            <li>A realisé [nbAdd] ajout</li>
+            <li>A realisé [nbDelete] suppression</li>
+            <li>A realisé [nbRename] renomage</li>
+            <li>A realisé [nbModification] modification</li>
+        </ul>
+
+        <article>
+            <h3>Camembert</h3>
+            <article>
+                <h3>Visualisation des commits</h3>
+                <p>Visualisation des ...</p>
+                <p>ICI le camember une portion represente le nombre de commit</p>
+            </article>
+            <article>
+                <h3>Visualisation des ajouts</h3>
+                <p>Visualisation des ...</p>
+                <p>ICI le camember une portion represente le nombre d'ajout</p>
+            </article>
+            <article>
+                <h3>Visualisation des suppressions</h3>
+                <p>Visualisation des ...</p>
+                <p>ICI le camember une portion represente le nombre de sup</p>
+            </article>
+            <article>
+                <h3>Visualisation des renomages</h3>
+                <p>Visualisation des ...</p>
+                <p>ICI le camember une portion represente le nombre de ren</p>
+            </article>
+            <article>
+                <h3>Visualisation des modifications</h3>
+                <p>Visualisation des ...</p>
+                <p>ICI le camember une portion represente le nombre de modif</p>
+            </article>
+        </article>
+    </section>
+
+    <article>
+        <h3>Baton</h3>
+        <article>
+            <h3>Visualisation des ajouts/suppression/modification/renomage dans un seul graphe en baton</h3>
+            <p>Visualisation des ajouts/suppression/modification/renomage dans un seul graphe en baton</p>
+            <p>ICI diagramme en baton</p>
+        </article>
+    </article>
+    <br />
+    {#{ parent() }#}
+{% endblock %}
