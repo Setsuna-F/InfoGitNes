@@ -41,7 +41,8 @@ public class Main {
 		
 		InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
 		//InfoGit ig2=new InfoGit("https://github.com/apple/swift", dir);
-		ig2.collectBranches();	
+		ig2.collectBranches();
+		tojson(ig2.lsGit());
 		
 	    //System.out.println("Le nombre de branche est de : \t"+ig2.getNbBranches());
         //System.out.println("-------------------------------------");
@@ -88,6 +89,14 @@ public class Main {
 		ObjectMapper mapper = new ObjectMapper();
 		//String jsonInString = mapper.writeValueAsString(infos);
 		mapper.writeValue(new File("./branches/branche_"+i+".json"), infos);
+		//System.out.println(jsonInString);
+	}
+	
+	public static void tojson(Object infos) throws IOException
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		//String jsonInString = mapper.writeValueAsString(infos);
+		mapper.writeValue(new File("./branches/infos.json"), infos);
 		//System.out.println(jsonInString);
 	}
 

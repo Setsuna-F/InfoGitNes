@@ -1,7 +1,11 @@
 package git;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
@@ -19,7 +23,9 @@ import org.eclipse.jgit.diff.RawTextComparator;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
 
 
@@ -28,6 +34,7 @@ public class InfoGit {
 	private String url;
 	private Hashtable<String, ArrayList<String>> person;
 	private ArrayList<InfoBranch> branches;
+	private ArrayList<InfoFile> infoFiles;
 	
 	private Repository repo;
 	private RevWalk walk;
@@ -44,6 +51,7 @@ public class InfoGit {
 		this.url 		= url;	
 		this.person		= new Hashtable<String, ArrayList<String> >();
 		this.branches 	= new ArrayList<InfoBranch>();
+		this.infoFiles	= new ArrayList<InfoFile>();
 		
 		//Clonage du git
 		git = Git.cloneRepository()
@@ -116,7 +124,7 @@ public class InfoGit {
         	//Arborescence
         	if(cpt == 0){
         		String s =  commit.getName() + " " + commit.getShortMessage();
-        		infoBranch.setDebut(s);;
+        		infoBranch.setDebut(s);
         	}
         	cpt++;
 
@@ -203,6 +211,52 @@ public class InfoGit {
 	 **/
 	public int getNbBranches(){
 		return branches.size();
+	}
+	
+	/**
+	 * permet de compter le nombre de dossiers, fichiers, et lignes.
+	 * crée un objetInfoFile et l' envoi dans une liste pour que le 
+	 * convertisseur JSON s'en charge tout seul
+	 * @throws IOException 
+	 */
+	public ArrayList<InfoFile> lsGit() throws IOException
+	{
+		 Ref head = repo.getRef("HEAD");
+		RevCommit commit = walk.parseCommit(head.getObjectId());
+		RevTree tree = commit.getTree();
+		TreeWalk treeWalk = new TreeWalk(repo);
+		treeWalk.addTree(tree);
+		treeWalk.setRecursive(false);
+		while (treeWalk.next()) {
+		    if (treeWalk.isSubtree()) {
+		    	InfoFile dir = new InfoFile("Directory", "./INFOGITPROJET/"+treeWalk.getPathString()+"/", treeWalk.getNameString());
+		    	infoFiles.add(dir);
+		        treeWalk.enterSubtree();
+		    } else {
+		    	InfoFile fil = new InfoFile("File", "./INFOGITPROJET/"+treeWalk.getPathString(), countLines("./INFOGITPROJET/"+treeWalk.getPathString()),treeWalk.getNameString());
+		    	infoFiles.add(fil);
+		    }
+		}
+		return infoFiles;
+		
+	}
+	
+	/**
+	 * compte le nombre de lignes d'un fichiers
+	 * @throws IOException 
+	 */
+	public int countLines(String path) throws IOException
+	{
+		int i = 0;
+		String str = "";
+		FileInputStream fis = new FileInputStream(path);
+		LineNumberReader l = new LineNumberReader(       
+		       new BufferedReader(new InputStreamReader(fis)));
+		              while ((str=l.readLine())!=null)
+		             {
+		                i = l.getLineNumber();
+		             }
+		return i;
 	}
 
 }
