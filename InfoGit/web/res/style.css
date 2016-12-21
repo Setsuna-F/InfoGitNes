@@ -7,13 +7,6 @@ td, th /* Mettre une bordure sur les td ET les th */
     border: 1px solid black;
 }
 
-header{
-    margin-top: -20px;
-}
-
-.backgroundcolorbody{
-    background-color: #141515;
-}
 
 /* - DEBUT CSS POUR LE SIDE BAR - */
 /*.row{
@@ -167,7 +160,7 @@ header{
 /* - FIN CSS POUR LE SIDE BAR - */
 
 
-/* - DEBUT CSS POUR LE  - */
+/* - DEBUT CSS POUR LE SITE - */
 .main-title{
     width: 100%;
     height: 50px;
@@ -182,15 +175,36 @@ header{
     color: white;
 }
 
-
-
-
-.icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
+.footstyle{
+    text-align: center;
+    color: white;
 }
-/* - FIN CSS POUR LE  - */
+header{
+    margin-top: -20px;
+}
+
+.bodystyle{
+    height: 100%;
+    background-color: #141515;
+}
+.sectionstyle{
+    height: 100%;
+}
+
+/* - FIN CSS POUR LE SITE - */
+
+/* - DEBUT CSS POUR LA PAGE HOME - */
+.bigfont{
+    font-size: 20px;
+    color: #C3C3C3;
+}
+
+.bigfont li{
+    list-style-type: none;
+}
+
+.centerblock{
+    text-align: center;
+}
+
+/* - FIN CSS POUR LA PAGE HOME - */

@@ -10,22 +10,34 @@
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body id="wrapper" class="backgroundcolorbody">
+    <body id="wrapper" class="bodystyle">
         <header >{# wrapper va nous servir a avoir le menu coulissant #}
             {% block header %}{% endblock %}
         </header>
-        <section id="page-content_ inset_">
+
+        <section class="sectionstyle" id="">
             {% block body %}{% endblock %}
         </section>
 
         {% block javascripts %}
             <script type="text/javascript" src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}" ></script>
             <script type="text/javascript" src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}" ></script>
+
+            <script src="http://d3js.org/d3.v3.min.js"></script>
+
             <script type="text/javascript" src="{{ asset('res/javascript.js') }}" ></script>
+
+            {#
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+            <script src="https://d3js.org/d3-selection.v1.min.js"></script>
+            <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+            #}
+
             <script>
             </script>
         {% endblock %}
-        <footer>
+        <footer class="footstyle">
+            <hr />
             {% block footer %}Copyright - InfoGitNES 2016{% endblock %}
         </footer>
     </body>

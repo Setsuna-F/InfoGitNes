@@ -1,8 +1,7 @@
 {% extends "IGNInfoGitBundle::index.html.twig" %}
 
 {% block body %}
-    <section>
-        <h2>Branche : [nomDeLaBranche]</h2>
+        <h2 class="gros-titre">Branche : [nomDeLaBranche]</h2>
 
         <ul>
             <li>nom du contributeur : [nomContributeur]</li>
@@ -52,7 +51,6 @@
 
 
         <p>ICI notre diagramme Cammembert et Courbe pour cette branche</p>
-    </section>
     <br />
     {#{ parent() }#}
 {% endblock %}
