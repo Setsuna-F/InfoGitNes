@@ -8,6 +8,22 @@ td, th /* Mettre une bordure sur les td ET les th */
 }
 
 
+/* - DEBUT - Style de base - */
+.article-base{
+    border: 1px solid #616161;
+    margin-left: auto;
+    margin-right: auto;
+    /*background-color: #111;*/
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 90%;
+}
+
+.p-white-color{
+    color: white;
+}
+/* - FIN - Style de base - */
+
 /* - DEBUT CSS POUR LE SIDE BAR - */
 /*.row{
     margin-left:0px;
@@ -174,8 +190,13 @@ td, th /* Mettre une bordure sur les td ET les th */
     text-align: center;
     color: white;
 }
+.petit-titre{
+    color: white;
+}
 
 .footstyle{
+    padding-left: 10px;
+    padding-right: 10px;
     text-align: center;
     color: white;
 }
@@ -189,6 +210,12 @@ header{
 }
 .sectionstyle{
     height: 100%;
+}
+html{
+    margin: 0px;
+    padding: 0px;
+    /*height: 100%;*/
+    width: 100%;
 }
 
 /* - FIN CSS POUR LE SITE - */
@@ -208,3 +235,22 @@ header{
 }
 
 /* - FIN CSS POUR LA PAGE HOME - */
+
+
+/* - DEBUT BarChart - */
+.article-bar-chart{
+    border: 1px solid #616161;
+    margin-left: auto;
+    margin-right: auto;
+    /*background-color: #111;*/
+    width: 90%;
+}
+.article-padding{
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+.article-background{
+    background-color: #222;
+}
+/* - FIN BarChart - */

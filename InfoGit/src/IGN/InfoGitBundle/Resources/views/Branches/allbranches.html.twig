@@ -1,37 +1,11 @@
 {% extends "IGNInfoGitBundle::index.html.twig" %}
+{# reference pour le graphe: #}
+{# REF: https://github.com/chartjs/Chart.js #}
 
 {% block stylesheets %}
     {#<link href="/res/novus-nvd3/build/nv.d3.css" rel="stylesheet" type="text/css">#}
     <style>
-        text {
-            font: 12px sans-serif;
-        }
-        svg {
-            display: block;
-            height: 100%;
-            width: 100%;
-        }
-        html, svg{
-            margin: 0px;
-            padding: 0px;
-            height: 100%;
-            width: 100%;
-        }
-        .article{
-            /*border: 1px solid white;*/
-            border: 1px solid #616161;
-            margin-left: auto;
-            margin-right: auto;
-            /*background-color: #616161;*/
-            /*min-height: 500px;
-            height: 50%;*/
-            width: 90%;
-        }
 
-        .svg-article{
-            /*min-height:500px;
-            width: 100%;*/
-        }
     </style>
     {{ parent() }}
 {% endblock %}
@@ -39,230 +13,208 @@
 {% block body %}
 
     <h2 class="gros-titre">Toutes les branches</h2>
+    <br />
 
-    <p>CHOIX ENTRE [CAMENBERT | COUBE]</p>
-    <p>Sinon</p>
-    <p>Mettre une colonne [CAMENBERT] et une colonne [COUBE]</p>
-
-
-    <article class='with-3d-shadow article'>
-
-        <canvas id="myChart" ></canvas>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
-        <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
-        {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
-        <script>
-            var color_commit="rgba(255, 99, 132, 0.2)";
-            var color_ajout="rgba(54, 162, 235, 0.2)";
-            var color_suppression="rgba(255, 206, 86, 0.2)";
-            var color_renomage="rgba(75, 192, 192, 0.2)";
-            var color_modification="rgba(153, 102, 255, 0.2)";
-
-            var border_color_commit       = 'rgba(255,99,132,1)';
-            var border_color_ajout        = 'rgba(54, 162, 235, 1)';
-            var border_color_suppression  = 'rgba(255, 159, 64, 1)';
-            var border_color_renomage     = 'rgba(75, 192, 192, 1)';
-            var border_color_modification = 'rgba(153, 102, 255, 1)';
-
-            var data = {
-                labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
-                datasets: [
-                    {
-                        label: "Commit",
-                        backgroundColor: [
-                            color_commit,
-                            color_commit,
-                            color_commit,
-                            color_commit,
-                            color_commit,
-                            color_commit
-                        ],
-                        borderColor: [
-                            border_color_commit,
-                            border_color_commit,
-                            border_color_commit,
-                            border_color_commit,
-                            border_color_commit,
-                            border_color_commit
-                        ],
-                        borderWidth: 1,
-                        data: [5, 59, 80, 81, 56],
-                    },
-                    {
-                        label: "Ajout",
-                        backgroundColor: [
-                            color_ajout,
-                            color_ajout,
-                            color_ajout,
-                            color_ajout,
-                            color_ajout,
-                            color_ajout
-                        ],
-                        borderColor: [
-                            border_color_ajout,
-                            border_color_ajout,
-                            border_color_ajout,
-                            border_color_ajout,
-                            border_color_ajout,
-                            border_color_ajout
-                        ],
-                        borderWidth: 1,
-                        data: [65, 79, 80, 81, 56],
-                    },
-                    {
-                        label: "Suppression",
-                        backgroundColor: [
-                            color_suppression,
-                            color_suppression,
-                            color_suppression,
-                            color_suppression,
-                            color_suppression,
-                            color_suppression
-                        ],
-                        borderColor: [
-                            border_color_suppression,
-                            border_color_suppression,
-                            border_color_suppression,
-                            border_color_suppression,
-                            border_color_suppression,
-                            border_color_suppression
-                        ],
-                        borderWidth: 1,
-                        data: [65, 79, 80, 81, 56],
-                    },
-                    {
-                        label: "Renomage",
-                        backgroundColor: [
-                            color_renomage,
-                            color_renomage,
-                            color_renomage,
-                            color_renomage,
-                            color_renomage,
-                            color_renomage
-                        ],
-                        borderColor: [
-                            border_color_renomage,
-                            border_color_renomage,
-                            border_color_renomage,
-                            border_color_renomage,
-                            border_color_renomage,
-                            border_color_renomage
-                        ],
-                        borderWidth: 1,
-                        data: [65, 79, 80, 81, 56],
-                    },
-                    {
-                        label: "Modification",
-                        backgroundColor: [
-                            color_modification,
-                            color_modification,
-                            color_modification,
-                            color_modification,
-                            color_modification,
-                            color_modification
-                        ],
-                        borderColor: [
-                            border_color_modification,
-                            border_color_modification,
-                            border_color_modification,
-                            border_color_modification,
-                            border_color_modification,
-                            border_color_modification
-                        ],
-                        borderWidth: 1,
-                        data: [65, 79, 80, 81, 56],
-                    },
-
-                ]
-            };
-
-
-            var ctx = document.getElementById("myChart");
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: data,
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            });
-        </script>
-    </article>
-{#
-    <article>
-        <h3>Camember</h3>
-        <article>
-            <h3>Vue en camembert du nombre de commit</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de commit par tranches</p>
-        </article>
-        <article>
-            <h3>Vue en camembert du nombre de contributeur</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de commit par tranches</p>
-        </article>
-        <article>
-            <h3>Vue en camembert du nombre d'ajout</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de commit par tranches</p>
-        </article>
-        <article>
-            <h3>Vue en camembert du nombre de suppression</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de commit par tranches</p>
-        </article>
-        <article>
-            <h3>Vue en camembert du nombre de modification</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de commit par tranches</p>
-        </article>
-        <article>
-            <h3>Vue en camembert du nombre de renomage</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de commit par tranches</p>
-        </article>
-    </article>
-
-    <article>
-        <h3>Camember</h3>
-        <article>
-            <h3>Vue en courbe du nombre de commit</h3>
-            <p>Ma courbe ici</p>
-            <p>(caption)nombre de commit en ordonnée et branches en abscisse</p>
-        </article>
-        <article>
-            <h3>Vue en courbe du nombre de contributeur</h3>
-            <p>Ma courbe ici</p>
-            <p>(caption)nombre de commit en ordonnée et branches en abscisse</p>
-        </article>
-        <article>
-            <h3>Vue en courbe du nombre d'ajout</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de contributeur en ordonnée et branches en abscisse</p>
-        </article>
-        <article>
-            <h3>Vue en courbe du nombre de suppression</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de contributeur en ordonnée et branches en abscisse</p>
-        </article>
-        <article>
-            <h3>Vue en courbe du nombre de modification</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de contributeur en ordonnée et branches en abscisse</p>
-        </article>
-        <article>
-            <h3>Vue en courbe du nombre de renomage</h3>
-            <p>Mon camenbert ici</p>
-            <p>(caption)nombre de contributeur en ordonnée et branches en abscisse</p>
-        </article>
-    </article>
+    {#
+        FAire un barchart sur les commits par branches
     #}
+    <article class='with-3d-shadow article-padding'>
+        <h3 class="petit-titre"><u>Visualisation des commits</u></h3>
+        <br />
+        <canvas  class='article-bar-chart' id="myChart" ></canvas>
+    </article>
+
+    {#
+        FAire un pentagone sur les personnnes par branches
+    #}
+    <article class='with-3d-shadow article-padding'>
+        <h3 class="petit-titre"><u>Repartition des contributeurs par branches</u></h3>
+        <br />
+        <canvas  class='article-bar-chart article-background' id="contributorchart" ></canvas>
+    </article>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+    <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
+    {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
+    <script>
+        var color_commit="rgba(255, 99, 132, 0.2)";
+        var color_ajout="rgba(54, 162, 235, 0.2)";
+        var color_suppression="rgba(255, 206, 86, 0.2)";
+        var color_renomage="rgba(75, 192, 192, 0.2)";
+        var color_modification="rgba(153, 102, 255, 0.2)";
+
+        var border_color_commit       = 'rgba(255,99,132,1)';
+        var border_color_ajout        = 'rgba(54, 162, 235, 1)';
+        var border_color_suppression  = 'rgba(255, 159, 64, 1)';
+        var border_color_renomage     = 'rgba(75, 192, 192, 1)';
+        var border_color_modification = 'rgba(153, 102, 255, 1)';
+
+        var data = {
+            labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
+            datasets: [
+                {
+                    label: "Commit",
+                    backgroundColor: [
+                        color_commit,
+                        color_commit,
+                        color_commit,
+                        color_commit,
+                        color_commit
+                    ],
+                    borderColor: [
+                        border_color_commit,
+                        border_color_commit,
+                        border_color_commit,
+                        border_color_commit,
+                        border_color_commit
+                    ],
+                    borderWidth: 1,
+                    data: [5, 59, 80, 81, 56],
+                },
+                {
+                    label: "Ajout",
+                    backgroundColor: [
+                        color_ajout,
+                        color_ajout,
+                        color_ajout,
+                        color_ajout,
+                        color_ajout
+                    ],
+                    borderColor: [
+                        border_color_ajout,
+                        border_color_ajout,
+                        border_color_ajout,
+                        border_color_ajout,
+                        border_color_ajout
+                    ],
+                    borderWidth: 1,
+                    data: [65, 79, 80, 81, 56],
+                },
+                {
+                    label: "Suppression",
+                    backgroundColor: [
+                        color_suppression,
+                        color_suppression,
+                        color_suppression,
+                        color_suppression,
+                        color_suppression
+                    ],
+                    borderColor: [
+                        border_color_suppression,
+                        border_color_suppression,
+                        border_color_suppression,
+                        border_color_suppression,
+                        border_color_suppression
+                    ],
+                    borderWidth: 1,
+                    data: [65, 79, 80, 81, 56],
+                },
+                {
+                    label: "Renomage",
+                    backgroundColor: [
+                        color_renomage,
+                        color_renomage,
+                        color_renomage,
+                        color_renomage,
+                        color_renomage
+                    ],
+                    borderColor: [
+                        border_color_renomage,
+                        border_color_renomage,
+                        border_color_renomage,
+                        border_color_renomage,
+                        border_color_renomage
+                    ],
+                    borderWidth: 1,
+                    data: [65, 79, 80, 81, 56],
+                },
+                {
+                    label: "Modification",
+                    backgroundColor: [
+                        color_modification,
+                        color_modification,
+                        color_modification,
+                        color_modification,
+                        color_modification
+                    ],
+                    borderColor: [
+                        border_color_modification,
+                        border_color_modification,
+                        border_color_modification,
+                        border_color_modification,
+                        border_color_modification
+                    ],
+                    borderWidth: 1,
+                    data: [65, 79, 80, 81, 56],
+                },
+
+            ]
+        };
+
+
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Les commits'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Les branches'
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+    <script>
+    var data_con = {
+        labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
+        datasets: [
+            {
+                label: "Personnes",
+                backgroundColor: "rgba(255,99,132,0.2)",
+                borderColor: "rgba(255,99,132,1)",
+                pointBackgroundColor: "rgba(255,99,132,1)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(255,99,132,1)",
+                data: [28, 48, 40, 19, 96]
+            }
+        ]
+    };
+
+        var ctx_con = document.getElementById("contributorchart");
+        var myRadarChart =new Chart(ctx_con, {
+            type: "radar",
+            data: data_con,
+            options: {
+                    scale: {
+                        reverse: false, /*Pour savoir si le centre est a zero*/
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }
+            }
+        });
+    </script>
+
     <br />
     {#{ parent() }#}
 {% endblock %}
