@@ -184,7 +184,7 @@
     </script>
 
     <script>
-    var data_con = {
+    var data_contributor = {
         labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
         datasets: [
             {
@@ -200,10 +200,10 @@
         ]
     };
 
-        var ctx_con = document.getElementById("contributorchart");
-        var myRadarChart =new Chart(ctx_con, {
+        var ctx_contributor = document.getElementById("contributorchart");
+        var myRadarChart =new Chart(ctx_contributor, {
             type: "radar",
-            data: data_con,
+            data: data_contributor,
             options: {
                     scale: {
                         reverse: false, /*Pour savoir si le centre est a zero*/

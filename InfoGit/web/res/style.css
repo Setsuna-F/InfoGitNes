@@ -19,8 +19,36 @@ td, th /* Mettre une bordure sur les td ET les th */
     width: 90%;
 }
 
+.article-base-sans-padding{
+    border: 1px solid #616161;
+    margin-left: auto;
+    margin-right: auto;
+    /*background-color: #111;*/
+    width: 90%;
+}
+
+
 .p-white-color{
     color: white;
+}
+.tabulation{
+    padding-left: 30px;
+}
+.double-tabulation{
+    padding-left: 60px;
+}
+.h-scroll {
+    max-height: 30vh; /* %-height of the viewport */
+    position: fixed;
+    overflow-y: scroll;
+}
+.v-scroll {
+    /*max-width: 100vh; / * %-height of the viewport */
+    /*position: fixed;*/
+    overflow-x: scroll;
+}
+.h-scroll-cadre {
+    background-color: red;
 }
 /* - FIN - Style de base - */
 
