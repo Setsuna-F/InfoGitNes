@@ -3,59 +3,302 @@
 {% block body %}
 
     <h2 class="gros-titre">Contributeur</h2>
-        <ul>
-            <li>nom du contributeur : [nomContributeur]</li>
-            <li>adresse mail :
-                <ul>
-                    <li>[mail1]</li>
-                    <li>[mail2]</li>
-                </ul>
-            </li>
-            <li>contribué à [nbBranches] branches</li>
-            <li>A realisé [nbCommits] commits</li>
-            <li>A realisé [nbAdd] ajout</li>
-            <li>A realisé [nbDelete] suppression</li>
-            <li>A realisé [nbRename] renomage</li>
-            <li>A realisé [nbModification] modification</li>
-        </ul>
 
-        <article>
-            <h3>Camembert</h3>
-            <article>
-                <h3>Visualisation des commits</h3>
-                <p>Visualisation des ...</p>
-                <p>ICI le camember une portion represente le nombre de commit</p>
-            </article>
-            <article>
-                <h3>Visualisation des ajouts</h3>
-                <p>Visualisation des ...</p>
-                <p>ICI le camember une portion represente le nombre d'ajout</p>
-            </article>
-            <article>
-                <h3>Visualisation des suppressions</h3>
-                <p>Visualisation des ...</p>
-                <p>ICI le camember une portion represente le nombre de sup</p>
-            </article>
-            <article>
-                <h3>Visualisation des renomages</h3>
-                <p>Visualisation des ...</p>
-                <p>ICI le camember une portion represente le nombre de ren</p>
-            </article>
-            <article>
-                <h3>Visualisation des modifications</h3>
-                <p>Visualisation des ...</p>
-                <p>ICI le camember une portion represente le nombre de modif</p>
-            </article>
-        </article>
 
-    <article>
-        <h3>Baton</h3>
-        <article>
-            <h3>Visualisation des ajouts/suppression/modification/renomage dans un seul graphe en baton</h3>
-            <p>Visualisation des ajouts/suppression/modification/renomage dans un seul graphe en baton</p>
-            <p>ICI diagramme en baton</p>
-        </article>
+    <article class="article-padding bigfont">
+        <br />
+        <div class="col-lg-12 article-base-sans-padding">
+            <h3 class="petit-titre centerblock"><u>Information personnelle</u></h3>
+            <hr />
+            <p class=" tabulation">Nom: [NomDuContributeur]</p>
+            <hr />
+            <div class="row">
+                <p  class="col-lg-2 col-md-2 col-sm-2 col-xs-12 tabulation-margin">Mail(s):</p>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 double-tabulation-margin">
+                    <p>mail1@mail.dz </p>
+                    <p>mail2@mail.dz</p>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <p  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabulation-margin">Il a contribué à [nbBranches] branches:</p>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 double-tabulation-margin">
+                    <p><a href="{{ path('ign_info_git_a_contributor_with_a_branch', {'contributor':  'nom1', 'branch':'name1'}) }}">Master</a></p>
+                    <p><a href="{{ path('ign_info_git_a_contributor_with_a_branch', {'contributor':  'nom2', 'branch':'nom2'}) }}">Dev</a></p>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <p  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabulation-margin">Il a realisé :</p>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 double-tabulation-margin">
+                    <ul>
+                        <li>[nbCommits] commits</li>
+                        <li>[nbAdd] ajout</li>
+                        <li>[nbDelete] suppression</li>
+                        <li>[nbRename] renomage</li>
+                        <li>[nbModification] modification</li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+        </div>
     </article>
+    <br />
+
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <article class='with-3d-shadow'>
+            <h3 class="petit-titre centerblock"><u>Visualisation globale</u></h3>
+            <br />
+            <canvas class='article-bar-chart' id="commitBarChart" ></canvas>
+        </article>
+    </div>
+    {#
+        Cette visualisation se fera pour toutes les branches
+    #}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <article class='with-3d-shadow'>
+                    <h3 class="petit-titre centerblock"><u>Visualisation des ajouts</u></h3>
+                    <br />
+                    <canvas class='article-bar-chart' id="ajoutChart" ></canvas>
+                </article>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <article class='with-3d-shadow'>
+                    <h3 class="petit-titre centerblock"><u>Visualisation des suppressions</u></h3>
+                    <br />
+                    <canvas class='article-bar-chart' id="suppressionChart" ></canvas>
+                </article>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <article class='with-3d-shadow'>
+                    <h3 class="petit-titre centerblock"><u>Visualisation des renomages</u></h3>
+                    <br />
+                    <canvas class='article-bar-chart' id="renomageChart" ></canvas>
+                </article>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <article class='with-3d-shadow'>
+                    <h3 class="petit-titre centerblock"><u>Visualisation des modifications</u></h3>
+                    <br />
+                    <canvas class='article-bar-chart' id="modificationChart" ></canvas>
+                </article>
+            </div>
+        </div>
+    </div>
+
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+            <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
+            {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
+            <script>
+                var color_commit="rgba(255, 99, 132, 0.2)";
+                var color_ajout="rgba(54, 162, 235, 0.2)";
+                var color_suppression="rgba(255, 206, 86, 0.2)";
+                var color_renomage="rgba(75, 192, 192, 0.2)";
+                var color_modification="rgba(153, 102, 255, 0.2)";
+
+                var border_color_commit       = 'rgba(255,99,132,1)';
+                var border_color_ajout        = 'rgba(54, 162, 235, 1)';
+                var border_color_suppression  = 'rgba(255, 159, 64, 1)';
+                var border_color_renomage     = 'rgba(75, 192, 192, 1)';
+                var border_color_modification = 'rgba(153, 102, 255, 1)';
+
+                var data = {
+                    labels: ["Personne1", "Personne2", "Personne3", "Personne3", "Personne4"],
+                    datasets: [
+                        {
+                            label: "Commit",
+                            backgroundColor: [
+                                color_commit,
+                                color_commit,
+                                color_commit,
+                                color_commit,
+                                color_commit
+                            ],
+                            borderColor: [
+                                border_color_commit,
+                                border_color_commit,
+                                border_color_commit,
+                                border_color_commit,
+                                border_color_commit
+                            ],
+                            borderWidth: 1,
+                            data: [5, 59, 80, 81, 56],
+                        },
+                        {
+                            label: "Ajout",
+                            backgroundColor: [
+                                color_ajout,
+                                color_ajout,
+                                color_ajout,
+                                color_ajout,
+                                color_ajout
+                            ],
+                            borderColor: [
+                                border_color_ajout,
+                                border_color_ajout,
+                                border_color_ajout,
+                                border_color_ajout,
+                                border_color_ajout
+                            ],
+                            borderWidth: 1,
+                            data: [65, 79, 80, 81, 56],
+                        },
+                        {
+                            label: "Suppression",
+                            backgroundColor: [
+                                color_suppression,
+                                color_suppression,
+                                color_suppression,
+                                color_suppression,
+                                color_suppression
+                            ],
+                            borderColor: [
+                                border_color_suppression,
+                                border_color_suppression,
+                                border_color_suppression,
+                                border_color_suppression,
+                                border_color_suppression
+                            ],
+                            borderWidth: 1,
+                            data: [65, 79, 80, 81, 56],
+                        },
+                        {
+                            label: "Renomage",
+                            backgroundColor: [
+                                color_renomage,
+                                color_renomage,
+                                color_renomage,
+                                color_renomage,
+                                color_renomage
+                            ],
+                            borderColor: [
+                                border_color_renomage,
+                                border_color_renomage,
+                                border_color_renomage,
+                                border_color_renomage,
+                                border_color_renomage
+                            ],
+                            borderWidth: 1,
+                            data: [65, 79, 80, 81, 56],
+                        },
+                        {
+                            label: "Modification",
+                            backgroundColor: [
+                                color_modification,
+                                color_modification,
+                                color_modification,
+                                color_modification,
+                                color_modification
+                            ],
+                            borderColor: [
+                                border_color_modification,
+                                border_color_modification,
+                                border_color_modification,
+                                border_color_modification,
+                                border_color_modification
+                            ],
+                            borderWidth: 1,
+                            data: [65, 79, 80, 81, 56],
+                        },
+
+                    ]
+                };
+
+
+                var ctx = document.getElementById("commitBarChart");
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Les commits'
+                                }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Les personnes'
+                                }
+                            }]
+                        }
+                    }
+                });
+            </script>
+
+            <script>
+            var data = {
+                labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
+                datasets: [
+                    {
+                        data: [300, 50, 100, 75, 23],
+                        backgroundColor: [
+                            "#FF6384",
+                            "#36A2EB",
+                            "#FFCE56",
+                            "#3622EB",
+                            "#FF2E56"
+                        ],
+                        hoverBackgroundColor: [
+                            "#FF6384",
+                            "#36A2EB",
+                            "#FFCE56",
+                            "#3622EB",
+                            "#FF2E56"
+                        ]
+                    }]
+            };
+                var ajoutCtx = document.getElementById("ajoutChart");
+                var myDoughnutChart = new Chart(ajoutCtx, {
+                    type: 'doughnut',
+                    animation:{
+                        animateScale:true
+                    },
+                    data: data//,
+                    //options: options
+                });
+                var suppressionCtx = document.getElementById("suppressionChart");
+                var myDoughnutChart = new Chart(suppressionCtx, {
+                    type: 'doughnut',
+                    animation:{
+                        animateScale:true
+                    },
+                    data: data//,
+                    //options: options
+                });
+                var renomageCtx = document.getElementById("renomageChart");
+                var myDoughnutChart = new Chart(renomageCtx, {
+                    type: 'doughnut',
+                    animation:{
+                        animateScale:true
+                    },
+                    data: data//,
+                    //options: options
+                });
+                var modificationCtx = document.getElementById("modificationChart");
+                var myDoughnutChart = new Chart(modificationCtx, {
+                    type: 'doughnut',
+                    animation:{
+                        animateScale:true
+                    },
+                    data: data//,
+                    //options: options
+                });
+            </script>
     <br />
     {#{ parent() }#}
 {% endblock %}

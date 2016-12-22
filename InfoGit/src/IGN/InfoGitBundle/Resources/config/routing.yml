@@ -24,7 +24,7 @@ ign_info_git_a_branch:
     defaults: { _controller: IGNInfoGitBundle:Branches:abranch }
 
 ign_info_git_a_contributor_with_a_branch:
-    path:     /contributor/{name}/{branch}
+    path:     /contributor/{contributor}/{branch}
     defaults: { _controller: IGNInfoGitBundle:Branches:acontributorwithbranch }
 
 

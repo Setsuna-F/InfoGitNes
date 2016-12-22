@@ -36,7 +36,17 @@ td, th /* Mettre une bordure sur les td ET les th */
 }
 .double-tabulation{
     padding-left: 60px;
+    padding-left: 60px;
 }
+.tabulation-margin{
+    margin-left: 30px;
+}
+.double-tabulation-margin{
+    margin-left: 60px;
+    margin-left: 60px;
+}
+
+
 .h-scroll {
     max-height: 30vh; /* %-height of the viewport */
     position: fixed;
