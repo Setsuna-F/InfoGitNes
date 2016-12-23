@@ -31,14 +31,16 @@ import org.eclipse.jgit.util.io.DisabledOutputStream;
 
 public class InfoGit {
 
-	private String url;
-	private Hashtable<String, ArrayList<String>> person;
 	private ArrayList<InfoBranch> branches;
 	private ArrayList<InfoFile> infoFiles;
 	
 	private Repository repo;
 	private RevWalk walk;
 	private Git git;
+	private String url;
+	private Hashtable<String, ArrayList<String>> person;
+	private int nbUsers = 0;
+	private int nbCommits = 0;
 	
 	/**
 	 * \brief constructeur
@@ -100,7 +102,7 @@ public class InfoGit {
         for (RevCommit commit : commits) {
         	InfoCommit infoCommit = new InfoCommit(commit.getName(),  new Date(commit.getCommitTime()), commit.getFullMessage());
         	this.setPerson(commit.getAuthorIdent().getName(), commit.getAuthorIdent().getEmailAddress());	
-
+        	setNbCommits(getNbCommits() + 1);
         	if(commit.getParents().length != 0){
             	RevCommit parent = walk.parseCommit(commit.getParent(0).getId());
 
@@ -180,7 +182,10 @@ public class InfoGit {
 	public void setPerson(String utilisateur, String mail) {
 		/*Si l'utilisateur n'est pas encore present dans la hashtable*/
 		if(!this.person.containsKey(utilisateur))
+		{
 			this.person.put(utilisateur, new ArrayList<String>()); /*On ajoute l'utilisateur*/
+			setNbUsers(getNbUsers() + 1);
+		}
 		/*Si l'utilisateur est present mais pas son adresse mail*/
 		if(!this.person.get(utilisateur).contains(mail)) {
 			ArrayList<String> mel =  this.person.get(utilisateur);
@@ -257,6 +262,26 @@ public class InfoGit {
 		                i = l.getLineNumber();
 		             }
 		return i;
+	}
+
+
+	public int getNbUsers() {
+		return nbUsers;
+	}
+
+
+	public void setNbUsers(int nbUsers) {
+		this.nbUsers = nbUsers;
+	}
+
+
+	public int getNbCommits() {
+		return nbCommits;
+	}
+
+
+	public void setNbCommits(int nbCommits) {
+		this.nbCommits = nbCommits;
 	}
 
 }

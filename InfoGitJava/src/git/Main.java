@@ -42,12 +42,13 @@ public class Main {
 		InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
 		//InfoGit ig2=new InfoGit("https://github.com/apple/swift", dir);
 		ig2.collectBranches();
+		tojson(ig2, 1);
 		tojson(ig2.lsGit());
 		
 	    //System.out.println("Le nombre de branche est de : \t"+ig2.getNbBranches());
         //System.out.println("-------------------------------------");
 	    ArrayList<InfoBranch> listeBranches = ig2.getBranches();
-	    int nb = 1;
+	    /*int nb = 1;
 	    for (InfoBranch infoBranch : listeBranches) {
 			
 	    	//System.out.println("Nom de la branche :" +listeBranches.get(i).getBranchName());
@@ -69,7 +70,7 @@ public class Main {
 	        
 	        tojson(infoBranch, nb++);
 
-	    }
+	    }*/
 	    
         /*System.out.println("-------------------------------------");
 		System.out.println("Le nom de la branche est : \t"		+ig2.getBranches().get(0).getBranchName());
