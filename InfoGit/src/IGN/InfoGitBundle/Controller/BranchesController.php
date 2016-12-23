@@ -3,9 +3,13 @@
 namespace IGN\InfoGitBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use IGN\InfoGitBundle\Model\parserjson;
 
 class BranchesController extends Controller
 {
+
+    private $parse_json;
+
     /* ----------------------------
         \function index
 
@@ -24,7 +28,12 @@ class BranchesController extends Controller
     */
     public function allbranchesAction()
     {
-        return $this->render('IGNInfoGitBundle:Branches:allbranches.html.twig');
+        $this->parse_json = new parserjson("http://...soka.com");
+        $this->parse_json = $this->parse_json->getAllCommit();
+        //die(var_dump($this->parse_json->branche));
+        //die(var_dump($this->parse_json->getAllCommit()[0]->getCommits()->getNbCommits()));//getPerson()->{"Steven Nance"}[0]));
+
+        return $this->render('IGNInfoGitBundle:Branches:allbranches.html.twig', array('infoBranches' => $this->parse_json));
     }
 
 

@@ -13,26 +13,182 @@
     {#
         FAire un barchart sur les commits par branches
     #}
-    <article class='with-3d-shadow article-padding'>
+    {#<article class='with-3d-shadow article-padding'>
         <h3 class="petit-titre"><u>Visualisation des commits</u></h3>
         <br />
         <canvas  class='article-bar-chart' id="myChart" ></canvas>
+    </article>#}
+
+    <article class='with-3d-shadow article-padding'>
+        <h3 class="petit-titre"><u>Visualisation des commits</u></h3>
+        <br />
+        <canvas  class='article-bar-chart' id="branchesChart" ></canvas>
     </article>
 
     {#
         FAire un pentagone sur les personnnes par branches
     #}
-    <article class='with-3d-shadow article-padding'>
+    {#<article class='with-3d-shadow article-padding'>
         <h3 class="petit-titre"><u>Repartition des contributeurs par branches</u></h3>
         <br />
         <canvas  class='article-bar-chart article-background' id="contributorchart" ></canvas>
+    </article>#}
+
+    <article class='with-3d-shadow article-padding'>
+        <h3 class="petit-titre"><u>Repartition des contributeurs par branches</u></h3>
+        <br />
+        <canvas  class='article-bar-chart article-background' id="contributorChart" ></canvas>
     </article>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
     <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
     {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
+
     <script>
+    var color_commit="rgba(255, 99, 132, 0.2)";
+    var color_ajout="rgba(54, 162, 235, 0.2)";
+    var color_suppression="rgba(255, 206, 86, 0.2)";
+    var color_renomage="rgba(75, 192, 192, 0.2)";
+    var color_modification="rgba(153, 102, 255, 0.2)";
+
+    var border_color_commit       = 'rgba(255,99,132,1)';
+    var border_color_ajout        = 'rgba(54, 162, 235, 1)';
+    var border_color_suppression  = 'rgba(255, 159, 64, 1)';
+    var border_color_renomage     = 'rgba(75, 192, 192, 1)';
+    var border_color_modification = 'rgba(153, 102, 255, 1)';
+    var nb_users          = [];
+    var branches          = [];
+
+    var b_val_commit      = [];
+    var b_val_ajout       = [];
+    var b_val_renomage    = [];
+    var b_val_suppression = [];
+    var b_val_modification= [];
+
+    var b_color_commit      = [];
+    var b_color_ajout       = [];
+    var b_color_renomage    = [];
+    var b_color_suppression = [];
+    var b_color_modification= [];
+
+    var b_border_color_commit      = [];
+    var b_border_color_ajout       = [];
+    var b_border_color_renomage    = [];
+    var b_border_color_suppression = [];
+    var b_border_color_modification= [];
+
+    {% for branche in infoBranches %}
+        branches.push('{{branche.getName()}}');
+        nb_users.push({{branche.getNbUsers()}});
+    {% endfor %}
+
+    {% for branche in infoBranches %}
+        b_val_commit.push('{{branche.getCommits().getNbCommits()}}');
+        b_color_commit.push(color_commit);
+        b_border_color_commit.push(border_color_commit);
+    {% endfor %}
+
+    {#% for branche in infoBranches %}
+        b_val_ajout.push('{{branche.getCommits().getNbAdd()}}');
+        b_color_ajout.push(color_ajout);
+        b_border_color_ajout.push(border_color_ajout);
+    {% endfor %}
+
+    {% for branche in infoBranches %}
+        b_val_renomage.push('{{branche.getCommits().getNbRnm()}}');
+        b_color_renomage.push(color_renomage);
+        b_border_color_renomage.push(border_color_renomage);
+    {% endfor %}
+
+    {% for branche in infoBranches %}
+        b_val_suppression.push('{{branche.getCommits().getNbDel()}}');
+        b_color_suppression.push(color_suppression);
+        b_border_color_suppression.push(border_color_suppression);
+    {% endfor %}
+
+    {% for branche in infoBranches %}
+        b_val_modification.push('{{branche.getCommits().getNbMdf()}}');
+        b_color_modification.push(color_modification);
+        b_border_color_modification.push(border_color_modification);
+    {% endfor %}#}
+
+
+            var data = {
+                labels: branches,
+                datasets: [
+                    {
+                        label: "Commit",
+                        backgroundColor: b_color_commit,
+                        borderColor: b_border_color_commit,
+                        borderWidth: 1,
+                        data: b_val_commit,
+                    },
+                    {
+                        label: "Ajout",
+                        backgroundColor: b_color_ajout,
+                        borderColor: b_border_color_ajout,
+                        borderWidth: 1,
+                        data: b_val_ajout,
+                    },
+                    {
+                        label: "Suppression",
+                        backgroundColor: b_color_suppression,
+                        borderColor: b_border_color_suppression,
+                        borderWidth: 1,
+                        data: b_val_suppression,
+                    },
+                    {
+                        label: "Renomage",
+                        backgroundColor: b_color_renomage,
+                        borderColor: b_border_color_renomage,
+                        borderWidth: 1,
+                        data: b_val_renomage,
+                    },
+                    {
+                        label: "Modification",
+                        backgroundColor: b_color_modification,
+                        borderColor: b_border_color_modification,
+                        borderWidth: 1,
+                        data: b_val_modification,
+                    },
+
+                ]
+            };
+
+
+            var branchectx = document.getElementById("branchesChart");
+            var brancheChart = new Chart(branchectx, {
+                type: 'bar',
+                data: data,
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Les commits'
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Les branches'
+                            }
+                        }]
+                    }
+                }
+            });
+    </script>
+
+
+    {#<script>
         var color_commit="rgba(255, 99, 132, 0.2)";
         var color_ajout="rgba(54, 162, 235, 0.2)";
         var color_suppression="rgba(255, 206, 86, 0.2)";
@@ -44,6 +200,7 @@
         var border_color_suppression  = 'rgba(255, 159, 64, 1)';
         var border_color_renomage     = 'rgba(75, 192, 192, 1)';
         var border_color_modification = 'rgba(153, 102, 255, 1)';
+        var branches = [];
 
         var data = {
             labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
@@ -176,9 +333,9 @@
                 }
             }
         });
-    </script>
+    </script>#}
 
-    <script>
+    {#<script>
     var data_contributor = {
         labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
         datasets: [
@@ -197,6 +354,39 @@
 
         var ctx_contributor = document.getElementById("contributorchart");
         var myRadarChart =new Chart(ctx_contributor, {
+            type: "radar",
+            data: data_contributor,
+            options: {
+                    scale: {
+                        reverse: false, /*Pour savoir si le centre est a zero*/
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }
+            }
+        });
+    </script>#}
+
+
+    <script>
+    var data_contributor = {
+        labels: branches,
+        datasets: [
+            {
+                label: "Personnes",
+                backgroundColor: "rgba(255,99,132,0.2)",
+                borderColor: "rgba(255,99,132,1)",
+                pointBackgroundColor: "rgba(255,99,132,1)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(255,99,132,1)",
+                data: nb_users
+            }
+        ]
+    };
+
+        var contributorCtx = document.getElementById("contributorChart");
+        var radarChart =new Chart(contributorCtx, {
             type: "radar",
             data: data_contributor,
             options: {

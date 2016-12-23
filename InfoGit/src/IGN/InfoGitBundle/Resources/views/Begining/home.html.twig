@@ -1,11 +1,28 @@
 {% extends "IGNInfoGitBundle::index.html.twig" %}
 
 {% block body %}
+    <script type="text/javascript">
+    var nbCommits=0;
+    var nbBranches=0;
+    var nbContributeur=0;
+    {% if infoGeneral.getNbBranches() %}
+        nbBranches= {{infoGeneral.getNbBranches()}};
+    {% endif %}
+    {% if infoGeneral.getNbUsers() %}
+        nbContributeur= {{infoGeneral.getNbUsers()}};
+    {% endif %}
+    {% if infoGeneral.getNbCommits() %}
+        nbCommits= {{infoGeneral.getNbCommits()}};
+    {% endif %}
+    //var nbContributeur = {{ infoGeneral.getNbBranches() | raw }};
+    //$nbContributeur = 4;
+    </script>
+
     <h2 class="gros-titre">Information générale</h2>
     <br />
     <ul class="bigfont centerblock">
         <li class="">nom du projet: <u>[nomDuProjet]</u></li>
-        <li class="">url : <a href="#">[http://url_vers_le_projet_git]</a></li>
+        <li class="">url : <a href="{{ infoGeneral.getUrl() }}">{{ infoGeneral.getUrl }}</a></li>
         <li class=""><span id="resultNbBranches"></span> branches</li>
         <li class=""><span id="resultNbContributeur"></span> contributeurs</li>
         <li class=""><span id="resultNbCommits"></span> commits</li>
@@ -26,5 +43,8 @@
         <p class="p-white-color">Vous pourrez aussi comparer les commits de plusieurs contributeurs </p>
     </article>
     <br />
+
+
+
     {#{ parent() }#}
 {% endblock %}

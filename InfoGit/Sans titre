@@ -1,0 +1,54 @@
+Il faudrait aussi recuperer le titre du projet.
+
+/*-----------------*/
+
+
+"person":[
+    {
+        name: "Steven Nance",
+        mail:[
+            "steven@devtrw.com"
+        ]
+    },{
+        name: "...",
+        mail:[
+            "...@....com"
+        ]
+    }
+]
+
+
+/*-----------------*/
+
+
+"commits":[
+    {
+        name: "Francesco Tassi",
+        commits:[
+            {
+                "date":1316682430,
+                "message":"fixed autoloding configuration",
+                "nbAdd":0,
+                "nbDelete":0,
+                "nbModify":0,
+                "nbRename":0,
+                "id":"12bd941c8e2fb54e9a21ef4d0fee99ab33c21482"
+            },{
+                "date":...,
+                "message":"...",
+                "nbAdd":0,
+                "nbDelete":0,
+                "nbModify":0,
+                "nbRename":0,
+                "id":"...."
+            }
+        ]
+    },{
+        name: "....",
+        commits:[
+            {
+            },{
+            }
+        ]
+    }
+]
