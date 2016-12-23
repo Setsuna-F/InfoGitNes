@@ -11,3 +11,13 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.
 
 !ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2016-12-20 10:02:58.027
 !MESSAGE No repository found at http://download.eclipse.org/modeling/mdt/uml2tools/downloads/drops/0.9.0/R200906190654/mdt-uml2tools-Update-incubation-0.9.0.zip.md5.
+!SESSION 2016-12-23 04:01:59.242 -----------------------------------------------
+eclipse.buildId=4.6.0.I20160606-1100
+java.version=1.8.0_102
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/S-Setsuna-F/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/S-Setsuna-F/.eclipse_keyring
+
+!ENTRY org.eclipse.jdt.launching 4 150 2016-12-23 04:17:11.548
+!MESSAGE The archive: /InfoGitJava/libs/jackson-annotations-2.8.0.jar which is referenced by the classpath, does not exist.

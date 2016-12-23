@@ -14,14 +14,25 @@
             <li><a href="{{ path('ign_info_git_index') }}">Nouvel url git<span class="sub_icon glyphicon glyphicon-plus-sign"></span></a></li>
         </ul>
     </nav>
-    <h1 class="main-title"><a href="{{ path('ign_info_git_homepage') }}">InfoGit</a></h1>
+    <h1 class="main-title"><a href="{{ path('ign_info_git_homepage') }}">InfoGit</a><span  class="centerblock" style="text-align:center; margin-left:40%;"><img src="https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo.png" width="25" height="25"/><span></h1>
 {% endblock %}
 
 
 {% block body %}
 
-<div id="zone_recherche">
-    <input id="texte_recherche" type="text" value="Search" />
-</div>
-
+<article class="article-base centerblock-top-bottom">
+    <h2 class="gros-titre">Ajouter un projet git</h2>
+    <hr />
+    <div id="zone_recherche" class="centerblock">
+        <label for="texte_recherche" class="p-white-color">URL Git : </label>
+        <input id="texte_recherche" type="url" class="input-recherche" placeholder="URL Git" list="urldata">
+        <datalist id="urldata">
+            {#<option value="http://www.alsacreations.com/">
+            <option value="http://www.bing.com/">
+            <option value="http://www.google.fr/">
+            <option value="http://www.yahoo.fr/">#}
+        </datalist>
+    </div>
+    <br />
+</article>
 {% endblock %}
