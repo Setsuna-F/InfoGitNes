@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class tools {
 	
 	
@@ -36,8 +38,31 @@ public class tools {
 			System.out.println(s + "* " + p.get(i));
 			affichageParent(g.getParents().get(p.get(i)), g);
 		}
-		
-		
 	}
+	
+	
+	/**
+	 * \brief création du json pour les branches.
+	 **/
+	public static void tojson(Object infos, int i) throws IOException
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		//String jsonInString = mapper.writeValueAsString(infos);
+		mapper.writeValue(new File("./branches/branche_"+i+".json"), infos);
+		//System.out.println(jsonInString);
+	}
+	
+	
+	/**
+	 * \brief création du json pour les informations.
+	 **/
+	public static void tojson(Object infos) throws IOException
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		//String jsonInString = mapper.writeValueAsString(infos);
+		mapper.writeValue(new File("./branches/infos.json"), infos);
+		//System.out.println(jsonInString);
+	}
+
 	
 }
