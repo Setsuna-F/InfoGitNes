@@ -42,6 +42,7 @@ public class InfoGit {
 	private int nbUsers = 0;
 	private int nbCommits = 0;
 	
+	
 	/**
 	 * \brief constructeur
 	 * 
@@ -218,14 +219,46 @@ public class InfoGit {
 		return branches.size();
 	}
 	
+	
+	/**
+	 * \return le nombre de personnes.
+	 **/
+	public int getNbUsers() {
+		return nbUsers;
+	}
+
+
+	/**
+	 * \brief modifie le nombre de personnes.
+	 **/
+	public void setNbUsers(int nbUsers) {
+		this.nbUsers = nbUsers;
+	}
+
+	
+	/**
+	 * \return toutes le nombre de commits.
+	 **/
+	public int getNbCommits() {
+		return nbCommits;
+	}
+
+	
+	/**
+	 * \brief modifie le nombre de commits.
+	 **/
+	public void setNbCommits(int nbCommits) {
+		this.nbCommits = nbCommits;
+	}
+	
+	
 	/**
 	 * permet de compter le nombre de dossiers, fichiers, et lignes.
-	 * crée un objetInfoFile et l' envoi dans une liste pour que le 
+	 * crée un objetInfoFile et l'envoie dans une liste pour que le 
 	 * convertisseur JSON s'en charge tout seul
 	 * @throws IOException 
 	 */
-	public ArrayList<InfoFile> lsGit() throws IOException
-	{
+	public ArrayList<InfoFile> lsGit() throws IOException {
 		 Ref head = repo.getRef("HEAD");
 		RevCommit commit = walk.parseCommit(head.getObjectId());
 		RevTree tree = commit.getTree();
@@ -243,11 +276,11 @@ public class InfoGit {
 		    }
 		}
 		return infoFiles;
-		
 	}
 	
+	
 	/**
-	 * compte le nombre de lignes d'un fichiers
+	 * compte le nombre de lignes d'un fichier
 	 * @throws IOException 
 	 */
 	public int countLines(String path) throws IOException
@@ -255,33 +288,12 @@ public class InfoGit {
 		int i = 0;
 		String str = "";
 		FileInputStream fis = new FileInputStream(path);
-		LineNumberReader l = new LineNumberReader(       
-		       new BufferedReader(new InputStreamReader(fis)));
-		              while ((str=l.readLine())!=null)
-		             {
-		                i = l.getLineNumber();
-		             }
+		LineNumberReader l = new LineNumberReader(new BufferedReader(new InputStreamReader(fis)));
+        while ((str=l.readLine())!=null)
+        {
+        	i = l.getLineNumber();
+        }
 		return i;
-	}
-
-
-	public int getNbUsers() {
-		return nbUsers;
-	}
-
-
-	public void setNbUsers(int nbUsers) {
-		this.nbUsers = nbUsers;
-	}
-
-
-	public int getNbCommits() {
-		return nbCommits;
-	}
-
-
-	public void setNbCommits(int nbCommits) {
-		this.nbCommits = nbCommits;
 	}
 
 }

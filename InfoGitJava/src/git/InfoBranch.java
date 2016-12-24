@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 public class InfoBranch {
+	
 	private String name;
 	private String ref;
 	private int nbCommits;

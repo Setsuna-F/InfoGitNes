@@ -1,6 +1,7 @@
 package git;
 
 public class Couple {
+	
 	private String refBranch1;
 	private String refBranch2;
 	
