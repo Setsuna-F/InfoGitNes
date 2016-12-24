@@ -113,7 +113,7 @@ public class InfoGit {
             	List<DiffEntry> diffs = df.scan(parent.getTree(), commit.getTree());
             	for (DiffEntry diff : diffs) {
             		if(diff.getChangeType().name().equals("MODIFY"))
-            			infoCommit.setModify();
+            			infoCommit.setModify();           		
             		if(diff.getChangeType().name().equals("ADD"))
             			infoCommit.setAdd();
             		if(diff.getChangeType().name().equals("RENAME"))
@@ -138,7 +138,7 @@ public class InfoGit {
         	infoBranch.setParents(fils, pa);
         	//Fin Arborescence
         	
-        	infoBranch.setCommits(commit.getAuthorIdent().getName(), new InfoCommit(commit.getName(), new Date(commit.getCommitTime()), commit.getFullMessage()));
+        	infoBranch.setCommits(commit.getAuthorIdent().getName(), infoCommit);
         }
 	}
 
