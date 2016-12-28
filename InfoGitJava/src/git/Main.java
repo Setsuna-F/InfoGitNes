@@ -39,51 +39,57 @@ public class Main {
 		}
 		dir2.mkdir();
 		
-		InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
-		//InfoGit ig2=new InfoGit("https://github.com/apple/swift", dir);
-		ig2.collectBranches();
-		tools.tojson(ig2, 1);
-		tools.tojson(ig2.lsGit());
-		
-	    //System.out.println("Le nombre de branche est de : \t"+ig2.getNbBranches());
-        //System.out.println("-------------------------------------");
-	    ArrayList<InfoBranch> listeBranches = ig2.getBranches();
-	    /*int nb = 1;
-	    for (InfoBranch infoBranch : listeBranches) {
+		try{
+			InfoGit ig2=new InfoGit(args[0], dir);
+			//InfoGit ig2=new InfoGit("https://github.com/ddeboer/GuzzleBundle.git", dir);
+			//InfoGit ig2=new InfoGit("https://github.com/apple/swift", dir);
+			ig2.collectBranches();
+			tools.tojson(ig2, 1);
+			tools.tojson(ig2.lsGit());
 			
-	    	//System.out.println("Nom de la branche :" +listeBranches.get(i).getBranchName());
-	    	//System.out.println("Ref de la branche :" +listeBranches.get(i).getRef());
-	    	
-	    	//Hashtable<String, ArrayList<InfoCommit>> listeCommits = listeBranches.get(i).getCommits();
-	    	//for (String mapKey : listeCommits.keySet()) {
-				//System.out.println( mapKey + " a fait " + listeCommits.get(mapKey).size() + " commits");
-				//tojson(listeCommits.get(mapKey), i);
-			//}
-	       // System.out.println("-------------------------------------");
-	        
-	       // System.out.println("****Arborescence****");
-	        //String deb = listeBranches.get(i).getDebut();
-	        //ArrayList<String> p = listeBranches.get(i).getParents().get(deb);
-			//tools.affichageParent(p, listeBranches.get(i));
-	        //System.out.println("****Fin Arborescence****");
-	       // System.out.println("-------------------------------------");
-	        
-	        tojson(infoBranch, nb++);
-
-	    }*/
-	    
-        /*System.out.println("-------------------------------------");
-		System.out.println("Le nom de la branche est : \t"		+ig2.getBranches().get(0).getBranchName());
-		System.out.println("Le nombre de commits est de : \t"	+ig2.getBranches().get(0).getCommits().get("Doug Gregor").size());
-	    System.out.println("Le nombre de user est de : \t"		+ig2.getPersonName().size());
-        System.out.println("-------------------------------------");
-	    System.out.println(ig2.getPersonName().toString());
-	    System.out.println(ig2.getBranches().get(0).getAllMailOf("Doug Gregor").toString());
-	    System.out.println(ig2.getBranches().get(0).getCommits().toString());
-	    System.out.println(ig2.getBranches().get(0).getCommits().get("Doug Gregorr").get(0).getDate().toString());
-        System.out.println("-------------------------------------");*/
-		
-		System.out.println("Fin");
+		    //System.out.println("Le nombre de branche est de : \t"+ig2.getNbBranches());
+	        //System.out.println("-------------------------------------");
+		    ArrayList<InfoBranch> listeBranches = ig2.getBranches();
+		    /*int nb = 1;
+		    for (InfoBranch infoBranch : listeBranches) {
+				
+		    	//System.out.println("Nom de la branche :" +listeBranches.get(i).getBranchName());
+		    	//System.out.println("Ref de la branche :" +listeBranches.get(i).getRef());
+		    	
+		    	//Hashtable<String, ArrayList<InfoCommit>> listeCommits = listeBranches.get(i).getCommits();
+		    	//for (String mapKey : listeCommits.keySet()) {
+					//System.out.println( mapKey + " a fait " + listeCommits.get(mapKey).size() + " commits");
+					//tojson(listeCommits.get(mapKey), i);
+				//}
+		       // System.out.println("-------------------------------------");
+		        
+		       // System.out.println("****Arborescence****");
+		        //String deb = listeBranches.get(i).getDebut();
+		        //ArrayList<String> p = listeBranches.get(i).getParents().get(deb);
+				//tools.affichageParent(p, listeBranches.get(i));
+		        //System.out.println("****Fin Arborescence****");
+		       // System.out.println("-------------------------------------");
+		        
+		        tojson(infoBranch, nb++);
+	
+		    }*/
+		    
+	        /*System.out.println("-------------------------------------");
+			System.out.println("Le nom de la branche est : \t"		+ig2.getBranches().get(0).getBranchName());
+			System.out.println("Le nombre de commits est de : \t"	+ig2.getBranches().get(0).getCommits().get("Doug Gregor").size());
+		    System.out.println("Le nombre de user est de : \t"		+ig2.getPersonName().size());
+	        System.out.println("-------------------------------------");
+		    System.out.println(ig2.getPersonName().toString());
+		    System.out.println(ig2.getBranches().get(0).getAllMailOf("Doug Gregor").toString());
+		    System.out.println(ig2.getBranches().get(0).getCommits().toString());
+		    System.out.println(ig2.getBranches().get(0).getCommits().get("Doug Gregorr").get(0).getDate().toString());
+	        System.out.println("-------------------------------------");*/
+			
+			System.out.println("Fin");
+		}catch(ArrayIndexOutOfBoundsException a)
+		{
+			System.out.println("Pas d'argument");
+		}
 	}
 	
 	
