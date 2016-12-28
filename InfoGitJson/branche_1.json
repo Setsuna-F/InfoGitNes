@@ -7,18 +7,18 @@
                 {
                     "date":1316682430,
                     "message":"fixed autoloding configuration",
-                    "nbAdd":0,
+                    "nbAdd":4,
                     "nbDelete":0,
-                    "nbModify":0,
+                    "nbModify":6,
                     "nbRename":0,
                     "id":"12bd941c8e2fb54e9a21ef4d0fee99ab33c21482"
                 },{
                     "date":1316681517,
                     "message":"fix configuration example",
-                    "nbAdd":0,
-                    "nbDelete":0,
-                    "nbModify":0,
-                    "nbRename":0,
+                    "nbAdd":1,
+                    "nbDelete":2,
+                    "nbModify":5,
+                    "nbRename":8,
                     "id":"b02ffe12caf5ad4dd0c09b20fd084ec0b643e069"
                 }
             ],
@@ -26,17 +26,17 @@
                 {
                     "date":1341990130,
                     "message":"remove unused use statement\n",
-                    "nbAdd":0,
-                    "nbDelete":0,
+                    "nbAdd":8,
+                    "nbDelete":6,
                     "nbModify":0,
-                    "nbRename":0,
+                    "nbRename":3,
                     "id":"601bdf406158d2fb10093fc37e666cb60dafa25b"
                 },{
                     "date":1341954403,
                     "message":"fic composer.json\n",
-                    "nbAdd":0,
+                    "nbAdd":9,
                     "nbDelete":0,
-                    "nbModify":0,
+                    "nbModify":12,
                     "nbRename":0,
                     "id":"6803eb031108dd992d1fe77a6aa3c6fd4eae6a77"
                 },{
@@ -61,7 +61,7 @@
                     "nbAdd":0,
                     "nbDelete":0,
                     "nbModify":0,
-                    "nbRename":0,
+                    "nbRename":2,
                     "id":"b9c7c542d2c7d822ab3e3713632d5b243f9c43d8"
                 },{
                     "date":1341950061,
@@ -69,7 +69,7 @@
                     "nbAdd":0,
                     "nbDelete":0,
                     "nbModify":0,
-                    "nbRename":0,
+                    "nbRename":4,
                     "id":"597cd4a35dd0e46ef769ae569aed165468c64ff0"
                 },{
                     "date":1335529035,
@@ -109,10 +109,10 @@
                 },{
                     "date":1341952073,
                     "message":"Updating to Guzzle 2.0\n\nConflicts:\n\n\tDependencyInjection/DdeboerGuzzleExtension.php\n\tREADME.markdown\n\tResources/config/services.xml\n",
-                    "nbAdd":0,
-                    "nbDelete":0,
-                    "nbModify":0,
-                    "nbRename":0,
+                    "nbAdd":7,
+                    "nbDelete":2,
+                    "nbModify":4,
+                    "nbRename":9,
                     "id":"1325e84cddeacd446e5438768ca264e4cea711a9"
                 }
             ],
@@ -120,24 +120,24 @@
                 {
                     "date":1335858259,
                     "message":"Merge pull request #4 from gimler/data_collector\n\nData collector",
-                    "nbAdd":0,
-                    "nbDelete":0,
-                    "nbModify":0,
-                    "nbRename":0,
+                    "nbAdd":2,
+                    "nbDelete":5,
+                    "nbModify":8,
+                    "nbRename":12,
                     "id":"a386edef41e895bb03091f5bf3d1c3e1cb6a6718"
                 },{
                     "date":1333389971,
                     "message":"Merge pull request #3 from patrick-mcdougle/patch-1\n\nFixed indentation of the config.yml file.",
-                    "nbAdd":0,
-                    "nbDelete":0,
-                    "nbModify":0,
-                    "nbRename":0,
+                    "nbAdd":6,
+                    "nbDelete":5,
+                    "nbModify":7,
+                    "nbRename":3,
                     "id":"4c4eeb46173f1539383cb1fe9d1995748c18497b"
                 },{
                     "date":1316724072,
                     "message":"Merge pull request #1 from ftassi/master\n\nFix cache and autoload configuration in readme",
                     "nbAdd":0,
-                    "nbDelete":0,
+                    "nbDelete":10,
                     "nbModify":0,
                     "nbRename":0,
                     "id":"9df37e9e8bde270955677f48affeb1bff4e360ae"
@@ -147,7 +147,7 @@
                     "nbAdd":0,
                     "nbDelete":0,
                     "nbModify":0,
-                    "nbRename":0,
+                    "nbRename":1,
                     "id":"48e87667d737fece89d153dd2bbc5e42b5ce8cf7"}
             ],
             "patrick-mcdougle":[
@@ -238,7 +238,7 @@
                 {
                     "date":1316682430,
                     "message":"fixed autoloding configuration",
-                    "nbAdd":0,
+                    "nbAdd":2,
                     "nbDelete":0,
                     "nbModify":0,
                     "nbRename":0,
@@ -269,7 +269,7 @@
                     "date":1367821734,
                     "message":"Merge pull request #15 from adrienbrault/patch-1\n\nFix typo in readme",
                     "nbAdd":0,
-                    "nbDelete":0,
+                    "nbDelete":12,
                     "nbModify":0,
                     "nbRename":0,
                     "id":"66012353c8c40920d3d60f351b8b2db50436f1db"

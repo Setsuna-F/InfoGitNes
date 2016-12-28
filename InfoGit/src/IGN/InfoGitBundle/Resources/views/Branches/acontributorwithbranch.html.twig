@@ -1,19 +1,27 @@
 {% extends "IGNInfoGitBundle::index.html.twig" %}
 
 {% block body %}
-        <h2 class="gros-titre">Contribution de [nomContributeur] pour la branche [nomDeLaBranche]</h2>
+    <h2 class="gros-titre">Contribution de {{name}} pour la branche {{branchName}}</h2>
 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <article class='with-3d-shadow'>
-                <h3 class="petit-titre centerblock"><u>Visualisation des commits</u></h3>
-                <br />
-                <canvas class='article-bar-chart' id="commitBarChart" ></canvas>
-            </article>
-        </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <article class='with-3d-shadow'>
+            <h3 class="petit-titre centerblock"><u>Visualisation des commits</u></h3>
+            <br />
+            <canvas class='article-bar-chart' id="commitBarChart" ></canvas>
+        </article>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <article class='with-3d-shadow'>
+            <h3 class="petit-titre centerblock"><u>Visualisation des commits</u></h3>
+            <br />
+            <canvas class='article-bar-chart' id="commitLineChart" ></canvas>
+        </article>
+    </div>
         {#
             Cette visualisation se fera pour tous les commits
         #}
-        <div class="row">
+        {#<div class="row">
             <div class="col-lg-12">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <article class='with-3d-shadow'>
@@ -44,218 +52,240 @@
                     </article>
                 </div>
             </div>
-        </div>
+        </div>#}
 
 
 
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
-                <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
-                {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
-                <script>
-                    var color_commit="rgba(255, 99, 132, 0.2)";
-                    var color_ajout="rgba(54, 162, 235, 0.2)";
-                    var color_suppression="rgba(255, 206, 86, 0.2)";
-                    var color_renomage="rgba(75, 192, 192, 0.2)";
-                    var color_modification="rgba(153, 102, 255, 0.2)";
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+    <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
+    {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
+    <script>
+        var cmts = [];
+        var adds = [];
+        var rmvs = [];
+        var mdfs = [];
+        var rnms = [];
 
-                    var border_color_commit       = 'rgba(255,99,132,1)';
-                    var border_color_ajout        = 'rgba(54, 162, 235, 1)';
-                    var border_color_suppression  = 'rgba(255, 159, 64, 1)';
-                    var border_color_renomage     = 'rgba(75, 192, 192, 1)';
-                    var border_color_modification = 'rgba(153, 102, 255, 1)';
+        var b_color_commit      = [];
+        var b_color_ajout       = [];
+        var b_color_renomage    = [];
+        var b_color_suppression = [];
+        var b_color_modification= [];
 
-                    var data = {
-                        labels: ["Personne1", "Personne2", "Personne3", "Personne3", "Personne4"],
-                        datasets: [
-                            {
-                                label: "Commit",
-                                backgroundColor: [
-                                    color_commit,
-                                    color_commit,
-                                    color_commit,
-                                    color_commit,
-                                    color_commit
-                                ],
-                                borderColor: [
-                                    border_color_commit,
-                                    border_color_commit,
-                                    border_color_commit,
-                                    border_color_commit,
-                                    border_color_commit
-                                ],
-                                borderWidth: 1,
-                                data: [5, 59, 80, 81, 56],
-                            },
-                            {
-                                label: "Ajout",
-                                backgroundColor: [
-                                    color_ajout,
-                                    color_ajout,
-                                    color_ajout,
-                                    color_ajout,
-                                    color_ajout
-                                ],
-                                borderColor: [
-                                    border_color_ajout,
-                                    border_color_ajout,
-                                    border_color_ajout,
-                                    border_color_ajout,
-                                    border_color_ajout
-                                ],
-                                borderWidth: 1,
-                                data: [65, 79, 80, 81, 56],
-                            },
-                            {
-                                label: "Suppression",
-                                backgroundColor: [
-                                    color_suppression,
-                                    color_suppression,
-                                    color_suppression,
-                                    color_suppression,
-                                    color_suppression
-                                ],
-                                borderColor: [
-                                    border_color_suppression,
-                                    border_color_suppression,
-                                    border_color_suppression,
-                                    border_color_suppression,
-                                    border_color_suppression
-                                ],
-                                borderWidth: 1,
-                                data: [65, 79, 80, 81, 56],
-                            },
-                            {
-                                label: "Renomage",
-                                backgroundColor: [
-                                    color_renomage,
-                                    color_renomage,
-                                    color_renomage,
-                                    color_renomage,
-                                    color_renomage
-                                ],
-                                borderColor: [
-                                    border_color_renomage,
-                                    border_color_renomage,
-                                    border_color_renomage,
-                                    border_color_renomage,
-                                    border_color_renomage
-                                ],
-                                borderWidth: 1,
-                                data: [65, 79, 80, 81, 56],
-                            },
-                            {
-                                label: "Modification",
-                                backgroundColor: [
-                                    color_modification,
-                                    color_modification,
-                                    color_modification,
-                                    color_modification,
-                                    color_modification
-                                ],
-                                borderColor: [
-                                    border_color_modification,
-                                    border_color_modification,
-                                    border_color_modification,
-                                    border_color_modification,
-                                    border_color_modification
-                                ],
-                                borderWidth: 1,
-                                data: [65, 79, 80, 81, 56],
-                            },
+        var b_border_color_commit      = [];
+        var b_border_color_ajout       = [];
+        var b_border_color_renomage    = [];
+        var b_border_color_suppression = [];
+        var b_border_color_modification= [];
 
-                        ]
-                    };
+        var color_ajout="rgba(75,192,192, 0.2)";
+        var color_suppression="rgba(15,200,2, 0.2)";
+        var color_renomage="rgba(75,2,202, 0.2)";
+        var color_modification="rgba(175,20,20, 0.2)";
+
+        var border_color_ajout        = 'rgba(75,192,192, 1)';
+        var border_color_suppression  = 'rgba(15,200,2, 1)';
+        var border_color_renomage     = 'rgba(75,2,202, 1)';
+        var border_color_modification = 'rgba(175,20,20, 1)';
+
+        {% for commit in commitslist %}
+            cmts.push('commit'+'{{commit.getNbCommits()}}');
+            adds.push('{{commit.getNbAdd()}}');
+            rmvs.push('{{commit.getNbDel()}}');
+            mdfs.push('{{commit.getNbMdf()}}');
+            rnms.push('{{commit.getNbRnm()}}');
+
+            b_color_ajout.push(color_ajout);
+            b_border_color_ajout.push(border_color_ajout);
+
+            b_color_renomage.push(color_renomage);
+            b_border_color_renomage.push(border_color_renomage);
+
+            b_color_suppression.push(color_suppression);
+            b_border_color_suppression.push(border_color_suppression);
+
+            b_color_modification.push(color_modification);
+            b_border_color_modification.push(border_color_modification);
+        {% endfor %}
 
 
-                    var ctx = document.getElementById("commitBarChart");
-                    var myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: data,
-                        options: {
-                            responsive: true,
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero:true
-                                    },
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: 'Les commits'
-                                    }
-                                }],
-                                xAxes: [{
-                                    ticks: {
-                                        beginAtZero:true
-                                    },
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: 'Les personnes'
-                                    }
-                                }]
-                            }
+        var data = {
+            labels: cmts,
+            datasets: [
+                {
+                    label: "Add",
+                    fill: true,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,0.4)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: adds,
+                    spanGaps: false,
+                },
+                {
+                    label: "Delete",
+                    fill: true,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(15,200,2,0.4)",
+                    borderColor: "rgba(15,200,2,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(15,200,2,0.4)",
+                    pointHoverBorderColor: "rgba(35,200,10,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: rmvs,
+                    spanGaps: false,
+                },
+                {
+                    label: "Rename",
+                    fill: true,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(75,2,202,0.4)",
+                    borderColor: "rgba(75,2,202,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,19,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,2,202,0.4)",
+                    pointHoverBorderColor: "rgba(200,150,200,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: rnms,
+                    spanGaps: false,
+                },
+                {
+                    label: "Modify",
+                    fill: true,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(175,20,20,0.4)",
+                    borderColor: "rgba(175,20,20,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,19,19,0.4)",
+                    pointHoverBorderColor: "rgba(200,200,200,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: mdfs,
+                    spanGaps: false,
+                },
+            ]
+        };
+        var ctx = document.getElementById("commitLineChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    xAxes: [{
+                        position: 'bottom'
+                    }]
+                }
+            }
+        });
+    </script>
+
+
+    <script>
+        var data = {
+            labels: cmts,
+            datasets: [
+                {
+                    label: "Ajout",
+                    backgroundColor: b_color_ajout,
+                    borderColor: b_border_color_ajout,
+                    borderWidth: 1,
+                    data: adds,
+                },
+                {
+                    label: "Suppression",
+                    backgroundColor: b_color_suppression,
+                    borderColor: b_border_color_suppression,
+                    borderWidth: 1,
+                    data: rmvs,
+                },
+                {
+                    label: "Renomage",
+                    backgroundColor: b_color_renomage,
+                    borderColor: b_border_color_renomage,
+                    borderWidth: 1,
+                    data: rnms,
+                },
+                {
+                    label: "Modification",
+                    backgroundColor: b_color_modification,
+                    borderColor: b_border_color_modification,
+                    borderWidth: 1,
+                    data: mdfs,
+                },
+
+            ]
+        };
+
+
+
+        var ctx = document.getElementById("commitBarChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: ''
                         }
-                    });
-                </script>
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Les commits'
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 
-                <script>
-                var data = {
-                    labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
-                    datasets: [
-                        {
-                            data: [300, 50, 100, 75, 23],
-                            backgroundColor: [
-                                "#FF6384",
-                                "#36A2EB",
-                                "#FFCE56",
-                                "#3622EB",
-                                "#FF2E56"
-                            ],
-                            hoverBackgroundColor: [
-                                "#FF6384",
-                                "#36A2EB",
-                                "#FFCE56",
-                                "#3622EB",
-                                "#FF2E56"
-                            ]
-                        }]
-                };
-                    var ajoutCtx = document.getElementById("ajoutChart");
-                    var myDoughnutChart = new Chart(ajoutCtx, {
-                        type: 'doughnut',
-                        animation:{
-                            animateScale:true
-                        },
-                        data: data//,
-                        //options: options
-                    });
-                    var suppressionCtx = document.getElementById("suppressionChart");
-                    var myDoughnutChart = new Chart(suppressionCtx, {
-                        type: 'doughnut',
-                        animation:{
-                            animateScale:true
-                        },
-                        data: data//,
-                        //options: options
-                    });
-                    var renomageCtx = document.getElementById("renomageChart");
-                    var myDoughnutChart = new Chart(renomageCtx, {
-                        type: 'doughnut',
-                        animation:{
-                            animateScale:true
-                        },
-                        data: data//,
-                        //options: options
-                    });
-                    var modificationCtx = document.getElementById("modificationChart");
-                    var myDoughnutChart = new Chart(modificationCtx, {
-                        type: 'doughnut',
-                        animation:{
-                            animateScale:true
-                        },
-                        data: data//,
-                        //options: options
-                    });
-                </script>
+    <br />
     <br />
     {#{ parent() }#}
 {% endblock %}

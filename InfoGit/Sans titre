@@ -1,3 +1,21 @@
+
+{#% for user in infoGeneral.getPerson() %}
+
+    <li class="">{#{user}#} - {{infoGeneral.getMailsByContributor(user)[0]}}</li>
+
+{% endfor %#}
+
+
+
+
+
+
+
+
+
+
+
+
 Il faudrait aussi recuperer le titre du projet.
 
 /*-----------------*/

@@ -28,8 +28,9 @@
         <li class=""><span id="resultNbCommits"></span> commits</li>
         <li class="">Les contributeurs les plus actifs
             <ul>
-                <li class="">personne1 - adresse1</li>
-                <li class="">personne2 - adresse1</li>
+                {% for key, user in infoGeneral.mostActif() %}
+                    <li>{{ key }}: {{ infoGeneral.getMailsByContributor(key)[0] }}</li>
+                {% endfor %}
             </ul>
         </li>
     </ul>

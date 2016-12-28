@@ -89,7 +89,7 @@
         b_border_color_commit.push(border_color_commit);
     {% endfor %}
 
-    {#% for branche in infoBranches %}
+    {% for branche in infoBranches %}
         b_val_ajout.push('{{branche.getCommits().getNbAdd()}}');
         b_color_ajout.push(color_ajout);
         b_border_color_ajout.push(border_color_ajout);
@@ -111,7 +111,7 @@
         b_val_modification.push('{{branche.getCommits().getNbMdf()}}');
         b_color_modification.push(color_modification);
         b_border_color_modification.push(border_color_modification);
-    {% endfor %}#}
+    {% endfor %}
 
 
             var data = {

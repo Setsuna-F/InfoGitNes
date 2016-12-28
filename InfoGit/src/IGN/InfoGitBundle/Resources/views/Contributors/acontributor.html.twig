@@ -10,21 +10,23 @@
         <div class="col-lg-12 article-base-sans-padding">
             <h3 class="petit-titre centerblock"><u>Informations personnelles</u></h3>
             <hr />
-            <p class=" tabulation">Nom: [NomDuContributeur]</p>
+            <p class=" tabulation">Nom: {{name}}</p>
             <hr />
             <div class="row">
                 <p  class="col-lg-2 col-md-2 col-sm-2 col-xs-12 tabulation-margin">Mail(s):</p>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 double-tabulation-margin">
-                    <p>mail1@mail.dz </p>
-                    <p>mail2@mail.dz</p>
+                    {% for mail in infoContributor.getMailsByContributor(name) %}
+                        <p>{{mail}}</p>
+                    {% endfor %}
                 </div>
             </div>
             <hr />
             <div class="row">
-                <p  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabulation-margin">Il a contribué à [nbBranches] branches:</p>
+                <p  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabulation-margin">Il a contribué à {{infoContributor.getBranchesByUser() | length}} branches:</p>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 double-tabulation-margin">
-                    <p><a href="{{ path('ign_info_git_a_contributor_with_a_branch', {'contributor':  'nom1', 'branch':'name1'}) }}">Master</a></p>
-                    <p><a href="{{ path('ign_info_git_a_contributor_with_a_branch', {'contributor':  'nom2', 'branch':'nom2'}) }}">Dev</a></p>
+                    {% for branch in infoContributor.getBranchesByUser() %}
+                        <p><a href="{{ path('ign_info_git_a_contributor_with_a_branch', {'contributor':  name, 'branch': branch.getFormatedName()}) }}">{{branch.getName()}}</a></p>
+                    {% endfor %}
                 </div>
             </div>
             <hr />
@@ -32,11 +34,11 @@
                 <p  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabulation-margin">Il a realisé :</p>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 double-tabulation-margin">
                     <ul>
-                        <li>[nbCommits] commits</li>
-                        <li>[nbAdd] ajout</li>
-                        <li>[nbDelete] suppression</li>
-                        <li>[nbRename] renommage</li>
-                        <li>[nbModification] modification</li>
+                        <li>{{infoContributor.getNbCommitsByContributor(name)}} commits</li>
+                        <li>{{infoContributor.getNbAddByContributor(name)}} ajout</li>
+                        <li>{{infoContributor.getNbRemoveByContributor(name)}} suppression</li>
+                        <li>{{infoContributor.getNbRenameByContributor(name)}} renommage</li>
+                        <li>{{infoContributor.getNbModifyByContributor(name)}} modification</li>
                     </ul>
                 </div>
             </div>
@@ -60,28 +62,28 @@
         <div class="col-lg-12">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <article class='with-3d-shadow'>
-                    <h3 class="petit-titre centerblock"><u>Visualisation des ajouts</u></h3>
+                    <h3 class="petit-titre centerblock"><u>Visualisation des {{infoContributor.getNbAddByContributor(name)}} ajouts</u></h3>
                     <br />
                     <canvas class='article-bar-chart' id="ajoutChart" ></canvas>
                 </article>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <article class='with-3d-shadow'>
-                    <h3 class="petit-titre centerblock"><u>Visualisation des suppressions</u></h3>
+                    <h3 class="petit-titre centerblock"><u>Visualisation des {{infoContributor.getNbRemoveByContributor(name)}} suppressions</u></h3>
                     <br />
                     <canvas class='article-bar-chart' id="suppressionChart" ></canvas>
                 </article>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <article class='with-3d-shadow'>
-                    <h3 class="petit-titre centerblock"><u>Visualisation des renommages</u></h3>
+                    <h3 class="petit-titre centerblock"><u>Visualisation des {{infoContributor.getNbRenameByContributor(name)}} renommages</u></h3>
                     <br />
                     <canvas class='article-bar-chart' id="renomageChart" ></canvas>
                 </article>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <article class='with-3d-shadow'>
-                    <h3 class="petit-titre centerblock"><u>Visualisation des modifications</u></h3>
+                    <h3 class="petit-titre centerblock"><u>Visualisation des {{infoContributor.getNbModifyByContributor(name)}} modifications</u></h3>
                     <br />
                     <canvas class='article-bar-chart' id="modificationChart" ></canvas>
                 </article>
@@ -93,117 +95,181 @@
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
             <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
-            {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
+            <script src="/res/javascript_randomColor.js"></script>
             <script>
-                var color_commit="rgba(255, 99, 132, 0.2)";
-                var color_ajout="rgba(54, 162, 235, 0.2)";
-                var color_suppression="rgba(255, 206, 86, 0.2)";
-                var color_renomage="rgba(75, 192, 192, 0.2)";
-                var color_modification="rgba(153, 102, 255, 0.2)";
+            var color_commit="rgba(255, 99, 132, 0.2)";
+            var color_ajout="rgba(54, 162, 235, 0.2)";
+            var color_suppression="rgba(255, 206, 86, 0.2)";
+            var color_renomage="rgba(75, 192, 192, 0.2)";
+            var color_modification="rgba(153, 102, 255, 0.2)";
 
-                var border_color_commit       = 'rgba(255,99,132,1)';
-                var border_color_ajout        = 'rgba(54, 162, 235, 1)';
-                var border_color_suppression  = 'rgba(255, 159, 64, 1)';
-                var border_color_renomage     = 'rgba(75, 192, 192, 1)';
-                var border_color_modification = 'rgba(153, 102, 255, 1)';
+            var border_color_commit       = 'rgba(255,99,132,1)';
+            var border_color_ajout        = 'rgba(54, 162, 235, 1)';
+            var border_color_suppression  = 'rgba(255, 159, 64, 1)';
+            var border_color_renomage     = 'rgba(75, 192, 192, 1)';
+            var border_color_modification = 'rgba(153, 102, 255, 1)';
+    /* ----------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+            var nb_users          = [];
+            var branches          = [];
+
+            var b_val_commit      = [];
+            var b_val_ajout       = [];
+            var b_val_renomage    = [];
+            var b_val_suppression = [];
+            var b_val_modification= [];
+
+            var b_color_commit      = [];
+            var b_color_ajout       = [];
+            var b_color_renomage    = [];
+            var b_color_suppression = [];
+            var b_color_modification= [];
+
+            var b_border_color_commit      = [];
+            var b_border_color_ajout       = [];
+            var b_border_color_renomage    = [];
+            var b_border_color_suppression = [];
+            var b_border_color_modification= [];
+
+            var b_color_commits= [];
+            var b_border_color_commits= [];
+
+            var b_color_ajouts= [];
+            var b_border_color_ajouts= [];
+
+            var b_color_renomages= [];
+            var b_border_color_renomages= [];
+
+            var b_color_suppressions= [];
+            var b_border_color_suppressions= [];
+
+            var b_color_modifications= [];
+            var b_border_color_modifications= [];
+
+            {% for branch in infoBranches %}
+                branches.push('{{branch.getName()}}');
+                //nb_users.push({{branch.getNbUsers()}});
+            {% endfor %}
+
+            {% for branch in infoBranches %}
+                //users.push('{ {person} }');
+        /*        var c = randomColor(1);
+                b_color_commits.push(getRealColor(c, 1));
+                b_border_color_commits.push(getRealColor(c, 0.2));
+*/
+
+                var cA = randomColor(1);
+                b_color_ajouts.push(getRealColor(cA, 1));
+                b_border_color_ajouts.push(getRealColor(cA, 0.4));
+
+
+                var cS = randomColor(1);
+                b_color_suppressions.push(getRealColor(cS, 1));
+                b_border_color_suppressions.push(getRealColor(cS, 0.4));
+
+                var cR = randomColor(1);
+                b_color_renomages.push(getRealColor(cR, 1));
+                b_border_color_renomages.push(getRealColor(cR, 0.4));
+
+                var cM = randomColor(1);
+                b_color_modifications.push(getRealColor(cM, 1));
+                b_border_color_modifications.push(getRealColor(cM, 0.4));
+
+            {% endfor %}
+
+            {% for branch in infoBranches %}
+            //console.log('nom: {{name}}');
+            //console.log('branch: {{branch.getName()}}');
+            //console.log({{infoContributor.getInfoCommitsByBrancheAndContributor(branch.getName(), name).getNbCommits()}});
+            //console.log('-------------------------');
+
+                b_val_commit.push('{{infoContributor.getInfoCommitsByBrancheAndContributor(branch.getName(), name).getNbCommits()}}');
+                b_color_commit.push(color_commit);
+                b_border_color_commit.push(border_color_commit);
+            {% endfor %}
+
+            {% for branch in infoBranches %}
+                b_val_ajout.push('{{infoContributor.getInfoCommitsByBrancheAndContributor(branch.getName(), name).getNbAdd()}}');
+                b_color_ajout.push(color_ajout);
+                b_border_color_ajout.push(border_color_ajout);
+            {% endfor %}
+
+            {% for branch in infoBranches %}
+                b_val_renomage.push('{{infoContributor.getInfoCommitsByBrancheAndContributor(branch.getName(), name).getNbRnm()}}');
+                b_color_renomage.push(color_renomage);
+                b_border_color_renomage.push(border_color_renomage);
+            {% endfor %}
+
+            {% for branch in infoBranches %}
+                b_val_suppression.push('{{infoContributor.getInfoCommitsByBrancheAndContributor(branch.getName(), name).getNbDel()}}');
+                b_color_suppression.push(color_suppression);
+                b_border_color_suppression.push(border_color_suppression);
+            {% endfor %}
+
+            {% for branch in infoBranches %}
+                b_val_modification.push('{{infoContributor.getInfoCommitsByBrancheAndContributor(branch.getName(), name).getNbMdf()}}');
+                b_color_modification.push(color_modification);
+                b_border_color_modification.push(border_color_modification);
+            {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+    /* ----------------------------------------- */
 
                 var data = {
-                    labels: ["Personne1", "Personne2", "Personne3", "Personne3", "Personne4"],
+                    labels: branches,
                     datasets: [
                         {
                             label: "Commit",
-                            backgroundColor: [
-                                color_commit,
-                                color_commit,
-                                color_commit,
-                                color_commit,
-                                color_commit
-                            ],
-                            borderColor: [
-                                border_color_commit,
-                                border_color_commit,
-                                border_color_commit,
-                                border_color_commit,
-                                border_color_commit
-                            ],
+                            backgroundColor: b_color_commit,
+                            borderColor: b_border_color_commit,
                             borderWidth: 1,
-                            data: [5, 59, 80, 81, 56],
+                            data: b_val_commit,
                         },
                         {
                             label: "Ajout",
-                            backgroundColor: [
-                                color_ajout,
-                                color_ajout,
-                                color_ajout,
-                                color_ajout,
-                                color_ajout
-                            ],
-                            borderColor: [
-                                border_color_ajout,
-                                border_color_ajout,
-                                border_color_ajout,
-                                border_color_ajout,
-                                border_color_ajout
-                            ],
+                            backgroundColor: b_color_ajout,
+                            borderColor: b_border_color_ajout,
                             borderWidth: 1,
-                            data: [65, 79, 80, 81, 56],
+                            data: b_val_ajout,
                         },
                         {
                             label: "Suppression",
-                            backgroundColor: [
-                                color_suppression,
-                                color_suppression,
-                                color_suppression,
-                                color_suppression,
-                                color_suppression
-                            ],
-                            borderColor: [
-                                border_color_suppression,
-                                border_color_suppression,
-                                border_color_suppression,
-                                border_color_suppression,
-                                border_color_suppression
-                            ],
+                            backgroundColor: b_color_suppression,
+                            borderColor: b_border_color_suppression,
                             borderWidth: 1,
-                            data: [65, 79, 80, 81, 56],
+                            data: b_val_suppression,
                         },
                         {
                             label: "Renomage",
-                            backgroundColor: [
-                                color_renomage,
-                                color_renomage,
-                                color_renomage,
-                                color_renomage,
-                                color_renomage
-                            ],
-                            borderColor: [
-                                border_color_renomage,
-                                border_color_renomage,
-                                border_color_renomage,
-                                border_color_renomage,
-                                border_color_renomage
-                            ],
+                            backgroundColor: b_color_renomage,
+                            borderColor: b_border_color_renomage,
                             borderWidth: 1,
-                            data: [65, 79, 80, 81, 56],
+                            data:b_val_renomage,
                         },
                         {
                             label: "Modification",
-                            backgroundColor: [
-                                color_modification,
-                                color_modification,
-                                color_modification,
-                                color_modification,
-                                color_modification
-                            ],
-                            borderColor: [
-                                border_color_modification,
-                                border_color_modification,
-                                border_color_modification,
-                                border_color_modification,
-                                border_color_modification
-                            ],
+                            backgroundColor: b_color_modification,
+                            borderColor: b_border_color_modification,
                             borderWidth: 1,
-                            data: [65, 79, 80, 81, 56],
+                            data: b_val_modification,
                         },
 
                     ]
@@ -232,7 +298,7 @@
                                 },
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Les personnes'
+                                    labelString: 'Les branches'
                                 }
                             }]
                         }
@@ -241,61 +307,78 @@
             </script>
 
             <script>
-            var data = {
-                labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
+
+            var dataAjouts = {
+                labels: branches,
                 datasets: [
                     {
-                        data: [300, 50, 100, 75, 23],
-                        backgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56",
-                            "#3622EB",
-                            "#FF2E56"
-                        ],
-                        hoverBackgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56",
-                            "#3622EB",
-                            "#FF2E56"
-                        ]
+                        data: b_val_ajout,
+                        backgroundColor: b_border_color_ajouts,
+                        hoverBackgroundColor: b_color_ajouts
                     }]
             };
+            var dataSuppressions = {
+                labels: branches,
+                datasets: [
+                    {
+                        data: b_val_suppression,
+                        backgroundColor: b_border_color_suppressions,
+                        hoverBackgroundColor: b_color_suppressions
+                    }]
+            };
+            var dataRenomages = {
+                labels: branches,
+                datasets: [
+                    {
+                        data: b_val_renomage,
+                        backgroundColor: b_border_color_renomages,
+                        hoverBackgroundColor: b_color_renomages
+                    }]
+            };
+            var dataModifications = {
+                labels: branches,
+                datasets: [
+                    {
+                        data: b_val_modification,
+                        backgroundColor: b_border_color_modifications,
+                        hoverBackgroundColor: b_color_modifications
+                    }]
+            };
+
                 var ajoutCtx = document.getElementById("ajoutChart");
                 var myDoughnutChart = new Chart(ajoutCtx, {
-                    type: 'doughnut',
+                    type: 'pie',
                     animation:{
                         animateScale:true
                     },
-                    data: data//,
+                    data: dataAjouts//,
                     //options: options
                 });
                 var suppressionCtx = document.getElementById("suppressionChart");
                 var myDoughnutChart = new Chart(suppressionCtx, {
-                    type: 'doughnut',
+                    type: 'pie',
                     animation:{
                         animateScale:true
                     },
-                    data: data//,
+                    data: dataSuppressions//,
                     //options: options
                 });
                 var renomageCtx = document.getElementById("renomageChart");
                 var myDoughnutChart = new Chart(renomageCtx, {
-                    type: 'doughnut',
+                    type: 'pie',
                     animation:{
                         animateScale:true
                     },
-                    data: data//,
+                    data: dataRenomages//,
                     //options: options
                 });
                 var modificationCtx = document.getElementById("modificationChart");
                 var myDoughnutChart = new Chart(modificationCtx, {
-                    type: 'doughnut',
+                    type: 'pie',
                     animation:{
                         animateScale:true
                     },
-                    data: data//,
+                    data: dataModifications//,
                     //options: options
                 });
             </script>

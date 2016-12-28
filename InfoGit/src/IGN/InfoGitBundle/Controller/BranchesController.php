@@ -42,9 +42,13 @@ class BranchesController extends Controller
 
 
     */
-    public function acontributorwithbranchAction($contributorName, $branchName)
+    public function acontributorwithbranchAction($contributor, $branch)
     {
-            return $this->render('IGNInfoGitBundle:Branches:acontributorwithbranch.html.twig');
+        $this->parse_json = new parserjson("http://...soka.com");
+        $commitslist = $this->parse_json->getCommitsListByBrancheAndByContributor( $this->parse_json->getBranchNameWithFormatedName($contributor, $branch), $contributor);
+        //die(var_dump($this->parse_json->getCommitsList()));
+        //die(var_dump($this->parse_json = $this->parse_json->getInfoCommitsByContributor($contributor)));
+        return $this->render('IGNInfoGitBundle:Branches:acontributorwithbranch.html.twig', array('infoBranches' => $this->parse_json, 'name' => $contributor, 'branchName' => $branch, 'commitslist' => $commitslist));
     }
 
 }

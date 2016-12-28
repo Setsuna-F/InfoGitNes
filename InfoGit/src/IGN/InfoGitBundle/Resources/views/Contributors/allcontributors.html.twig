@@ -4,7 +4,7 @@
     <h2 class="gros-titre">Tous les contributeurs</h2>
     <article class="article-padding bigfont">
         <h3 class="petit-titre"><u>Table des contributeurs</u></h3>
-        <p class=" tabulation">[nbContributeur] contributeurs</p>
+        <p class=" tabulation">{{infoContributor.getNbUsers()}} contributeurs</p>
         <br />
         <div class="col-lg-12 article-base-sans-padding">
             <div class="row">
@@ -13,33 +13,19 @@
             </div>
             <hr />
             <div class=" col-lg-12  h-scroll">
-                <div class="col-lg-12">
-                    <p  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom1'}) }}">prenom1</a></p>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <p>mail1@mail.dz</p>
-                        <p>mail2@mail.dz</p>
+                {% for key, user in infoContributor.getCommitsByAllContributor() %}
+                    {#<li>{{ key }}: {{ infoContributor.getMailsByContributor(key)[0] }}</li>#}
+                    <div class="col-lg-12">
+                        <p  class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <a href="{{ path('ign_info_git_a_contributor', {'name': key }) }}">{{ key }}</a>
+                        </p>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            {% for mail in infoContributor.getMailsByContributor(key) %}
+                                <p>{{mail}}</p>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-12">
-                    <p  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom1'}) }}">prenom2</a></p>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <p>mail1@mail.dz</p>
-                        <p>mail2@mail.dz</p>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <p  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom1'}) }}">prenom3</a></p>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <p>mail1@mail.dz</p>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <p  class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom1'}) }}">prenom4</a></p>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <p>mail1@mail.dz</p>
-                        <p>mail2@mail.dz</p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </article>
@@ -56,7 +42,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <article class='with-3d-shadow '>
-                    <h3 class="petit-titre centerblock"><u>Nombre de contribution par branches</u></h3>
+                    <h3 class="petit-titre centerblock"><u>Nombre de commits par contributeur</u></h3>
                     <br />
                     <canvas class='article-bar-chart' id="branchesChart" ></canvas>
                 </article>
@@ -67,6 +53,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
     <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
+    <script src="/res/javascript_randomColor.js"></script>
     {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
     <script>
         var color_commit="rgba(255, 99, 132, 0.2)";
@@ -80,108 +67,132 @@
         var border_color_suppression  = 'rgba(255, 159, 64, 1)';
         var border_color_renomage     = 'rgba(75, 192, 192, 1)';
         var border_color_modification = 'rgba(153, 102, 255, 1)';
+/* ----------------------------------------- */
 
-        var data = {
-            labels: ["Personne1", "Personne2", "Personne3", "Personne3", "Personne4"],
-            datasets: [
-                {
-                    label: "Commit",
-                    backgroundColor: [
-                        color_commit,
-                        color_commit,
-                        color_commit,
-                        color_commit,
-                        color_commit
-                    ],
-                    borderColor: [
-                        border_color_commit,
-                        border_color_commit,
-                        border_color_commit,
-                        border_color_commit,
-                        border_color_commit
-                    ],
-                    borderWidth: 1,
-                    data: [5, 59, 80, 81, 56],
-                },
-                {
-                    label: "Ajout",
-                    backgroundColor: [
-                        color_ajout,
-                        color_ajout,
-                        color_ajout,
-                        color_ajout,
-                        color_ajout
-                    ],
-                    borderColor: [
-                        border_color_ajout,
-                        border_color_ajout,
-                        border_color_ajout,
-                        border_color_ajout,
-                        border_color_ajout
-                    ],
-                    borderWidth: 1,
-                    data: [65, 79, 80, 81, 56],
-                },
-                {
-                    label: "Suppression",
-                    backgroundColor: [
-                        color_suppression,
-                        color_suppression,
-                        color_suppression,
-                        color_suppression,
-                        color_suppression
-                    ],
-                    borderColor: [
-                        border_color_suppression,
-                        border_color_suppression,
-                        border_color_suppression,
-                        border_color_suppression,
-                        border_color_suppression
-                    ],
-                    borderWidth: 1,
-                    data: [65, 79, 80, 81, 56],
-                },
-                {
-                    label: "Renomage",
-                    backgroundColor: [
-                        color_renomage,
-                        color_renomage,
-                        color_renomage,
-                        color_renomage,
-                        color_renomage
-                    ],
-                    borderColor: [
-                        border_color_renomage,
-                        border_color_renomage,
-                        border_color_renomage,
-                        border_color_renomage,
-                        border_color_renomage
-                    ],
-                    borderWidth: 1,
-                    data: [65, 79, 80, 81, 56],
-                },
-                {
-                    label: "Modification",
-                    backgroundColor: [
-                        color_modification,
-                        color_modification,
-                        color_modification,
-                        color_modification,
-                        color_modification
-                    ],
-                    borderColor: [
-                        border_color_modification,
-                        border_color_modification,
-                        border_color_modification,
-                        border_color_modification,
-                        border_color_modification
-                    ],
-                    borderWidth: 1,
-                    data: [65, 79, 80, 81, 56],
-                },
 
-            ]
-        };
+
+
+
+
+
+
+
+
+        var nb_users          = [];
+        var users             = [];
+
+        var b_val_commit      = [];
+        var b_val_ajout       = [];
+        var b_val_renomage    = [];
+        var b_val_suppression = [];
+        var b_val_modification= [];
+
+        var b_color_commit      = [];
+        var b_color_ajout       = [];
+        var b_color_renomage    = [];
+        var b_color_suppression = [];
+        var b_color_modification= [];
+
+        var b_border_color_commit      = [];
+        var b_border_color_ajout       = [];
+        var b_border_color_renomage    = [];
+        var b_border_color_suppression = [];
+        var b_border_color_modification= [];
+
+        var b_color_commits= [];
+        var b_border_color_commits= [];
+
+        {% for person in infoContributor.getAllPerson() %}
+            users.push('{{person}}');
+            var c = randomColor(1);
+            b_color_commits.push(getRealColor(c, 1));
+            b_border_color_commits.push(getRealColor(c, 0.2));
+            {# nb_users.push({{branche.getNbUsers()}});#}
+        {% endfor %}
+
+        {% for person in infoContributor.getAllPerson() %}
+            b_val_commit.push('{{infoContributor.getNbCommitsByContributor(person)}}');
+            b_color_commit.push(color_commit);
+            b_border_color_commit.push(border_color_commit);
+        {% endfor %}
+
+        {% for person in infoContributor.getAllPerson() %}
+            b_val_ajout.push('{{infoContributor.getNbAddByContributor(person)}}');
+            b_color_ajout.push(color_ajout);
+            b_border_color_ajout.push(border_color_ajout);
+        {% endfor %}
+
+        {% for person in infoContributor.getAllPerson() %}
+            b_val_renomage.push('{{infoContributor.getNbRenameByContributor(person)}}');
+            b_color_renomage.push(color_renomage);
+            b_border_color_renomage.push(border_color_renomage);
+        {% endfor %}
+
+        {% for person in infoContributor.getAllPerson() %}
+            b_val_suppression.push('{{infoContributor.getNbRemoveByContributor(person)}}');
+            b_color_suppression.push(color_suppression);
+            b_border_color_suppression.push(border_color_suppression);
+        {% endfor %}
+
+        {% for person in infoContributor.getAllPerson() %}
+            b_val_modification.push('{{infoContributor.getNbModifyByContributor(person)}}');
+            b_color_modification.push(color_modification);
+            b_border_color_modification.push(border_color_modification);
+        {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+/* ----------------------------------------- */
+
+            var data = {
+                labels: users,
+                datasets: [
+                    {
+                        label: "Commit",
+                        backgroundColor: b_color_commit,
+                        borderColor: b_border_color_commit,
+                        borderWidth: 1,
+                        data: b_val_commit,
+                    },
+                    {
+                        label: "Ajout",
+                        backgroundColor: b_color_ajout,
+                        borderColor: b_border_color_ajout,
+                        borderWidth: 1,
+                        data: b_val_ajout,
+                    },
+                    {
+                        label: "Suppression",
+                        backgroundColor: b_color_suppression,
+                        borderColor: b_border_color_suppression,
+                        borderWidth: 1,
+                        data: b_val_suppression,
+                    },
+                    {
+                        label: "Renomage",
+                        backgroundColor: b_color_renomage,
+                        borderColor: b_border_color_renomage,
+                        borderWidth: 1,
+                        data:b_val_renomage,
+                    },
+                    {
+                        label: "Modification",
+                        backgroundColor: b_color_modification,
+                        borderColor: b_border_color_modification,
+                        borderWidth: 1,
+                        data: b_val_modification,
+                    },
+
+                ]
+            };
 
 
         var ctx = document.getElementById("commitBarChart");
@@ -215,25 +226,14 @@
     </script>
 
     <script>
+
     var data = {
-        labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
+        labels: users,
         datasets: [
             {
-                data: [300, 50, 100, 75, 23],
-                backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#3622EB",
-                    "#FF2E56"
-                ],
-                hoverBackgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#3622EB",
-                    "#FF2E56"
-                ]
+                data: b_val_commit,
+                backgroundColor: b_border_color_commits,
+                hoverBackgroundColor: b_color_commits
             }]
     };
         var brancheCtx = document.getElementById("branchesChart");
