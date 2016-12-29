@@ -1,0 +1,62 @@
+{
+    "name": "friendsofsymfony/http-cache",
+    "type": "library",
+    "description": "Tools to manage HTTP caching proxies with PHP",
+    "keywords": [ "http", "caching", "purge", "invalidation", "varnish", "nginx" ],
+    "homepage": "https://github.com/friendsofsymfony/FOSHttpCache",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Liip AG",
+            "homepage": "http://www.liip.ch/"
+        },
+        {
+            "name": "Driebit",
+            "homepage": "http://www.driebit.nl",
+            "email": "tech@driebit.nl"
+        },
+        {
+            "name": "Community contributions",
+            "homepage": "https://github.com/friendsofsymfony/FOSHttpCache/contributors"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^5.5.9||^7.0.0",
+        "symfony/event-dispatcher": "^2.3||^3.0",
+        "symfony/options-resolver": "^2.7||^3.0",
+        "php-http/client-implementation": "^1.0.0",
+        "php-http/client-common": "^1.1.0",
+        "php-http/message": "^1.0.0",
+        "php-http/discovery": "^1.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "~0.9.5",
+        "monolog/monolog": "^1.0",
+        "php-http/guzzle6-adapter": "^1.0.0",
+        "php-http/mock-client": "^0.3.2",
+        "symfony/process": "^2.3||^3.0",
+        "symfony/http-kernel": "^2.3||^3.0",
+        "phpunit/phpunit": "^4.5.0 || ^5.0.0 <5.4"
+    },
+    "suggest": {
+        "friendsofsymfony/http-cache-bundle": "For integration with the Symfony framework",
+        "monolog/monolog": "For logging issues while invalidating"
+    },
+    "autoload": {
+        "psr-4": {
+            "FOS\\HttpCache\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FOS\\HttpCache\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}

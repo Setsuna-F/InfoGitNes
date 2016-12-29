@@ -46,11 +46,18 @@ class BeginingController extends Controller
               /* On recupere les données */
               $data = $form->getData();
 
+              /* Appel au programme java permetant de generer le json */
+              $cmdline = 'java -jar ../../InfoGitJar/InfoGitNes.jar '.$data['urlgit'];
+              $last_line = system($cmdline);
+
               /* On prepare le chargement */
               $isloadurl=1;
 
-              //die(var_dump($data));
-             // return $this->redirectToRoute('ign_info_git_homepage');
+              /*die(var_dump($data['urlgit']));
+                die(var_dump($last_line));*/
+
+              /* On change de page pour aller a la page principale */
+              return $this->redirectToRoute('ign_info_git_homepage');
           }
 
 
@@ -64,7 +71,24 @@ class BeginingController extends Controller
     */
     public function homeAction()
     {
-        $this->parse_json = new parserjson("http://...soka.com");
+        //$monfichier = fopen('../../InfoGitJar/processus.nes', 'r'); //On ouvre le fichier processus.nes
+        $monfichier = fopen('processus.nes', 'r'); //On ouvre le fichier processus.nes
+        $ligne = fgets($monfichier); //On lit la premiere ligne
+        if(strlen($ligne)==0) //Si le fichier est vide
+            return $this->redirectToRoute('ign_info_git_index'); //Alors on redirige la route vers l'index (la barre de recherche)
+
+        //die(var_dump($ligne));
+
+        while(intval($ligne) <= 0){ // Tant que la valeur de la ligne est inferieur ou égal a zero.
+            fseek($monfichier, 0); // On remet le curseur au debut du fichier
+            $ligne = fgets($monfichier); //On lit la premiere ligne
+        }
+        fclose($monfichier); //On ferme le fichier processus.nes
+
+        //die(var_dump($ligne));
+
+
+        $this->parse_json = new parserjson();
 
         //die(var_dump($this->parse_json->getCommitsByAllContributor()));
         //die(var_dump($this->parse_json->mostActif()));
