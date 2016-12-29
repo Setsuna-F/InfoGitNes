@@ -24,7 +24,7 @@ class parserjson {
 
         /* au code java avec l'url */
 
-        $json = file_get_contents("../../InfoGitJson/branche_1.json");
+        $json = file_get_contents("../../InfoGitJar/branches/branche_1.json");
         $this->parsed_json = json_decode($json);
         $this->url = $this->parsed_json->{'url'};
         $this->nbUsers = $this->parsed_json->{'nbUsers'};

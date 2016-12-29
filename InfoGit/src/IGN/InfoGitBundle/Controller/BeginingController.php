@@ -15,7 +15,21 @@ class BeginingController extends Controller
     */
     public function indexAction()
     {
-
+//         echo "Chargement";
+//        //$last_line = system('ls', $retval);
+//        $last_line = system('java -jar ../../InfoGitJar/InfoGitNes.jar https://github.com/ddeboer/GuzzleBundle.git', $retval);
+//        //$last_line = exec ('java -jar InfoGitNes.jar https://github.com/apple/swift.git', $output, $retval );
+//        echo '
+//            </pre>
+//            <hr />_____La dernière ligne en sortie de la commande : ' . $last_line . '
+//            ';/*'<hr />Valeur de l\'output : ';
+//            for($o=0; $o < count($output); $o++){
+//                echo $output[$o];
+//                echo "s";
+//            }*/
+//
+//        echo '<hr />Valeur retournée : ' . $retval;
+//        die();
         return $this->render('IGNInfoGitBundle::index.html.twig');
     }
 
