@@ -24,6 +24,9 @@ public class Main {
 		if (nes.exists()) {
 			try {
 				tools.recursifDelete(nes);
+				FileWriter fw = new FileWriter (nes);
+		        fw.write ("0");
+		        fw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
