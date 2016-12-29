@@ -3,6 +3,8 @@
 namespace IGN\InfoGitBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\HttpFoundation\Request;
 use IGN\InfoGitBundle\Model\parserjson;
 
 class BeginingController extends Controller
@@ -13,7 +15,7 @@ class BeginingController extends Controller
         \function index
 
     */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
 //         echo "Chargement";
 //        //$last_line = system('ls', $retval);
@@ -30,8 +32,30 @@ class BeginingController extends Controller
 //
 //        echo '<hr />Valeur retournée : ' . $retval;
 //        die();
-        return $this->render('IGNInfoGitBundle::index.html.twig');
-    }
+
+            $data = array();
+            $form = $this->createFormBuilder($data)
+                         ->add('urlgit', UrlType::class, array('label' => 'URL Git : ', 'required' => true, 'attr' => array('id' => 'formurl', 'class' => 'input-recherche', 'placeholder' => 'URL Git')))
+                        ->getForm();
+
+          $form->handleRequest($request);
+
+          $isloadurl=0;
+
+          if ($form->isSubmitted() && $form->isValid()) {
+              /* On recupere les données */
+              $data = $form->getData();
+
+              /* On prepare le chargement */
+              $isloadurl=1;
+
+              //die(var_dump($data));
+             // return $this->redirectToRoute('ign_info_git_homepage');
+          }
+
+
+          return $this->render('IGNInfoGitBundle::index.html.twig', array('form' => $form->createView(),'isloadurl'=>$isloadurl,));
+      }
 
 
     /* ----------------------------
