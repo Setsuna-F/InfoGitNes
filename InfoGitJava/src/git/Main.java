@@ -1,6 +1,7 @@
 package git;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -18,7 +19,17 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class Main {
 
 	public static void main(String []args) throws IOException, GitAPIException{
-		System.out.println("Debut");
+		
+		File nes = new File("./processus.nes");
+		if (nes.exists()) {
+			try {
+				tools.recursifDelete(nes);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	
 
 		File dir = new File("./INFOGITPROJET/");
 		if (dir.exists()) {
@@ -85,10 +96,28 @@ public class Main {
 		    System.out.println(ig2.getBranches().get(0).getCommits().get("Doug Gregorr").get(0).getDate().toString());
 	        System.out.println("-------------------------------------");*/
 			
-			System.out.println("Fin");
+		    try
+		    {
+		        FileWriter fw = new FileWriter (nes);
+		        fw.write ("1");
+		        fw.close();
+		    }
+		    catch (IOException exception)
+		    {
+		        System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
+		    }
 		}catch(ArrayIndexOutOfBoundsException a)
 		{
-			System.out.println("Pas d'argument");
+			 try
+			    {
+			        FileWriter fw = new FileWriter (nes);
+			        fw.write ("-1");
+			        fw.close();
+			    }
+			    catch (IOException exception)
+			    {
+			        System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
+			    }
 		}
 	}
 	
