@@ -22,5 +22,12 @@ Il faut:
     `$ composer install`<br />
     `$ php bin/console cache:clear --env=prod`<br />
     `$ php bin/console cache:clear`<br />
-- puis lancer votre navigateur prefere (Safari) pour accéder au site.
-    `http://localhost:8888/`
+- puis lancer votre navigateur prefere (Safari) pour accéder au site.<br />
+    `http://localhost:8888/`<br /><br />
+- Pour avoir les graphiques :<br />
+    `creer des dosser dans web/assets/vendor/`
+- Pour installer les fichier corespondant aux graphiques faites:<br />
+    `npm install chart.js --save`<br />
+    OU <br />
+    `bower install chart.js --save`
+- Puis plasser le dossier `node_modules` généré dans /web/assets/vendor/<br />

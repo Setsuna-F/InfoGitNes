@@ -12,6 +12,9 @@
     {% endif %}
 {% endblock %}
 
+{% block contributorSelected %}<span class="sub_icon glyphicon glyphicon-user" style="color:white;"></span>{% endblock %}
+{% block urlSelected %}<span class="sub_icon glyphicon glyphicon-plus-sign"></span>{% endblock %}
+
 {% block body %}
     <h2 class="gros-titre">Tous les contributeurs</h2>
     <article class="article-padding bigfont">
@@ -73,9 +76,9 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
-    <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
-    <script src="/res/javascript_randomColor.js"></script>
-    {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
+    <script src="{{ asset('/assets/vendor/node_modules/chart.js/dist/Chart.js') }}"></script>
+    <script src="{{ asset('/res/javascript_randomColor.js') }}"></script>
+
     <script>
         var color_commit="rgba(255, 99, 132, 0.2)";
         var color_ajout="rgba(54, 162, 235, 0.2)";
@@ -89,14 +92,6 @@
         var border_color_renomage     = 'rgba(75, 192, 192, 1)';
         var border_color_modification = 'rgba(153, 102, 255, 1)';
 /* ----------------------------------------- */
-
-
-
-
-
-
-
-
 
 
         var nb_users          = [];

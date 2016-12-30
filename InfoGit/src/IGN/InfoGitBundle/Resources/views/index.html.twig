@@ -7,11 +7,11 @@
             <li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
         </ul>
         <ul class="sidebar-nav" id="sidebar">
-            <li><a href="{{ path('ign_info_git_homepage') }}">InfoGit<span class="sub_icon glyphicon glyphicon-info-sign"></span></a></li>
-            <li><a href="{{ path('ign_info_git_tree') }}">Arbre<span class="sub_icon glyphicon glyphicon-tree-deciduous"></span></a></li>
-            <li><a href="{{ path('ign_info_git_all_branches') }}">Branches<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
-            <li><a href="{{ path('ign_info_git_all_contributors') }}">Contributeurs<span class="sub_icon glyphicon glyphicon-user"></span></a></li>
-            <li><a href="{{ path('ign_info_git_index') }}">Nouvel url git<span class="sub_icon glyphicon glyphicon-plus-sign"></span></a></li>
+            <li><a href="{{ path('ign_info_git_homepage') }}">          InfoGit         {% block infoSelected %}<span class="sub_icon glyphicon glyphicon-info-sign"></span>{% endblock %}</a></li>
+            <li><a href="{{ path('ign_info_git_tree') }}">              Arbre           {% block arbreSelected %}<span class="sub_icon glyphicon glyphicon-tree-deciduous"></span>{% endblock %}</a></li>
+            <li><a href="{{ path('ign_info_git_all_branches') }}">      Branches        {% block branchesSelected %}<span class="sub_icon glyphicon glyphicon-link"></span>{% endblock %}</a></li>
+            <li><a href="{{ path('ign_info_git_all_contributors') }}">  Contributeurs   {% block contributorSelected %}<span class="sub_icon glyphicon glyphicon-user"></span>{% endblock %}</a></li>
+            <li><a href="{{ path('ign_info_git_index') }}">             Nouvel url git  {% block urlSelected %}<span class="sub_icon glyphicon glyphicon-plus-sign" style="color:white;"></span>{% endblock %}</a></li>
         </ul>
     </nav>
     <h1 class="main-title"><a href="{{ path('ign_info_git_homepage') }}">InfoGit</a>
@@ -53,10 +53,7 @@
 
 
 
-
-
-
-{##}
+{# Pour cachez le bloc div contenant le chargement. et l'afficher des le submit #}
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" /></script>
 <script type="text/javascript">
 $(document).ready(function() {

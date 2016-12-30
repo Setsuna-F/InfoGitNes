@@ -1,11 +1,36 @@
-.bundle
-log
-db/*.sqlite3
-.idea
-tmp/**/*
-config/newrelic.yml
-config/initializers/hoptoad.rb
-config/database.yml
-config/config.yml
-rails.git
-vendor/bundle
+#Linux System
+*~
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+

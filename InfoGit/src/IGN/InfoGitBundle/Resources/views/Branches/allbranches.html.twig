@@ -2,8 +2,6 @@
 {# reference pour le graphe: #}
 {# REF: https://github.com/chartjs/Chart.js #}
 
-{#<link href="/res/novus-nvd3/build/nv.d3.css" rel="stylesheet" type="text/css">#}
-
 {% block urLogo %}
     {% if(gitType == "gitlab") %}
         <img src="https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo.png" width="25" height="25"/>
@@ -16,20 +14,13 @@
     {% endif %}
 {% endblock %}
 
+{% block branchesSelected %}<span class="sub_icon glyphicon glyphicon-link" style="color:white;"></span>{% endblock %}
+{% block urlSelected %}<span class="sub_icon glyphicon glyphicon-plus-sign"></span>{% endblock %}
 
 {% block body %}
 
     <h2 class="gros-titre">Toutes les branches</h2>
     <br />
-
-    {#
-        FAire un barchart sur les commits par branches
-    #}
-    {#<article class='with-3d-shadow article-padding'>
-        <h3 class="petit-titre"><u>Visualisation des commits</u></h3>
-        <br />
-        <canvas  class='article-bar-chart' id="myChart" ></canvas>
-    </article>#}
 
     <article class='with-3d-shadow article-padding'>
         <h3 class="petit-titre"><u>Visualisation des commits</u></h3>
@@ -37,25 +28,14 @@
         <canvas  class='article-bar-chart' id="branchesChart" ></canvas>
     </article>
 
-    {#
-        FAire un pentagone sur les personnnes par branches
-    #}
-    {#<article class='with-3d-shadow article-padding'>
-        <h3 class="petit-titre"><u>Répartition des contributeurs par branches</u></h3>
-        <br />
-        <canvas  class='article-bar-chart article-background' id="contributorchart" ></canvas>
-    </article>#}
-
     <article class='with-3d-shadow article-padding'>
         <h3 class="petit-titre"><u>Répartition des contributeurs par branches</u></h3>
         <br />
         <canvas  class='article-bar-chart article-background' id="contributorChart" ></canvas>
     </article>
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
-    <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
-    {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
+    <script src="{{ asset('/assets/vendor/node_modules/chart.js/dist/Chart.js') }}"></script>
 
     <script>
     var color_commit="rgba(255, 99, 132, 0.2)";
@@ -124,7 +104,6 @@
         b_color_modification.push(color_modification);
         b_border_color_modification.push(border_color_modification);
     {% endfor %}
-
 
             var data = {
                 labels: branches,
@@ -198,187 +177,6 @@
                 }
             });
     </script>
-
-
-    {#<script>
-        var color_commit="rgba(255, 99, 132, 0.2)";
-        var color_ajout="rgba(54, 162, 235, 0.2)";
-        var color_suppression="rgba(255, 206, 86, 0.2)";
-        var color_renomage="rgba(75, 192, 192, 0.2)";
-        var color_modification="rgba(153, 102, 255, 0.2)";
-
-        var border_color_commit       = 'rgba(255,99,132,1)';
-        var border_color_ajout        = 'rgba(54, 162, 235, 1)';
-        var border_color_suppression  = 'rgba(255, 159, 64, 1)';
-        var border_color_renomage     = 'rgba(75, 192, 192, 1)';
-        var border_color_modification = 'rgba(153, 102, 255, 1)';
-        var branches = [];
-
-        var data = {
-            labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
-            datasets: [
-                {
-                    label: "Commit",
-                    backgroundColor: [
-                        color_commit,
-                        color_commit,
-                        color_commit,
-                        color_commit,
-                        color_commit
-                    ],
-                    borderColor: [
-                        border_color_commit,
-                        border_color_commit,
-                        border_color_commit,
-                        border_color_commit,
-                        border_color_commit
-                    ],
-                    borderWidth: 1,
-                    data: [5, 59, 80, 81, 56],
-                },
-                {
-                    label: "Ajout",
-                    backgroundColor: [
-                        color_ajout,
-                        color_ajout,
-                        color_ajout,
-                        color_ajout,
-                        color_ajout
-                    ],
-                    borderColor: [
-                        border_color_ajout,
-                        border_color_ajout,
-                        border_color_ajout,
-                        border_color_ajout,
-                        border_color_ajout
-                    ],
-                    borderWidth: 1,
-                    data: [65, 79, 80, 81, 56],
-                },
-                {
-                    label: "Suppression",
-                    backgroundColor: [
-                        color_suppression,
-                        color_suppression,
-                        color_suppression,
-                        color_suppression,
-                        color_suppression
-                    ],
-                    borderColor: [
-                        border_color_suppression,
-                        border_color_suppression,
-                        border_color_suppression,
-                        border_color_suppression,
-                        border_color_suppression
-                    ],
-                    borderWidth: 1,
-                    data: [65, 79, 80, 81, 56],
-                },
-                {
-                    label: "Renomage",
-                    backgroundColor: [
-                        color_renomage,
-                        color_renomage,
-                        color_renomage,
-                        color_renomage,
-                        color_renomage
-                    ],
-                    borderColor: [
-                        border_color_renomage,
-                        border_color_renomage,
-                        border_color_renomage,
-                        border_color_renomage,
-                        border_color_renomage
-                    ],
-                    borderWidth: 1,
-                    data: [65, 79, 80, 81, 56],
-                },
-                {
-                    label: "Modification",
-                    backgroundColor: [
-                        color_modification,
-                        color_modification,
-                        color_modification,
-                        color_modification,
-                        color_modification
-                    ],
-                    borderColor: [
-                        border_color_modification,
-                        border_color_modification,
-                        border_color_modification,
-                        border_color_modification,
-                        border_color_modification
-                    ],
-                    borderWidth: 1,
-                    data: [65, 79, 80, 81, 56],
-                },
-
-            ]
-        };
-
-
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: {
-                responsive: true,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Les commits'
-                        }
-                    }],
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Les branches'
-                        }
-                    }]
-                }
-            }
-        });
-    </script>#}
-
-    {#<script>
-    var data_contributor = {
-        labels: ["Master", "Dev", "Dev-IHM", "Dev-Metier", "Merge"],
-        datasets: [
-            {
-                label: "Personnes",
-                backgroundColor: "rgba(255,99,132,0.2)",
-                borderColor: "rgba(255,99,132,1)",
-                pointBackgroundColor: "rgba(255,99,132,1)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgba(255,99,132,1)",
-                data: [28, 48, 40, 19, 96]
-            }
-        ]
-    };
-
-        var ctx_contributor = document.getElementById("contributorchart");
-        var myRadarChart =new Chart(ctx_contributor, {
-            type: "radar",
-            data: data_contributor,
-            options: {
-                    scale: {
-                        reverse: false, /*Pour savoir si le centre est a zero*/
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }
-            }
-        });
-    </script>#}
-
 
     <script>
     var data_contributor = {

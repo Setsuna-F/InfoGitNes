@@ -12,6 +12,9 @@
     {% endif %}
 {% endblock %}
 
+{% block infoSelected %}<span class="sub_icon glyphicon glyphicon-info-sign" style="color:white;"></span>{% endblock %}
+{% block urlSelected %}<span class="sub_icon glyphicon glyphicon-plus-sign"></span>{% endblock %}
+
 {% block body %}
 
     <script type="text/javascript">
@@ -27,8 +30,7 @@
     {% if infoGeneral.getNbCommits() %}
         nbCommits= {{infoGeneral.getNbCommits()}};
     {% endif %}
-    //var nbContributeur = {{ infoGeneral.getNbBranches() | raw }};
-    //$nbContributeur = 4;
+
     </script>
 
     <h2 class="gros-titre">Informations générales</h2>

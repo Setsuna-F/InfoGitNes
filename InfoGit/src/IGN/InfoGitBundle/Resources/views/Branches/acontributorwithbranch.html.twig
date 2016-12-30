@@ -31,47 +31,10 @@
             <canvas class='article-bar-chart' id="commitLineChart" ></canvas>
         </article>
     </div>
-        {#
-            Cette visualisation se fera pour tous les commits
-        #}
-        {#<div class="row">
-            <div class="col-lg-12">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <article class='with-3d-shadow'>
-                        <h3 class="petit-titre centerblock"><u>Visualisation des ajouts</u></h3>
-                        <br />
-                        <canvas class='article-bar-chart' id="ajoutChart" ></canvas>
-                    </article>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <article class='with-3d-shadow'>
-                        <h3 class="petit-titre centerblock"><u>Visualisation des suppressions</u></h3>
-                        <br />
-                        <canvas class='article-bar-chart' id="suppressionChart" ></canvas>
-                    </article>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <article class='with-3d-shadow'>
-                        <h3 class="petit-titre centerblock"><u>Visualisation des renommages</u></h3>
-                        <br />
-                        <canvas class='article-bar-chart' id="renomageChart" ></canvas>
-                    </article>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <article class='with-3d-shadow'>
-                        <h3 class="petit-titre centerblock"><u>Visualisation des modifications</u></h3>
-                        <br />
-                        <canvas class='article-bar-chart' id="modificationChart" ></canvas>
-                    </article>
-                </div>
-            </div>
-        </div>#}
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
-    <script src="/assets/vendor/node_modules/chart.js/dist/Chart.js"></script>
-    {#<script src="/res/novus-nvd3/build/nv.d3.js"></script>#}
+    <script src="{{ asset('/assets/vendor/node_modules/chart.js/dist/Chart.js') }}"></script>
+
     <script>
         var cmts = [];
         var adds = [];

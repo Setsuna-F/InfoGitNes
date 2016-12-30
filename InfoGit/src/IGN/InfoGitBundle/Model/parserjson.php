@@ -236,13 +236,13 @@ public function getBranchesByContributor($contributor){
 
         public function getCommitsListByBrancheAndByContributor($branch, $contributor){
             $nbCmt=0;
-            $nbAdd=0;
-            $nbRmv=0;
-            $nbMdy=0;
-            $nbRnm=0;
-
+        /* ICI CA A ETE MODIFIE*/
             $index=0;
             for($i = 0; $i < count($this->parsed_json->branches); ++$i) {
+                $nbAdd=0;
+                $nbRmv=0;
+                $nbMdy=0;
+                $nbRnm=0;
                 if($this->parsed_json->branches[$i]->branchName === $branch){
                     if(isset($this->parsed_json->branches[$i]->commits->{$contributor})){
                         for($j = 0; $j < count($this->parsed_json->branches[$i]->commits->{$contributor}); ++$j) { //pour toutes les branches
