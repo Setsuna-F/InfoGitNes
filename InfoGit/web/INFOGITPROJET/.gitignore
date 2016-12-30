@@ -1,6 +1,11 @@
-vendor/
-composer.lock
-phpunit.xml
-doc/_build/
-puli.json
-.puli/
+.bundle
+log
+db/*.sqlite3
+.idea
+tmp/**/*
+config/newrelic.yml
+config/initializers/hoptoad.rb
+config/database.yml
+config/config.yml
+rails.git
+vendor/bundle

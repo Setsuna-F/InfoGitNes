@@ -1,5 +1,17 @@
 {% extends "IGNInfoGitBundle::index.html.twig" %}
 
+{% block urLogo %}
+    {% if(gitType == "gitlab") %}
+        <img src="https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo.png" width="25" height="25"/>
+    {% elseif(gitType == "github") %}
+        <img src="https://www.macupdate.com/images/icons256/39062.png" width="25" height="25"/>
+    {% elseif(gitType == "bitbucket") %}
+        <img src="https://technologyconversations.files.wordpress.com/2015/10/download.png" width="25" height="25"/>
+    {% else %}
+        <img src="https://git-for-windows.github.io/img/git_logo.png" width="25" height="25"/>
+    {% endif %}
+{% endblock %}
+
 {% block body %}
 
     <h2 class="gros-titre">Contributeur</h2>
@@ -22,9 +34,9 @@
             </div>
             <hr />
             <div class="row">
-                <p  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabulation-margin">Il a contribué à {{infoContributor.getBranchesByUser() | length}} branches:</p>
+                <p  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabulation-margin">Il a contribué à {# {infoContributor.getBranchesByUser() | length} #} {{infoBranches | length}} branches:</p>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 double-tabulation-margin">
-                    {% for branch in infoContributor.getBranchesByUser() %}
+                    {% for branch in infoBranches %}
                         <p><a href="{{ path('ign_info_git_a_contributor_with_a_branch', {'contributor':  name, 'branch': branch.getFormatedName()}) }}">{{branch.getName()}}</a></p>
                     {% endfor %}
                 </div>

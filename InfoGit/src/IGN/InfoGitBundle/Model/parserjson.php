@@ -15,6 +15,7 @@ class parserjson {
     private $allPerson  = array();
     private $branchesByContributor  = array();
     private $commitsList=array();
+    private $gitType    = "";
 
 
     private $parsed_json;
@@ -149,13 +150,21 @@ class parserjson {
 
     public function getAllCommit(){
         for($i = 0; $i < count($this->parsed_json->branches); ++$i) {
+            $nbCmt=0;
+            $nbAdd=0;
+            $nbRmv=0;
+            $nbMdy=0;
+            $nbRnm=0;
+            for($j = 0; $j < $this->parsed_json->nbUsers; ++$j) {
+                $nbCmt+= $this->getInfoCommitsByBrancheAndContributor($this->parsed_json->branches[$i]->branchName,$this->allPerson[$j])->getNbCommits();
+                $nbAdd+= $this->getInfoCommitsByBrancheAndContributor($this->parsed_json->branches[$i]->branchName,$this->allPerson[$j])->getNbAdd();
+                $nbRmv+= $this->getInfoCommitsByBrancheAndContributor($this->parsed_json->branches[$i]->branchName,$this->allPerson[$j])->getNbDel();
+                $nbMdy+= $this->getInfoCommitsByBrancheAndContributor($this->parsed_json->branches[$i]->branchName,$this->allPerson[$j])->getNbMdf();
+                $nbRnm+= $this->getInfoCommitsByBrancheAndContributor($this->parsed_json->branches[$i]->branchName,$this->allPerson[$j])->getNbRnm();
+            }
             $this->branches[$i]=new Branche(
                 $this->parsed_json->branches[$i]->branchName,
-                new Commit($this->parsed_json->branches[$i]->nbCommits,
-                            0,
-                            0,
-                            0,
-                            0),
+                new Commit($nbCmt, $nbAdd, $nbRmv, $nbRnm, $nbMdy),
                 count($this->parsed_json->branches[$i]->tousLesNomDUtilisateur)
             );
         }
@@ -253,9 +262,11 @@ public function getBranchesByContributor($contributor){
 
         public function getBranchNameWithFormatedName($contributor, $fname){
             $branches = $this->getBranchesByContributor($contributor);
-            for($i = 0; $i < count($branches); ++$i) {
-                if(preg_replace('#/?.+/(.+)/?#i', '$1', $branches[$i]->getName()) === $fname)
-                    return $branches[$i]->getName();
+            //return $branches;
+            for($i = 0; $i < count($branches)+1; ++$i) {
+                if(isset( $branches[$i]))
+                    if(preg_replace('#/?.+/(.+)/?#i', '$1', $branches[$i]->getName()) === $fname)
+                        return $branches[$i]->getName();
             }
             return "SOKA";
         }
@@ -294,6 +305,9 @@ public function getBranchesByContributor($contributor){
     }
     public function getCommitsList(){
         return $this->commitsList;
+    }
+    public function getGitType(){
+        return preg_replace('#https?://(.+)\..+/.+#i', '$1', $this->url);
     }
 }
 

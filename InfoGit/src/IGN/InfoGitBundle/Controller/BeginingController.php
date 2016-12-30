@@ -61,7 +61,7 @@ class BeginingController extends Controller
           }
 
 
-          return $this->render('IGNInfoGitBundle::index.html.twig', array('form' => $form->createView(),'isloadurl'=>$isloadurl,));
+          return $this->render('IGNInfoGitBundle::index.html.twig', array('form' => $form->createView(),'isloadurl'=>$isloadurl));
       }
 
 
@@ -90,6 +90,8 @@ class BeginingController extends Controller
 
         $this->parse_json = new parserjson();
 
+
+
         //die(var_dump($this->parse_json->getCommitsByAllContributor()));
         //die(var_dump($this->parse_json->mostActif()));
 
@@ -103,7 +105,7 @@ class BeginingController extends Controller
         //die(var_dump($this->parse_json->getNbBranches()));
         //die(var_dump($this->parse_json->getPerson()->{'Steven Nance'} ));//->getContributorsAndMails()));
         //die(var_dump($this->parse_json->getPerson()->{"Steven Nance"}[0]));
-        return $this->render('IGNInfoGitBundle:Begining:home.html.twig', array('infoGeneral' => $this->parse_json));
+        return $this->render('IGNInfoGitBundle:Begining:home.html.twig', array('infoGeneral' => $this->parse_json, 'gitType'=> $this->parse_json->getGitType()));
     }
 
 
@@ -114,6 +116,8 @@ class BeginingController extends Controller
     */
     public function treeAction()
     {
-        return $this->render('IGNInfoGitBundle:Begining:tree.html.twig');
+        $this->parse_json = new parserjson();
+
+        return $this->render('IGNInfoGitBundle:Begining:tree.html.twig',  array('gitType'=> $this->parse_json->getGitType()));
     }
 }

@@ -1,5 +1,17 @@
 {% extends "IGNInfoGitBundle::index.html.twig" %}
 
+{% block urLogo %}
+    {% if(gitType == "gitlab") %}
+        <img src="https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo.png" width="25" height="25"/>
+    {% elseif(gitType == "github") %}
+        <img src="https://www.macupdate.com/images/icons256/39062.png" width="25" height="25"/>
+    {% elseif(gitType == "bitbucket") %}
+        <img src="https://technologyconversations.files.wordpress.com/2015/10/download.png" width="25" height="25"/>
+    {% else %}
+        <img src="https://git-for-windows.github.io/img/git_logo.png" width="25" height="25"/>
+    {% endif %}
+{% endblock %}
+
 {% block body %}
     <h2 class="gros-titre">Tous les contributeurs</h2>
     <article class="article-padding bigfont">
@@ -31,16 +43,25 @@
     </article>
     <br />
 
+
     <div class="row">
         <div class="col-lg-12">
+            {% if (infoContributor.getNbUsers() < 10) %}
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            {% else %}
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {% endif %}
                 <article class='with-3d-shadow'>
                     <h3 class="petit-titre centerblock"><u>Visualisation des commits</u></h3>
                     <br />
                     <canvas class='article-bar-chart' id="commitBarChart" ></canvas>
                 </article>
             </div>
+            {% if (infoContributor.getNbUsers() < 10) %}
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            {% else %}
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {% endif %}
                 <article class='with-3d-shadow '>
                     <h3 class="petit-titre centerblock"><u>Nombre de commits par contributeur</u></h3>
                     <br />

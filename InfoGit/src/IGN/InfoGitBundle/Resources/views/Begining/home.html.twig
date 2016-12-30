@@ -1,6 +1,19 @@
 {% extends "IGNInfoGitBundle::index.html.twig" %}
 
+{% block urLogo %}
+    {% if(gitType == "gitlab") %}
+        <img src="https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo.png" width="25" height="25"/>
+    {% elseif(gitType == "github") %}
+        <img src="https://www.macupdate.com/images/icons256/39062.png" width="25" height="25"/>
+    {% elseif(gitType == "bitbucket") %}
+        <img src="https://technologyconversations.files.wordpress.com/2015/10/download.png" width="25" height="25"/>
+    {% else %}
+        <img src="https://git-for-windows.github.io/img/git_logo.png" width="25" height="25"/>
+    {% endif %}
+{% endblock %}
+
 {% block body %}
+
     <script type="text/javascript">
     var nbCommits=0;
     var nbBranches=0;

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+bundle install
+
+database_config=config/database.yml
+if [ ! -e $database_config ]
+then
+    cp config/database.yml.example $database_config
+fi
+
+app_config=config/config.yml
+if [ ! -f $app_config ]
+then
+    cp config/config.yml.example $app_config
+fi
+
+bundle exec rake db:setup

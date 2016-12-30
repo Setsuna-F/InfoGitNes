@@ -42,10 +42,11 @@ var counter1710670 = 0;
 var interval1710670 = setInterval(function() {
     if(resultNodeNbCommits){
        resultNodeNbCommits.innerHTML=counter1710670;
-        if(counter1710670 > nbCommits) {
+       var valcount=((nbCommits>10000)?100:((nbCommits>1000)?50:((nbCommits>400)?10:1)));
+       if(counter1710670 > nbCommits) {
             clearInterval(interval1710670);
             resultNodeNbCommits.innerHTML = nbCommits;
         }
-        counter1710670++;
+        counter1710670+=valcount;
     }}, 0)
 /* ----------------------------------------   FIN JS pour l'incrementation auto */

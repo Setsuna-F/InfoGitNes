@@ -1,0 +1,8 @@
+development:
+  github_url: "https://github.com/rails/rails"
+
+test:
+  github_url: "https://github.com/rails/rails"
+
+production:
+  github_url: "https://github.com/rails/rails"
