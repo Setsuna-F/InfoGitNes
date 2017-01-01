@@ -126,17 +126,28 @@ public class InfoGit {
         	
         	//Arborescence
         	if(cpt == 0){
-        		String s =  commit.getName() + " " + commit.getShortMessage();
+        		ArrayList<String> s = new ArrayList<String>();
+        		s.add(commit.getName());
+        		s.add(commit.getShortMessage());
         		infoBranch.setDebut(s);
         	}
         	cpt++;
 
-        	String fils = commit.getName() + " " + commit.getShortMessage();
-        	ArrayList<String> pa = new ArrayList<String>();
+        	//String fils = commit.getName() + " " + commit.getShortMessage();
+        	ArrayList<String> f = new ArrayList<String>();
+        	f.add(commit.getName());
+        	f.add(commit.getShortMessage());
+        	ArrayList<ArrayList<String>> fils = new ArrayList<ArrayList<String>>();
+        	fils.add(f);
+        	ArrayList<ArrayList<String>> parentList = new ArrayList<ArrayList<String>>();
+
         	for(int i = 0; i < commit.getParentCount(); i++){
-        		pa.add(commit.getParent(i).getName() + " " + commit.getParent(i).getShortMessage());
+            	ArrayList<String> pa = new ArrayList<String>();
+        		pa.add(commit.getParent(i).getName());
+        		pa.add(commit.getParent(i).getShortMessage());
+        		parentList.add(pa);
         	}
-        	infoBranch.setParents(fils, pa);
+        	infoBranch.setParents(fils, parentList);
         	//Fin Arborescence
         	
         	infoBranch.setCommits(commit.getAuthorIdent().getName(), infoCommit);
