@@ -10,10 +10,8 @@ public class InfoBranch {
 	private String ref;
 	private int nbCommits;
 	private Hashtable<String, ArrayList <InfoCommit> > commits;
-	//private ArrayList<Couple> merges;
-	//private ArrayList<Couple> newBranches;
-	
-	//Arborescence
+
+	//Variables pour l'arborescence
 	private ArrayList<String> debut;
 	private Hashtable<ArrayList<ArrayList<String>>, ArrayList<ArrayList<String>>> parents;
 	
@@ -54,7 +52,7 @@ public class InfoBranch {
 	
 	
 	/**
-	 * \return le nombre de commit pour la branche.
+	 * \return le nombre de commits pour la branche.
 	 * 
 	 **/
 	public int getNbCommits() {
