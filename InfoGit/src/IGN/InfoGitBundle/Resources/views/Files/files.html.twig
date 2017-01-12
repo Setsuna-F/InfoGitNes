@@ -1,0 +1,52 @@
+{% extends "IGNInfoGitBundle::index.html.twig" %}
+
+{% block urLogo %}
+    {% if(gitType == "gitlab") %}
+        <img src="https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo.png" width="25" height="25"/>
+    {% elseif(gitType == "github") %}
+        <img src="https://www.macupdate.com/images/icons256/39062.png" width="25" height="25"/>
+    {% elseif(gitType == "bitbucket") %}
+        <img src="https://technologyconversations.files.wordpress.com/2015/10/download.png" width="25" height="25"/>
+    {% else %}
+        <img src="https://git-for-windows.github.io/img/git_logo.png" width="25" height="25"/>
+    {% endif %}
+{% endblock %}
+
+{% block arbreSelected %}<span class="sub_icon glyphicon glyphicon-tree-deciduous" style="color:white;"></span>{% endblock %}
+{% block urlSelected %}<span class="sub_icon glyphicon glyphicon-plus-sign"></span>{% endblock %}
+
+
+{% block body %}
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<div id="tree">
+	<ul>
+  <li><input type="checkbox" id="c1" />
+    <i class="fa fa-angle-double-right"></i>
+    <i class="fa fa-angle-double-down"></i>
+    <label for="c1">Dossier A</label>
+    <ul>
+      <li>Sous dossier A1</li>
+      <li>Sous dossier A2</li>
+      <li>Sous dossier A3</li>
+    </ul>
+  </li>
+  <li><input type="checkbox" id="c2" />
+    <i class="fa fa-angle-double-right"></i>
+    <i class="fa fa-angle-double-down"></i>
+    <label for="c2">Dossier B</label>
+    <ul>
+      <li>Sous dossier B1</li>
+      <li><input type="checkbox" id="c3" />
+        <i class="fa fa-angle-double-right"></i>
+        <i class="fa fa-angle-double-down"></i>
+        <label for="c3">Sous dossier B2</label>
+        <ul>
+          <li>Sous-sous dossier B21</li>
+          <li>Sous-sous dossier B22</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+{% endblock %}

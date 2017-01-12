@@ -11,6 +11,7 @@
             <li><a href="{{ path('ign_info_git_tree') }}">              Arbre           {% block arbreSelected %}<span class="sub_icon glyphicon glyphicon-tree-deciduous"></span>{% endblock %}</a></li>
             <li><a href="{{ path('ign_info_git_all_branches') }}">      Branches        {% block branchesSelected %}<span class="sub_icon glyphicon glyphicon-link"></span>{% endblock %}</a></li>
             <li><a href="{{ path('ign_info_git_all_contributors') }}">  Contributeurs   {% block contributorSelected %}<span class="sub_icon glyphicon glyphicon-user"></span>{% endblock %}</a></li>
+			<li><a href="{{ path('ign_info_git_files_tree') }}">             Fichiers  {% block filesTree %}<span class="sub_icon glyphicon glyphicon-file" style="color:white;"></span>{% endblock %}</a></li>
             <li><a href="{{ path('ign_info_git_index') }}">             Nouvel url git  {% block urlSelected %}<span class="sub_icon glyphicon glyphicon-plus-sign" style="color:white;"></span>{% endblock %}</a></li>
         </ul>
     </nav>
@@ -19,7 +20,7 @@
             {% block urLogo %}
                 <img src="https://git-for-windows.github.io/img/git_logo.png" width="25" height="25"/>
             {% endblock %}
-        <span>
+        </span>
     </h1>
 {% endblock %}
 
