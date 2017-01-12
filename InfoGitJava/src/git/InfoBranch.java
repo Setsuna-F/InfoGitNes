@@ -14,8 +14,8 @@ public class InfoBranch {
 	//private ArrayList<Couple> newBranches;
 	
 	//Arborescence
-	private String debut;
-	private Hashtable<String, ArrayList<String>> parents;
+	private ArrayList<String> debut;
+	private Hashtable<ArrayList<ArrayList<String>>, ArrayList<ArrayList<String>>> parents;
 	
 	
 	/**
@@ -30,7 +30,8 @@ public class InfoBranch {
 		this.ref=ref;
 		this.nbCommits=0;
 		this.commits=new Hashtable<String, ArrayList <InfoCommit> >();
-		parents = new Hashtable<String, ArrayList<String>>();
+		parents = new Hashtable<ArrayList<ArrayList<String>>, ArrayList<ArrayList<String>>>();
+		debut = new ArrayList<String>();
 	}
 	
 	
@@ -65,7 +66,7 @@ public class InfoBranch {
 	 * \return le début de l'arbre.
 	 * 
 	 **/
-	public String getDebut() {
+	public ArrayList<String> getDebut() {
 		return debut;
 	}
 
@@ -74,7 +75,7 @@ public class InfoBranch {
 	 * \brief change le début de l'arbre.
 	 * 
 	 **/
-	public void setDebut(String debut) {
+	public void setDebut(ArrayList<String> debut) {
 		this.debut = debut;
 	}
 	
@@ -83,7 +84,7 @@ public class InfoBranch {
 	 * \return la hashtable parents.
 	 * 
 	 **/
-	public Hashtable<String, ArrayList<String>> getParents() {
+	public Hashtable<ArrayList<ArrayList<String>>, ArrayList<ArrayList<String>>> getParents() {
 		return parents;
 	}
 
@@ -92,7 +93,7 @@ public class InfoBranch {
 	 * \brief change la hashtable parents.
 	 * 
 	 **/
-	public void setParents(String f, ArrayList<String> pa) {
+	public void setParents(ArrayList<ArrayList<String>> f, ArrayList<ArrayList<String>> pa) {
 		parents.put(f, pa);
 
 	}

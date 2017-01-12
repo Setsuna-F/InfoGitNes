@@ -29,7 +29,7 @@ public class tools {
 	/**
 	 * \brief affichage des parents.
 	 **/
-	public static void affichageParent(ArrayList<String> p, InfoBranch g){
+	/*public static void affichageParent(ArrayList<String> p, InfoBranch g){
 		for(int i = 0; i < p.size(); i++){
 			String s = "";
 			if(i == 1){
@@ -38,7 +38,7 @@ public class tools {
 			System.out.println(s + "* " + p.get(i));
 			affichageParent(g.getParents().get(p.get(i)), g);
 		}
-	}
+	}*/
 	
 	
 	/**
