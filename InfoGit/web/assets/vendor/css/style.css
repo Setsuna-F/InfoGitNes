@@ -1,38 +1,38 @@
 
 /* fonctionnel */
-input {
+#tree input {
   display: none;
 }
-input ~ ul {
+#tree input ~ ul {
  display: none;
 }
-input:checked ~ ul {
+#tree input:checked ~ ul {
  display: block;
 }
-input ~ .glyphicon-folder-open {
+#tree input ~ .glyphicon-folder-open {
   display: none;
 }
-input ~ .glyphicon-folder-close {
+#tree input ~ .glyphicon-folder-close {
   padding-right: 5px;
 }
 
-input:checked ~ .glyphicon-folder-close {
+#tree input:checked ~ .glyphicon-folder-close {
   display: none;
 }
-input:checked ~ .glyphicon-folder-open {
+#tree input:checked ~ .glyphicon-folder-open {
   display: inline;
   padding-right: 5px;
 }
 
 /* habillage */
-li {
+#tree li {
   display: block;
   font-family: 'Arial';
   font-size: 15px;
   padding: 0.2em;
   border: 2px solid transparent;
 }
-li:hover {
+#tree li:hover {
   border: 1px solid grey;
   border-radius: 3px;
   /*background-color: lightgrey;*/
