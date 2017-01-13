@@ -12,6 +12,8 @@ class FilesController extends Controller
     private $type;
     private $line;
     private $name;
+    private $path;
+    //private $list;
 
     public function treeAction()
     {
@@ -28,17 +30,57 @@ class FilesController extends Controller
                     $line = $value;
                 }
                 if ($key == "path") {
-                    # code...
+                    $path = $value;
 
                 }
                 if ($key == "name") {
                     $name = $value;
                 }
             }
-            echo "-> $name is a $type of $line lines </br>";
+            $paths[$path] = $type;
         }
+        $tree = build_tree($paths);
 
-        return $this->render('IGNInfoGitBundle:Files:files.html.twig', array('infoBranches' => $this->parse_json));
+    echo print_r($tree);
+        $list = build_list($tree);
+        return $this->render('IGNInfoGitBundle:Files:files.html.twig', array('list' => $list));
     }
 
+}
+
+
+
+function build_tree($path_list) {
+    $path_tree = array();
+    foreach ($path_list as $path => $title) {
+        $list = explode('/', trim($path, '/'));
+        $last_dir = &$path_tree;
+        foreach ($list as $dir) {
+            $last_dir =& $last_dir[$dir];
+        }
+        $last_dir['__title'] = $title;
+    }
+    return $path_tree;
+}
+
+function build_list($tree) {
+    $ul = '';
+    foreach ($tree as $key => $value) {
+        $li = '';
+        if (is_array($value)) {
+            if (array_key_exists('__title', $value)) {
+                if($value['__title'] == "Directory")
+                {
+                    $t = rand ( 0 , 1000000000 );
+                    $li .= "<input type=\"checkbox\" id=\"c$t\" /><i class=\"fa fa-angle-double-right\"></i><i class=\"fa fa-angle-double-down\"></i><label for=\"c$t\">$key</label>";
+                }
+                else $li .= $key;
+            } else {
+                $li .= "$key";
+            }
+            $li .= build_list($value, $i, $y);
+            $ul .= strlen($li) ? "<li>$li</li>" : '';
+        }
+    }
+    return strlen($ul) ? "<ul>$ul</ul>" : '';
 }
