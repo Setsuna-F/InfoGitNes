@@ -9,14 +9,19 @@ input ~ ul {
 input:checked ~ ul {
  display: block;
 }
-input ~ .fa-angle-double-down {
+input ~ .glyphicon-folder-open {
   display: none;
 }
-input:checked ~ .fa-angle-double-right {
+input ~ .glyphicon-folder-close {
+  padding-right: 5px;
+}
+
+input:checked ~ .glyphicon-folder-close {
   display: none;
 }
-input:checked ~ .fa-angle-double-down {
+input:checked ~ .glyphicon-folder-open {
   display: inline;
+  padding-right: 5px;
 }
 
 /* habillage */
@@ -25,12 +30,12 @@ li {
   font-family: 'Arial';
   font-size: 15px;
   padding: 0.2em;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
 }
 li:hover {
   border: 1px solid grey;
   border-radius: 3px;
-  background-color: lightgrey;
+  /*background-color: lightgrey;*/
 }
 #tree{
   background-color: white;

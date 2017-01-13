@@ -40,8 +40,6 @@ class FilesController extends Controller
             $paths[$path] = $type;
         }
         $tree = build_tree($paths);
-
-    echo print_r($tree);
         $list = build_list($tree);
         return $this->render('IGNInfoGitBundle:Files:files.html.twig', array('list' => $list));
     }
@@ -71,10 +69,10 @@ function build_list($tree) {
             if (array_key_exists('__title', $value)) {
                 if($value['__title'] == "Directory")
                 {
-                    $t = rand ( 0 , 1000000000 );
-                    $li .= "<input type=\"checkbox\" id=\"c$t\" /><i class=\"fa fa-angle-double-right\"></i><i class=\"fa fa-angle-double-down\"></i><label for=\"c$t\">$key</label>";
+                    $t = rand ( 0 , 100000000000 );
+                    $li .= "<input type=\"checkbox\" id=\"c$t\" /><i class=\"glyphicon glyphicon-folder-close\"></i><i class=\"glyphicon glyphicon-folder-open\"></i><label for=\"c$t\"> $key</label>";
                 }
-                else $li .= $key;
+                else $li .= "<i class=\"glyphicon glyphicon-file\"></i>".$key;
             } else {
                 $li .= "$key";
             }
