@@ -36,3 +36,8 @@ ign_info_git_all_contributors:
 ign_info_git_a_contributor:
     path:     /contributor/{name}
     defaults: { _controller: IGNInfoGitBundle:Contributors:acontributor }
+
+##### Files tree
+ign_info_git_files_tree:
+    path:     /files/
+    defaults: { _controller: IGNInfoGitBundle:Files:tree }

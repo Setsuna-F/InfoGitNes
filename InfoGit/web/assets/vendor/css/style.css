@@ -1,0 +1,42 @@
+
+/* fonctionnel */
+#tree input {
+  display: none;
+}
+#tree input ~ ul {
+ display: none;
+}
+#tree input:checked ~ ul {
+ display: block;
+}
+#tree input ~ .glyphicon-folder-open {
+  display: none;
+}
+#tree input ~ .glyphicon-folder-close {
+  padding-right: 5px;
+}
+
+#tree input:checked ~ .glyphicon-folder-close {
+  display: none;
+}
+#tree input:checked ~ .glyphicon-folder-open {
+  display: inline;
+  padding-right: 5px;
+}
+
+/* habillage */
+#tree li {
+  display: block;
+  font-family: 'Arial';
+  font-size: 15px;
+  padding: 0.2em;
+  border: 2px solid transparent;
+}
+#tree li:hover {
+  border: 1px solid grey;
+  border-radius: 3px;
+  /*background-color: lightgrey;*/
+}
+#tree{
+  background-color: white;
+}

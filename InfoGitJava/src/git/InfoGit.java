@@ -63,13 +63,6 @@ public class InfoGit {
 					.call();
 		repo = git.getRepository();
 		
-		/*try {
-			repo = new FileRepository("/Users/S-Setsuna-F/Documents/Master2/. et Restruct/GIT TEST/jawgrind/.git");
-			git = new Git(repo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-		
 		walk = new RevWalk(repo);
 	}
 	
@@ -93,7 +86,7 @@ public class InfoGit {
 	
 	
 	/**
-	 * \brief collecte tous les commit de la branche passee en parametre.
+	 * \brief collecte tous les commits de la branche passee en parametre.
 	 * 
 	 **/
 	public void collectCommitByBranch(InfoBranch infoBranch) throws GitAPIException, IOException{
@@ -133,7 +126,6 @@ public class InfoGit {
         	}
         	cpt++;
 
-        	//String fils = commit.getName() + " " + commit.getShortMessage();
         	ArrayList<String> f = new ArrayList<String>();
         	f.add(commit.getName());
         	f.add(commit.getShortMessage());
@@ -189,7 +181,7 @@ public class InfoGit {
 	
 	
 	/**
-	 * \brief ajoute l'utilisateur et son email Ã  la liste person.
+	 * \brief ajoute l'utilisateur et son email a la liste person.
 	 **/
 	public void setPerson(String utilisateur, String mail) {
 		/*Si l'utilisateur n'est pas encore present dans la hashtable*/
@@ -264,13 +256,13 @@ public class InfoGit {
 	
 	
 	/**
-	 * permet de compter le nombre de dossiers, fichiers, et lignes.
+	 * Permet de compter le nombre de dossiers, fichiers, et lignes.
 	 * crée un objetInfoFile et l'envoie dans une liste pour que le 
 	 * convertisseur JSON s'en charge tout seul
 	 * @throws IOException 
 	 */
 	public ArrayList<InfoFile> lsGit() throws IOException {
-		 Ref head = repo.getRef("HEAD");
+		Ref head = repo.getRef("HEAD");
 		RevCommit commit = walk.parseCommit(head.getObjectId());
 		RevTree tree = commit.getTree();
 		TreeWalk treeWalk = new TreeWalk(repo);
@@ -291,7 +283,7 @@ public class InfoGit {
 	
 	
 	/**
-	 * compte le nombre de lignes d'un fichier
+	 * Compte le nombre de lignes d'un fichier
 	 * @throws IOException 
 	 */
 	public int countLines(String path) throws IOException
