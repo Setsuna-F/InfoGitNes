@@ -90,7 +90,7 @@
                 <article class='with-3d-shadow'>
                     <h3 class="petit-titre centerblock"><u>Visualisation des {{infoContributor.getNbRenameByContributor(name)}} renommages</u></h3>
                     <br />
-                    <canvas class='article-bar-chart' id="renomageChart" ></canvas>
+                    <canvas class='article-bar-chart' id="renommageChart" ></canvas>
                 </article>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -113,13 +113,13 @@
             var color_commit="rgba(255, 99, 132, 0.2)";
             var color_ajout="rgba(54, 162, 235, 0.2)";
             var color_suppression="rgba(255, 206, 86, 0.2)";
-            var color_renomage="rgba(75, 192, 192, 0.2)";
+            var color_renommage="rgba(75, 192, 192, 0.2)";
             var color_modification="rgba(153, 102, 255, 0.2)";
 
             var border_color_commit       = 'rgba(255,99,132,1)';
             var border_color_ajout        = 'rgba(54, 162, 235, 1)';
             var border_color_suppression  = 'rgba(255, 159, 64, 1)';
-            var border_color_renomage     = 'rgba(75, 192, 192, 1)';
+            var border_color_renommage     = 'rgba(75, 192, 192, 1)';
             var border_color_modification = 'rgba(153, 102, 255, 1)';
     /* ----------------------------------------- */
 
@@ -137,19 +137,19 @@
 
             var b_val_commit      = [];
             var b_val_ajout       = [];
-            var b_val_renomage    = [];
+            var b_val_renommage    = [];
             var b_val_suppression = [];
             var b_val_modification= [];
 
             var b_color_commit      = [];
             var b_color_ajout       = [];
-            var b_color_renomage    = [];
+            var b_color_renommage    = [];
             var b_color_suppression = [];
             var b_color_modification= [];
 
             var b_border_color_commit      = [];
             var b_border_color_ajout       = [];
-            var b_border_color_renomage    = [];
+            var b_border_color_renommage    = [];
             var b_border_color_suppression = [];
             var b_border_color_modification= [];
 
@@ -159,8 +159,8 @@
             var b_color_ajouts= [];
             var b_border_color_ajouts= [];
 
-            var b_color_renomages= [];
-            var b_border_color_renomages= [];
+            var b_color_renommages= [];
+            var b_border_color_renommages= [];
 
             var b_color_suppressions= [];
             var b_border_color_suppressions= [];
@@ -190,8 +190,8 @@
                 b_border_color_suppressions.push(getRealColor(cS, 0.4));
 
                 var cR = randomColor(1);
-                b_color_renomages.push(getRealColor(cR, 1));
-                b_border_color_renomages.push(getRealColor(cR, 0.4));
+                b_color_renommages.push(getRealColor(cR, 1));
+                b_border_color_renommages.push(getRealColor(cR, 0.4));
 
                 var cM = randomColor(1);
                 b_color_modifications.push(getRealColor(cM, 1));
@@ -217,9 +217,9 @@
             {% endfor %}
 
             {% for branch in infoBranches %}
-                b_val_renomage.push('{{infoContributor.getInfoCommitsByBrancheAndContributor(branch.getName(), name).getNbRnm()}}');
-                b_color_renomage.push(color_renomage);
-                b_border_color_renomage.push(border_color_renomage);
+                b_val_renommage.push('{{infoContributor.getInfoCommitsByBrancheAndContributor(branch.getName(), name).getNbRnm()}}');
+                b_color_renommage.push(color_renommage);
+                b_border_color_renommage.push(border_color_renommage);
             {% endfor %}
 
             {% for branch in infoBranches %}
@@ -271,11 +271,11 @@
                             data: b_val_suppression,
                         },
                         {
-                            label: "Renomage",
-                            backgroundColor: b_color_renomage,
-                            borderColor: b_border_color_renomage,
+                            label: "renommage",
+                            backgroundColor: b_color_renommage,
+                            borderColor: b_border_color_renommage,
                             borderWidth: 1,
-                            data:b_val_renomage,
+                            data:b_val_renommage,
                         },
                         {
                             label: "Modification",
@@ -339,13 +339,13 @@
                         hoverBackgroundColor: b_color_suppressions
                     }]
             };
-            var dataRenomages = {
+            var datarenommages = {
                 labels: branches,
                 datasets: [
                     {
-                        data: b_val_renomage,
-                        backgroundColor: b_border_color_renomages,
-                        hoverBackgroundColor: b_color_renomages
+                        data: b_val_renommage,
+                        backgroundColor: b_border_color_renommages,
+                        hoverBackgroundColor: b_color_renommages
                     }]
             };
             var dataModifications = {
@@ -376,13 +376,13 @@
                     data: dataSuppressions//,
                     //options: options
                 });
-                var renomageCtx = document.getElementById("renomageChart");
-                var myDoughnutChart = new Chart(renomageCtx, {
+                var renommageCtx = document.getElementById("renommageChart");
+                var myDoughnutChart = new Chart(renommageCtx, {
                     type: 'pie',
                     animation:{
                         animateScale:true
                     },
-                    data: dataRenomages//,
+                    data: datarenommages//,
                     //options: options
                 });
                 var modificationCtx = document.getElementById("modificationChart");

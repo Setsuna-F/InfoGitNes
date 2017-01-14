@@ -83,13 +83,13 @@
         var color_commit="rgba(255, 99, 132, 0.2)";
         var color_ajout="rgba(54, 162, 235, 0.2)";
         var color_suppression="rgba(255, 206, 86, 0.2)";
-        var color_renomage="rgba(75, 192, 192, 0.2)";
+        var color_renommage="rgba(75, 192, 192, 0.2)";
         var color_modification="rgba(153, 102, 255, 0.2)";
 
         var border_color_commit       = 'rgba(255,99,132,1)';
         var border_color_ajout        = 'rgba(54, 162, 235, 1)';
         var border_color_suppression  = 'rgba(255, 159, 64, 1)';
-        var border_color_renomage     = 'rgba(75, 192, 192, 1)';
+        var border_color_renommage     = 'rgba(75, 192, 192, 1)';
         var border_color_modification = 'rgba(153, 102, 255, 1)';
 /* ----------------------------------------- */
 
@@ -99,19 +99,19 @@
 
         var b_val_commit      = [];
         var b_val_ajout       = [];
-        var b_val_renomage    = [];
+        var b_val_renommage    = [];
         var b_val_suppression = [];
         var b_val_modification= [];
 
         var b_color_commit      = [];
         var b_color_ajout       = [];
-        var b_color_renomage    = [];
+        var b_color_renommage    = [];
         var b_color_suppression = [];
         var b_color_modification= [];
 
         var b_border_color_commit      = [];
         var b_border_color_ajout       = [];
-        var b_border_color_renomage    = [];
+        var b_border_color_renommage    = [];
         var b_border_color_suppression = [];
         var b_border_color_modification= [];
 
@@ -139,9 +139,9 @@
         {% endfor %}
 
         {% for person in infoContributor.getAllPerson() %}
-            b_val_renomage.push('{{infoContributor.getNbRenameByContributor(person)}}');
-            b_color_renomage.push(color_renomage);
-            b_border_color_renomage.push(border_color_renomage);
+            b_val_renommage.push('{{infoContributor.getNbRenameByContributor(person)}}');
+            b_color_renommage.push(color_renommage);
+            b_border_color_renommage.push(border_color_renommage);
         {% endfor %}
 
         {% for person in infoContributor.getAllPerson() %}
@@ -193,11 +193,11 @@
                         data: b_val_suppression,
                     },
                     {
-                        label: "Renomage",
-                        backgroundColor: b_color_renomage,
-                        borderColor: b_border_color_renomage,
+                        label: "renommage",
+                        backgroundColor: b_color_renommage,
+                        borderColor: b_border_color_renommage,
                         borderWidth: 1,
-                        data:b_val_renomage,
+                        data:b_val_renommage,
                     },
                     {
                         label: "Modification",

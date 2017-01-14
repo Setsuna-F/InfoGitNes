@@ -16,7 +16,9 @@ class BranchesController extends Controller
     */
     public function abranchAction()
     {
-        return $this->render('IGNInfoGitBundle:Branches:abranch.html.twig');
+        $this->parse_json = new parserjson();
+        $gitType=$this->parse_json->getGitType();
+        return $this->render('IGNInfoGitBundle:Branches:abranch.html.twig', array('gitType'=> $gitType));
     }
 
 
@@ -28,12 +30,20 @@ class BranchesController extends Controller
     {
         $this->parse_json = new parserjson();
         $gitType=$this->parse_json->getGitType();
-        $this->parse_json = $this->parse_json->getAllCommit();
-        //die(var_dump($this->parse_json->branche));
+        $allCommit = $this->parse_json->getAllCommit();
+
+        $allMostActif = array();
+
+        for ($i=0; $i <count($allCommit); $i++) {
+            $allMostActif[$allCommit[$i]->getName()] = $this->parse_json->getMostActifByBranch($allCommit[$i]->getName());
+        }
+        //die(var_dump( $allMostActif ));
+
+        //die(var_dump($this->parse_json));
         //die(var_dump($this->parse_json->getAllCommit()[0]->getCommits()->getNbCommits()));//getPerson()->{"Steven Nance"}[0]));
         //die(var_dump($this->parse_json[1]->getCommits()->getNbAdd()));//getPerson()->{"Steven Nance"}[0]));
 
-        return $this->render('IGNInfoGitBundle:Branches:allbranches.html.twig', array('infoBranches' => $this->parse_json, 'gitType'=> $gitType));
+        return $this->render('IGNInfoGitBundle:Branches:allbranches.html.twig', array('infoBranches' => $allCommit, 'mostActif' => $allMostActif, 'gitType'=> $gitType));
     }
 
 

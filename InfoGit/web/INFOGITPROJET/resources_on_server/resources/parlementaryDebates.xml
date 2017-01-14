@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<modele>
+	<description>Classifying debate reports in the French National Assembly (long text documents) according to their vote: for or against. 
+	The model has been learned on debates released during DEFT 2007.
+	</description>
+	<url>http://deft.limsi.fr/2007/</url>
+	<root>
+		<sample>1000</sample>
+		<microfmeasure>71.1%</microfmeasure>
+		<macrofmeasure>69.9%</macrofmeasure>
+		<microprecision>72.8%</microprecision>
+		<macroprecision>73.7%</macroprecision>
+		<microrecall>71.9%</microrecall>
+		<macrorecall>68.5%</macrorecall>
+	</root>
+	<classe id="against" >
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>100%</recall>
+	</classe>
+	<classe id="for">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>85%</recall>
+	</classe>
+</modele>

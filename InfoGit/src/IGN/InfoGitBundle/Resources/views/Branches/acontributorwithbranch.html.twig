@@ -44,24 +44,24 @@
 
         var b_color_commit      = [];
         var b_color_ajout       = [];
-        var b_color_renomage    = [];
+        var b_color_renommage    = [];
         var b_color_suppression = [];
         var b_color_modification= [];
 
         var b_border_color_commit      = [];
         var b_border_color_ajout       = [];
-        var b_border_color_renomage    = [];
+        var b_border_color_renommage    = [];
         var b_border_color_suppression = [];
         var b_border_color_modification= [];
 
         var color_ajout="rgba(75,192,192, 0.2)";
         var color_suppression="rgba(15,200,2, 0.2)";
-        var color_renomage="rgba(75,2,202, 0.2)";
+        var color_renommage="rgba(75,2,202, 0.2)";
         var color_modification="rgba(175,20,20, 0.2)";
 
         var border_color_ajout        = 'rgba(75,192,192, 1)';
         var border_color_suppression  = 'rgba(15,200,2, 1)';
-        var border_color_renomage     = 'rgba(75,2,202, 1)';
+        var border_color_renommage     = 'rgba(75,2,202, 1)';
         var border_color_modification = 'rgba(175,20,20, 1)';
 
         {% for commit in commitslist %}
@@ -74,8 +74,8 @@
             b_color_ajout.push(color_ajout);
             b_border_color_ajout.push(border_color_ajout);
 
-            b_color_renomage.push(color_renomage);
-            b_border_color_renomage.push(border_color_renomage);
+            b_color_renommage.push(color_renommage);
+            b_border_color_renommage.push(border_color_renommage);
 
             b_color_suppression.push(color_suppression);
             b_border_color_suppression.push(border_color_suppression);
@@ -212,9 +212,9 @@
                     data: rmvs,
                 },
                 {
-                    label: "Renomage",
-                    backgroundColor: b_color_renomage,
-                    borderColor: b_border_color_renomage,
+                    label: "renommage",
+                    backgroundColor: b_color_renommage,
+                    borderColor: b_border_color_renommage,
                     borderWidth: 1,
                     data: rnms,
                 },

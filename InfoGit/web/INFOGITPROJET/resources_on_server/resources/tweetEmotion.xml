@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<modele>
+	<description>Classifying tweets (short text documents) according to their opinions, sentiments or emotions (18 classes). 
+	The model has been learned on tweets about climate change released during DEFT 2015.
+	</description>
+	<url>https://deft.limsi.fr/2015/</url>
+	<root>
+		<sample>1000</sample>
+		<microfmeasure>71.1%</microfmeasure>
+		<macrofmeasure>69.9%</macrofmeasure>
+		<microprecision>72.8%</microprecision>
+		<macroprecision>73.7%</macroprecision>
+		<microrecall>71.9%</microrecall>
+		<macrorecall>68.5%</macrorecall>
+	</root>
+	<classe id="deplaisir" >
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>100%</recall>
+	</classe>
+	<classe id="derangement">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>85%</recall>
+	</classe>
+	<classe id="mepris">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+	<classe id="surprise negative">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+		<classe id="peur" >
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>100%</recall>
+	</classe>
+	<classe id="colere">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>85%</recall>
+	</classe>
+	<classe id="ennui">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+	<classe id="tristesse">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+		<classe id="plaisir" >
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>100%</recall>
+	</classe>
+	<classe id="apaisement">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>85%</recall>
+	</classe>
+	<classe id="amour">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+	<classe id="surprise positive">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+		<classe id="satisfaction">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+		<classe id="insatisfaction" >
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>100%</recall>
+	</classe>
+	<classe id="accord">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>85%</recall>
+	</classe>
+	<classe id="valorisation">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+	<classe id="desaccord">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+		<classe id="devalorisation">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+	<classe id="insrtruction">
+		<sample>1000</sample>
+		<fmeasure>71.1%</fmeasure>
+		<precision>72.8%</precision>
+		<recall>71.9%</recall>
+	</classe>
+</modele>

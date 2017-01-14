@@ -1,36 +1,55 @@
-#Linux System
-*~
 
-# Prerequisites
-*.d
+nb-configuration.xml
+target
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+nbproject
+build
+dist
 
-# Precompiled Headers
-*.gch
-*.pch
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# Folder config file
+Desktop.ini
 
-# Fortran module files
-*.mod
-*.smod
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
 
-# Executables
-*.exe
-*.out
-*.app
+# Windows shortcuts
+*.lnk
 
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

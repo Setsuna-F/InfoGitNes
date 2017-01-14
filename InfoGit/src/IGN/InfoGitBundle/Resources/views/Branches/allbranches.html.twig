@@ -22,6 +22,46 @@
     <h2 class="gros-titre">Toutes les branches</h2>
     <br />
 
+
+
+
+    <article class="article-padding bigfont">
+        <h3 class="petit-titre"><u>Table des branches</u></h3>
+        <p class=" tabulation">{{infoBranches | length}} branches</p>
+        <br />
+        <div class="col-lg-12 article-base-sans-padding">
+            <div class="row">
+                <h4 class="col-lg-5 col-md-9 col-sm-9 col-xs-10 centerblock">Nom de la branche</h4>
+                <h4 class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs centerblock">nombre de contributeurs</h4>
+                <h4 class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-md hidden-sm hidden-xs centerblock">nombre de Commit total</h4>
+                <h4 class="col-lg-3 col-md-3 col-sm-3 col-xs-3 hidden-md hidden-sm hidden-xs centerblock">le plus actif / branche</h4>
+            </div>
+            <hr />
+            {% set it = 0 %}
+            <div class=" col-lg-12  h-scroll">
+                {% for branch in infoBranches %}
+                    <div class="col-lg-12">
+                        <p class="col-lg-5 col-md-10 col-sm-10 col-xs-10"><a href="{{ path('ign_info_git_a_branch', {'name': branch.getFormatedName()}) }}">{{branch.getFormatedName(branch.getName())}}</a></p>
+                        <p class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs centerblock"> {{branch.getNbUsers()}} </p>
+                        <p class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-md hidden-sm hidden-xs centerblock"> {{branch.getCommits().getNbCommits()}}</p>
+                        <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3 hidden-md hidden-sm hidden-xs centerblock"><a href="{{ path('ign_info_git_a_contributor', {'name': mostActif[branch.getName()]}) }}"> {{mostActif[branch.getName()]}} </a></p>
+                        {#<p class="col-lg-3 col-md-3 col-sm-3 col-xs-3"> { {branch.getName()}} </p>
+                        <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3"> { {branch.getNbUsers()}} </p>
+                        <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3"> { {branch.getCommits().getNbCommits()}} </p>
+                        <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3"> { {infoBranches.getMostActifByBranch(branch.getName())}} </p>#}
+                    </div>
+                    {% set it = it + 1 %}
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+    <br />
+
+
+
+
+
+
     <article class='with-3d-shadow article-padding'>
         <h3 class="petit-titre"><u>Visualisation des commits</u></h3>
         <br />
@@ -41,32 +81,32 @@
     var color_commit="rgba(255, 99, 132, 0.2)";
     var color_ajout="rgba(54, 162, 235, 0.2)";
     var color_suppression="rgba(255, 206, 86, 0.2)";
-    var color_renomage="rgba(75, 192, 192, 0.2)";
+    var color_renommage="rgba(75, 192, 192, 0.2)";
     var color_modification="rgba(153, 102, 255, 0.2)";
 
     var border_color_commit       = 'rgba(255,99,132,1)';
     var border_color_ajout        = 'rgba(54, 162, 235, 1)';
     var border_color_suppression  = 'rgba(255, 159, 64, 1)';
-    var border_color_renomage     = 'rgba(75, 192, 192, 1)';
+    var border_color_renommage     = 'rgba(75, 192, 192, 1)';
     var border_color_modification = 'rgba(153, 102, 255, 1)';
     var nb_users          = [];
     var branches          = [];
 
     var b_val_commit      = [];
     var b_val_ajout       = [];
-    var b_val_renomage    = [];
+    var b_val_renommage    = [];
     var b_val_suppression = [];
     var b_val_modification= [];
 
     var b_color_commit      = [];
     var b_color_ajout       = [];
-    var b_color_renomage    = [];
+    var b_color_renommage    = [];
     var b_color_suppression = [];
     var b_color_modification= [];
 
     var b_border_color_commit      = [];
     var b_border_color_ajout       = [];
-    var b_border_color_renomage    = [];
+    var b_border_color_renommage    = [];
     var b_border_color_suppression = [];
     var b_border_color_modification= [];
 
@@ -88,9 +128,9 @@
     {% endfor %}
 
     {% for branche in infoBranches %}
-        b_val_renomage.push('{{branche.getCommits().getNbRnm()}}');
-        b_color_renomage.push(color_renomage);
-        b_border_color_renomage.push(border_color_renomage);
+        b_val_renommage.push('{{branche.getCommits().getNbRnm()}}');
+        b_color_renommage.push(color_renommage);
+        b_border_color_renommage.push(border_color_renommage);
     {% endfor %}
 
     {% for branche in infoBranches %}
@@ -130,11 +170,11 @@
                         data: b_val_suppression,
                     },
                     {
-                        label: "Renomage",
-                        backgroundColor: b_color_renomage,
-                        borderColor: b_border_color_renomage,
+                        label: "renommage",
+                        backgroundColor: b_color_renommage,
+                        borderColor: b_border_color_renommage,
                         borderWidth: 1,
-                        data: b_val_renomage,
+                        data: b_val_renommage,
                     },
                     {
                         label: "Modification",
