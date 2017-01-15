@@ -76,7 +76,7 @@ function build_list($tree) {
             } else {
                 $li .= "$key";
             }
-            $li .= build_list($value, $i, $y);
+            $li .= build_list($value);
             $ul .= strlen($li) ? "<li>$li</li>" : '';
         }
     }
