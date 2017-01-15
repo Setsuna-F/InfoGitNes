@@ -217,6 +217,7 @@ public function getBranchesByContributor($contributor){
         $nbRnm=0;
 
         $index=0;
+        $this->commitsList = array();
         for($i = 0; $i < count($this->parsed_json->branches); ++$i) {
             if(isset($this->parsed_json->branches[$i]->commits->{$contributor})){
                 for($j = 0; $j < count($this->parsed_json->branches[$i]->commits->{$contributor}); ++$j) { //pour toutes les branches
@@ -238,6 +239,7 @@ public function getBranchesByContributor($contributor){
             $nbCmt=0;
         /* ICI CA A ETE MODIFIE*/
             $index=0;
+            $this->commitsList = array();
             for($i = 0; $i < count($this->parsed_json->branches); ++$i) {
                 $nbAdd=0;
                 $nbRmv=0;
@@ -253,14 +255,17 @@ public function getBranchesByContributor($contributor){
                                 $this->parsed_json->branches[$i]->commits->{$contributor}[$j]->{'nbRename'},
                                 $this->parsed_json->branches[$i]->commits->{$contributor}[$j]->{'nbModify'}
                             );
+                            //echo $this->parsed_json->branches[$i]->commits->{$contributor}[$j]->{'nbAdd'};
                         }
                     }
                 }
             }
+
             return $this->commitsList;
         }
         public function getCommitsListByBrancheAndByContributor_mst_actif_($branch, $contributor){
         /* ICI CA A ETE MODIFIE*/
+            $this->commitsList = array();
             for($i = 0; $i < count($this->parsed_json->branches); ++$i) {
                 $index=0;
                 $nbAdd=0;
@@ -303,11 +308,20 @@ public function getBranchesByContributor($contributor){
             $branches = $this->getBranchesByContributor($contributor);
             //return $branches;
             for($i = 0; $i < count($branches)+1; ++$i) {
-                if(isset( $branches[$i]))
+                if(isset( $branches[$i])){
+                    echo $branches[$i]->getName();
                     if(preg_replace('#/?.+/(.+)/?#i', '$1', $branches[$i]->getName()) === $fname)
                         return $branches[$i]->getName();
+                }
             }
             return "SOKA";
+        }
+        public function getBranchNameWithFormatedName_2($fname){
+            for($i = 0; $i < count($this->parsed_json->branches); ++$i) {
+                if(preg_replace('#/?.+/(.+)/?#i', '$1', $this->parsed_json->branches[$i]->branchName) === $fname)
+                    return $this->parsed_json->branches[$i]->branchName;
+            }
+            return "";
         }
 
 

@@ -1,12 +1,12 @@
 ##### Index   -    Il servira plus tard pour avoir juste une barre de recherche.
 ign_info_git_index:
-    path:     /index
+    path:     /
     defaults: { _controller: IGNInfoGitBundle:Begining:index }
 
 
 ##### Begining
 ign_info_git_homepage:
-    path:     /
+    path:     /index
     defaults: { _controller: IGNInfoGitBundle:Begining:home }
 
 ign_info_git_tree:

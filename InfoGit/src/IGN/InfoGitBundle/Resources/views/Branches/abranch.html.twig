@@ -12,57 +12,421 @@
     {% endif %}
 {% endblock %}
 
+
 {% block body %}
-        <h2 class="gros-titre">Branche : [nomDeLaBranche]</h2>
+        <h2 class="gros-titre">Branche : {{name}}</h2>
 
-        <ul>
-            <li>Nom du contributeur : [nomContributeur]</li>
-            <li>Contributeurs:
-                <ul>
-                    <li>[nomContributeur1]</li>
-                    <li>[nomContributeur2]</li>
-                    <li>[nomContributeur3]</li>
-                    <li>[nomContributeur4]</li>
-                </ul>
-            </li>
-            <li>[nbCommits] commits</li>
-            <li>[nbAdd] ajout</li>
-            <li>[nbDelete] suppression</li>
-            <li>[nbRename] renommage</li>
-            <li>[nbModification] modification</li>
-        </ul>
+        <article class="article-padding bigfont">
+            <div class="col-lg-12 article-base-sans-padding">
 
-        <p>Informations complémentaires</p>
-        <ul>
-            <li><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom2'}) }}">[nomContributeur]</a> a le plus contribué dans cette branche</li>
-            <li><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom2'}) }}">[nomContributeur]</a> a fait le plus d'ajout</li>
-            <li><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom2'}) }}">[nomContributeur]</a> a fait le plus de suppression</li>
-            <li><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom2'}) }}">[nomContributeur]</a> a fait le plus de renommage</li>
-            <li><a href="{{ path('ign_info_git_a_contributor', {'name':  'nom2'}) }}">[nomContributeur]</a> a fait le plus de modification</li>
-        </ul>
+                <h3 class="petit-titre centerblock"><u>Information genrale</u></h3>
+                <hr />
+                <p class=" tabulation">Nombre total de commits : {{nbComTotal}} </p>
+                <hr />
+                <p class=" tabulation">Nombre total de contributeur : {{contributors | length}} </p>
+            </div>
+            <div class="col-lg-12 article-base-sans-padding">
+                <div class="row">
+                    <h4 class="col-lg-9 col-md-9 col-sm-9 col-xs-9 centerblock" style="padding-top: 10px;">Liste de contributeur</h4>
+                </div>
+                <hr />
+                <div class=" col-lg-12  h-scroll">
+                    {% for cont in contributors %}
+                        <div class="col-lg-12">
+                            <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><a href="{{ path('ign_info_git_a_contributor', {'name': cont}) }}">{{cont}}</a></p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <h3 class="petit-titre centerblock"><u>Table des plus actifs par type</u></h3>
+            <div class="col-lg-12 article-base-sans-padding">
+                <div class="row" style="padding-top: 10px;">
+                    <h4 class="col-lg-9 col-md-9 col-sm-9 col-xs-9 centerblock">Nom du contributeur</h4>
+                    <h4 class="col-lg-2 col-md-2 col-sm-2 col-xs-2 centerblock">Type</h4>
+                </div>
+                <hr />
+                <div class=" col-lg-12  h-scroll">
+                    <div class="col-lg-12">
+                        <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><a href="{{ path('ign_info_git_a_contributor', {'name': actifCom}) }}">{{actifCom}}</a></p>
+                        <p class="col-lg-2 col-md-2 col-sm-2 col-xs-2 centerblock"> Commit </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><a href="{{ path('ign_info_git_a_contributor', {'name': actifCom}) }}">{{actifAdd}}</a></p>
+                        <p class="col-lg-2 col-md-2 col-sm-2 col-xs-2 centerblock"> Ajout </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><a href="{{ path('ign_info_git_a_contributor', {'name': actifCom}) }}">{{actifDel}}</a></p>
+                        <p class="col-lg-2 col-md-2 col-sm-2 col-xs-2 centerblock"> Suppression </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><a href="{{ path('ign_info_git_a_contributor', {'name': actifCom}) }}">{{actifRnm}}</a></p>
+                        <p class="col-lg-2 col-md-2 col-sm-2 col-xs-2 centerblock"> Renommage </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><a href="{{ path('ign_info_git_a_contributor', {'name': actifCom}) }}">{{actifMdf}}</a></p>
+                        <p class="col-lg-2 col-md-2 col-sm-2 col-xs-2 centerblock"> Modification </p>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br />
+
+        <div class="row">
+            <div class="col-lg-12">
+                {% if (infoContributor.getNbUsers() < 10) %}
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                {% else %}
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                {% endif %}
+                <article class='with-3d-shadow '>
+                    <h3 class="petit-titre centerblock"><u>Visualisation de tous les commits</u></h3>
+                    <br />
+                    <canvas class='article-bar-chart' id="commitLineChart" ></canvas>
+                </article>
+                </div>
+                {% if (infoContributor.getNbUsers() < 10) %}
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                {% else %}
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                {% endif %}
+                <article class='with-3d-shadow'>
+                    <h3 class="petit-titre centerblock"><u>Visualisation des commits par utilisateur</u></h3>
+                    <br />
+                    <canvas class='article-bar-chart' id="commitBarChart" ></canvas>
+                </article>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+        <script src="{{ asset('/assets/vendor/node_modules/chart.js/dist/Chart.js') }}"></script>
+        <script src="{{ asset('/res/javascript_randomColor.js') }}"></script>
 
 
-{#        <p>Choisissez une branche et autant de contributeurs que vous le désirez</p>
-        <form>
-            <SELECT NAME="bev">
-                <OPTION VALUE="NoBranche" SELECTED>No branch
-                <OPTION VALUE="Branche1">Branche1
-                <OPTION VALUE="Branche2">Branche2
-                <OPTION VALUE="Branche3">Branche3
-            </SELECT>
+        <script>
+            var color_commit="rgba(255, 99, 132, 0.2)";
+            var color_ajout="rgba(54, 162, 235, 0.2)";
+            var color_suppression="rgba(255, 206, 86, 0.2)";
+            var color_renommage="rgba(75, 192, 192, 0.2)";
+            var color_modification="rgba(153, 102, 255, 0.2)";
 
-            <br />
-
-            <INPUT TYPE="checkbox" NAME="sal" VALUE="nomContributeur1">nomContributeur1<BR>
-            <INPUT TYPE="checkbox" NAME="sal" VALUE="nomContributeur2">nomContributeur2<BR>
-            <INPUT TYPE="checkbox" NAME="sal" VALUE="nomContributeur3">nomContributeur3<BR>
-            <INPUT TYPE="checkbox" NAME="sal" VALUE="nomContributeur4">nomContributeur4<BR>
-            <INPUT TYPE="checkbox" NAME="sal" VALUE="nomContributeur5">nomContributeur5<BR>
-        </form>
-#}
+            var border_color_commit       = 'rgba(255,99,132,1)';
+            var border_color_ajout        = 'rgba(54, 162, 235, 1)';
+            var border_color_suppression  = 'rgba(255, 159, 64, 1)';
+            var border_color_renommage     = 'rgba(75, 192, 192, 1)';
+            var border_color_modification = 'rgba(153, 102, 255, 1)';
+    /* ----------------------------------------- */
 
 
-        <p>ICI notre diagramme Cammembert et Courbe pour cette branche</p>
-    <br />
+            var nb_users          = [];
+            var users             = [];
+
+            var b_val_commit      = [];
+            var b_val_ajout       = [];
+            var b_val_renommage    = [];
+            var b_val_suppression = [];
+            var b_val_modification= [];
+
+            var b_color_commit      = [];
+            var b_color_ajout       = [];
+            var b_color_renommage    = [];
+            var b_color_suppression = [];
+            var b_color_modification= [];
+
+            var b_border_color_commit      = [];
+            var b_border_color_ajout       = [];
+            var b_border_color_renommage    = [];
+            var b_border_color_suppression = [];
+            var b_border_color_modification= [];
+
+            var b_color_commits= [];
+            var b_border_color_commits= [];
+
+            {% for person in contributors %}
+                users.push('{{person}}');
+                var c = randomColor(1);
+                b_color_commits.push(getRealColor(c, 1));
+                b_border_color_commits.push(getRealColor(c, 0.2));
+            {% endfor %}
+
+            {% for person in contributors %}
+                b_val_commit.push('{{infoUser[person].getNbCommits()}}');
+                b_color_commit.push(color_commit);
+                b_border_color_commit.push(border_color_commit);
+            {% endfor %}
+
+            {% for person in contributors %}
+                b_val_ajout.push('{{infoUser[person].getNbAdd()}}');
+                b_color_ajout.push(color_ajout);
+                b_border_color_ajout.push(border_color_ajout);
+            {% endfor %}
+
+            {% for person in contributors %}
+                b_val_renommage.push('{{infoUser[person].getNbRnm()}}');
+                b_color_renommage.push(color_renommage);
+                b_border_color_renommage.push(border_color_renommage);
+            {% endfor %}
+
+            {% for person in contributors %}
+                b_val_suppression.push('{{infoUser[person].getNbDel()}}');
+                b_color_suppression.push(color_suppression);
+                b_border_color_suppression.push(border_color_suppression);
+            {% endfor %}
+
+            {% for person in contributors %}
+                b_val_modification.push('{{infoUser[person].getNbMdf()}}');
+                b_color_modification.push(color_modification);
+                b_border_color_modification.push(border_color_modification);
+            {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+    /* ----------------------------------------- */
+
+                var data = {
+                    labels: users,
+                    datasets: [
+                        {
+                            label: "Commit",
+                            backgroundColor: b_color_commit,
+                            borderColor: b_border_color_commit,
+                            borderWidth: 1,
+                            data: b_val_commit,
+                        },
+                        {
+                            label: "Ajout",
+                            backgroundColor: b_color_ajout,
+                            borderColor: b_border_color_ajout,
+                            borderWidth: 1,
+                            data: b_val_ajout,
+                        },
+                        {
+                            label: "Suppression",
+                            backgroundColor: b_color_suppression,
+                            borderColor: b_border_color_suppression,
+                            borderWidth: 1,
+                            data: b_val_suppression,
+                        },
+                        {
+                            label: "renommage",
+                            backgroundColor: b_color_renommage,
+                            borderColor: b_border_color_renommage,
+                            borderWidth: 1,
+                            data:b_val_renommage,
+                        },
+                        {
+                            label: "Modification",
+                            backgroundColor: b_color_modification,
+                            borderColor: b_border_color_modification,
+                            borderWidth: 1,
+                            data: b_val_modification,
+                        },
+
+                    ]
+                };
+
+
+            var ctx = document.getElementById("commitBarChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Les commits'
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Les personnes'
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+
+
+
+        <script>
+            var cmts = [];
+            var adds = [];
+            var rmvs = [];
+            var mdfs = [];
+            var rnms = [];
+
+            var b_color_commit      = [];
+            var b_color_ajout       = [];
+            var b_color_renommage    = [];
+            var b_color_suppression = [];
+            var b_color_modification= [];
+
+            var b_border_color_commit      = [];
+            var b_border_color_ajout       = [];
+            var b_border_color_renommage    = [];
+            var b_border_color_suppression = [];
+            var b_border_color_modification= [];
+
+            var color_ajout="rgba(75,192,192, 0.2)";
+            var color_suppression="rgba(15,200,2, 0.2)";
+            var color_renommage="rgba(75,2,202, 0.2)";
+            var color_modification="rgba(175,20,20, 0.2)";
+
+            var border_color_ajout        = 'rgba(75,192,192, 1)';
+            var border_color_suppression  = 'rgba(15,200,2, 1)';
+            var border_color_renommage     = 'rgba(75,2,202, 1)';
+            var border_color_modification = 'rgba(175,20,20, 1)';
+
+            {% for com in commits_ %}
+                {% for commit in com %}
+                    cmts.push('commit'+'{{commit.getNbCommits()}}');
+                    adds.push('{{commit.getNbAdd()}}');
+                    rmvs.push('{{commit.getNbDel()}}');
+                    mdfs.push('{{commit.getNbMdf()}}');
+                    rnms.push('{{commit.getNbRnm()}}');
+
+                    b_color_ajout.push(color_ajout);
+                    b_border_color_ajout.push(border_color_ajout);
+
+                    b_color_renommage.push(color_renommage);
+                    b_border_color_renommage.push(border_color_renommage);
+
+                    b_color_suppression.push(color_suppression);
+                    b_border_color_suppression.push(border_color_suppression);
+
+                    b_color_modification.push(color_modification);
+                    b_border_color_modification.push(border_color_modification);
+                {% endfor %}
+            {% endfor %}
+
+
+            var data = {
+                labels: cmts,
+                datasets: [
+                    {
+                        label: "Add",
+                        fill: true,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderColor: "rgba(75,192,192,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,0.4)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: adds,
+                        spanGaps: false,
+                    },
+                    {
+                        label: "Delete",
+                        fill: true,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(15,200,2,0.4)",
+                        borderColor: "rgba(15,200,2,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(15,200,2,0.4)",
+                        pointHoverBorderColor: "rgba(35,200,10,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: rmvs,
+                        spanGaps: false,
+                    },
+                    {
+                        label: "Rename",
+                        fill: true,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(75,2,202,0.4)",
+                        borderColor: "rgba(75,2,202,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,19,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,2,202,0.4)",
+                        pointHoverBorderColor: "rgba(200,150,200,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: rnms,
+                        spanGaps: false,
+                    },
+                    {
+                        label: "Modify",
+                        fill: true,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(175,20,20,0.4)",
+                        borderColor: "rgba(175,20,20,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,19,19,0.4)",
+                        pointHoverBorderColor: "rgba(200,200,200,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: mdfs,
+                        spanGaps: false,
+                    },
+                ]
+            };
+            var ctx = document.getElementById("commitLineChart");
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        xAxes: [{
+                            position: 'bottom'
+                        }]
+                    }
+                }
+            });
+        </script>
+
+
+
+
     {#{ parent() }#}
 {% endblock %}
