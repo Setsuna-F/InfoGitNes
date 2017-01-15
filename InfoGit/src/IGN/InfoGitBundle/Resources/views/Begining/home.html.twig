@@ -36,11 +36,12 @@
     <h2 class="gros-titre">Informations générales</h2>
     <br />
     <ul class="bigfont centerblock">
-        <li class="">Nom du projet: <u><b>{{ infoGeneral.getGitName }}</b></u></li>
+        <li class="">Nom du projet: <u>{{nom}}</u></li>
         <li class="">Url : <a href="{{ infoGeneral.getUrl() }}">{{ infoGeneral.getUrl }}</a></li>
         <li class=""><span id="resultNbBranches"></span> branches</li>
         <li class=""><span id="resultNbContributeur"></span> contributeurs</li>
         <li class=""><span id="resultNbCommits"></span> commits</li>
+        <li class="">{{nblignes}} lignes de code</li>
         <li class="">Les contributeurs les plus actifs
             <ul>
                 {% for key, user in infoGeneral.mostActif() %}

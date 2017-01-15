@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
 use IGN\InfoGitBundle\Model\parserjson;
+use IGN\InfoGitBundle\Model\json2tree;
 
 class BeginingController extends Controller
 {
@@ -60,6 +61,7 @@ class BeginingController extends Controller
               return $this->redirectToRoute('ign_info_git_homepage');
           }
 
+         
 
           return $this->render('IGNInfoGitBundle::index.html.twig', array('form' => $form->createView(),'isloadurl'=>$isloadurl));
       }
@@ -105,7 +107,12 @@ class BeginingController extends Controller
         //die(var_dump($this->parse_json->getNbBranches()));
         //die(var_dump($this->parse_json->getPerson()->{'Steven Nance'} ));//->getContributorsAndMails()));
         //die(var_dump($this->parse_json->getPerson()->{"Steven Nance"}[0]));
-        return $this->render('IGNInfoGitBundle:Begining:home.html.twig', array('infoGeneral' => $this->parse_json, 'gitType'=> $this->parse_json->getGitType()));
+
+        $files = new json2tree();
+        $nblignes = $files->getNbLines();
+        $nom = split("/",$this->parse_json->getUrl());
+        $nom = $nom[sizeof($nom)-1];  
+        return $this->render('IGNInfoGitBundle:Begining:home.html.twig', array('infoGeneral' => $this->parse_json, 'gitType'=> $this->parse_json->getGitType(), 'nblignes'=> $nblignes, 'nom'=>$nom));
     }
 
 
