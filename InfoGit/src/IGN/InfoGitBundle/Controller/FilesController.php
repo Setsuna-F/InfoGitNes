@@ -37,7 +37,7 @@ class FilesController extends Controller
                     $name = $value;
                 }
             }
-            $paths[$path] = $type;
+            $paths[$path] = $type."@".$line;
         }
         $tree = build_tree($paths);
         $list = build_list($tree);
@@ -67,12 +67,16 @@ function build_list($tree) {
         $li = '';
         if (is_array($value)) {
             if (array_key_exists('__title', $value)) {
-                if($value['__title'] == "Directory")
+                $tab = split("@", $value['__title']);
+                if($tab[0] == "Directory")
                 {
                     $t = rand ( 0 , 100000000000 );
-                    $li .= "<input type=\"checkbox\" id=\"c$t\" /><i class=\"glyphicon glyphicon-folder-close\"></i><i class=\"glyphicon glyphicon-folder-open\"></i><label for=\"c$t\"> $key</label>";
+                    $li .= "<input type=\"checkbox\" id=\"c$t\" /><i class=\"glyphicon glyphicon-folder-close\"></i><i class=\"glyphicon glyphicon-folder-open\"></i><label for=\"c$t\"> $key </label>";
                 }
-                else $li .= "<i class=\"glyphicon glyphicon-file\"></i>".$key;
+                else if ($tab[1] <= 1) {
+                    $li .= "<i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p>";
+                }
+                else $li .= "<i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p>";
             } else {
                 $li .= "$key";
             }
