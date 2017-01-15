@@ -15,4 +15,19 @@ class json2tree {
         $this->init();
         return $this->parsed_json;
     }
+    public function getNbLines()
+    {
+    	$compteur = 0;
+    	$json = $this->getFiles();
+    	foreach ($json as $key => $value) {
+            foreach ($value as $key => $value) {
+             
+                if ($key == "line") {
+                    $compteur += $value;
+                }
+  
+            }
+        }
+        return $compteur;
+    }
 }
