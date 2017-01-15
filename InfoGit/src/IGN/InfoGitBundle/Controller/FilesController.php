@@ -65,7 +65,7 @@ class FilesController extends Controller
             $li = '';
             if (is_array($value)) {
                 if (array_key_exists('__title', $value)) {
-                    $tab = split("@", $value['__title']);
+                    $tab = explode("@", $value['__title']);
                     if($tab[0] == "Directory")
                     {
                         $t = $this->compteur;
