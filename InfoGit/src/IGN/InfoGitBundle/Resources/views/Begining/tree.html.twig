@@ -15,26 +15,116 @@
 {% block arbreSelected %}<span class="sub_icon glyphicon glyphicon-tree-deciduous" style="color:white;"></span>{% endblock %}
 {% block urlSelected %}<span class="sub_icon glyphicon glyphicon-plus-sign"></span>{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/gitgraph.js/src/gitgraph.css') }}" />
+{% endblock %}
 
 {% block body %}
-        <h2 class="gros-titre">Arbre des commits</h2>
-        Master<br />
-        |<br />
-        |<br />
-        |<br />
-        |<br />
-        |\<br />
-        |.\<br />
-        |..\<br />
-        |...\<br />
-        |....|<br />
-        |....|<br />
-        |....|<br />
-        |....|<br />
-        |.../<br />
-        |../<br />
-        |./<br />
-        |/<br />
-        |<br />
+    <h2 class="gros-titre">Arbre des commits</h2>
+
+    <canvas id="gitGraph"></canvas>
+
+    <script src="{{ asset('assets/vendor/gitgraph.js/src/gitgraph.js') }}"></script>
+    <script src="{#{ asset('res/graphegit.js') }#}"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
+
+    /***********************
+     *  CUSTOM TEMPLATES   *
+     ***********************/
+
+    var myTemplateConfig = {
+      colors: ["#F00", "#0F0", "#00F"], // branches colors, 1 per column
+      branch: {
+        lineWidth: 8,
+        spacingX: 50
+      },
+      commit: {
+        spacingY: -80,
+        dot: {
+          size: 12
+        },
+        message: {
+          displayAuthor: true,
+          displayBranch: false,
+          displayHash: false,
+          font: "normal 12pt Arial"
+        },
+        shouldDisplayTooltipsInCompactMode: false, // default = true
+        tooltipHTMLFormatter: function (commit) {
+          return "<b>" + commit.sha1 + "</b>" + ": " + commit.message;
+        }
+      }
+    };
+    var myTemplate = new GitGraph.Template(myTemplateConfig);
+
+
+    /***********************
+     *    INITIALIZATION   *
+     ***********************/
+
+    var config = {
+      template: "metro", // could be: "blackarrow" or "metro" or `myTemplate` (custom Template object)
+      reverseArrow: false, // to make arrows point to ancestors, if displayed
+      orientation: "vertical",
+      // mode: "compact" // special compact mode: hide messages & compact graph
+    };
+    var gitGraph = new GitGraph(config);
+
+    var master = gitGraph.branch("master");
+    gitGraph.commit("Initial commit");
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {#{ parent() }#}
 {% endblock %}

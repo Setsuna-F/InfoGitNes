@@ -1,0 +1,15 @@
+this	DT	this
+very	RB	very
+good	JJ	good
+screenplay	NN	screenplay
+enchanting	VBG	enchant
+but	CC	but
+meryl	NN	<unknown>
+streep	NNS	<unknown>
+most	RBS	most
+impressive	JJ	impressive
+performance	NN	performance
+excellent	JJ	excellent
+brings	VBZ	bring
+heart	NN	heart
+role	NN	role

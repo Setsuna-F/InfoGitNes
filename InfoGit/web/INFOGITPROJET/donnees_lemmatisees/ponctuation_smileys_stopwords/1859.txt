@@ -1,0 +1,16 @@
+great	JJ	great
+acting	JJ	acting
+great	JJ	great
+thinking	NN	thinking
+building	VBG	build
+dollar	NN	dollar
+amounts	NNS	amount
+changed	VBD	change
+but	CC	but
+the	DT	the
+humor	NN	humor
+true	JJ	true
+life	NN	life
+emotions	NNS	emotion
+built	VBN	build
+felt	VBD	feel

@@ -1,0 +1,12 @@
+this	DT	this
+always	RB	always
+broadway	JJ	Broadway
+classic	NN	classic
+as	IN	as
+long	JJ	long
+as	IN	as
+still	JJ	still
+people	NNS	people
+sing	VBP	sing
+dance	NN	dance
+act	NN	act

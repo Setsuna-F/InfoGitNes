@@ -1,0 +1,16 @@
+giant	JJ	giant
+crabs	NNS	crab
+cursing	VBG	curse
+japanese	JJ	Japanese
+drink	NN	drink
+terrible	JJ	terrible
+but	CC	but
+laughable	JJ	laughable
+love	NN	love
+invisible	JJ	invisible
+samurai	NN	samurai
+ghosties	NNS	<unknown>
+running	RB	running
+drink	VBP	drink
+much	JJ	much
+beer	NN	beer
