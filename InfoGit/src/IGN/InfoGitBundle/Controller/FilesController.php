@@ -48,7 +48,38 @@ class FilesController extends Controller
     public function showAction($url)
     {
         $code = file_get_contents(base64_decode($url));
-        return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => $code ));
+        $fichier = base64_decode($url);
+        switch (substr($fichier, -3)) {
+            case 'png':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'PNG':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'jpeg':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'JPEG':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'gif':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'GIF':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+             case 'ico':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+             case 'ICO':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+
+            
+            default:
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => $code ));
+                break;
+        }
     }
 
 
@@ -81,11 +112,18 @@ class FilesController extends Controller
                     }
                     else if ($tab[1] <= 1) {
                         $url = base64_encode($tab[2]);
-                        $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p></a>";
+                        if ($extention == "pdf") {
+                        $li .= "<a href=\"../$tab[2]\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key</a>";
+                        }
+                        else $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p></a>";
                     }
                    else {
                     $url = base64_encode($tab[2]);
-                    $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p></a>";
+                    $extention = substr($tab[2], -3);
+                    if ($extention == "pdf") {
+                        $li .= "<a href=\"../$tab[2]\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key</a>";
+                    }
+                    else $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p></a>";
                     }
                 } else {
                     $li .= "$key";

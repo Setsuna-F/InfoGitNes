@@ -17,7 +17,14 @@
 
 
 {% block body %}
+{%if img == true%}
+{% autoescape %}
+{{code|raw}}
+{% endautoescape %}
+{%endif%}
+{%if img != true%}
 <pre>
   {{code}}
 </pre>
+{%endif%}
 {% endblock %}
