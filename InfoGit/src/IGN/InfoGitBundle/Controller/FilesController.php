@@ -45,6 +45,12 @@ class FilesController extends Controller
         return $this->render('IGNInfoGitBundle:Files:files.html.twig', array('list' => $list));
     }
 
+    public function showAction($url)
+    {
+        $code = file_get_contents(base64_decode($url));
+        return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => $code ));
+    }
+
 
     function build_tree($path_list) {
         $path_tree = array();
@@ -54,7 +60,8 @@ class FilesController extends Controller
             foreach ($list as $dir) {
                 $last_dir =& $last_dir[$dir];
             }
-            $last_dir['__title'] = $title;
+            $path = substr($path, 2);
+            $last_dir['__title'] = "$title@$path";
         }
         return $path_tree;
     }
@@ -73,9 +80,13 @@ class FilesController extends Controller
                         $this->compteur++;
                     }
                     else if ($tab[1] <= 1) {
-                        $li .= "<i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p>";
+                        $li .= "<a href=\"\\\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p></a>";
                     }
-                    else $li .= "<i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p>";
+                    //else $li .= "<a href=\"../$tab[2]\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p></a>";
+                   else {
+                    $url = base64_encode($tab[2]);
+                    $li .= "<a href=\"../file/$url\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p></a>";
+                    }
                 } else {
                     $li .= "$key";
                 }
