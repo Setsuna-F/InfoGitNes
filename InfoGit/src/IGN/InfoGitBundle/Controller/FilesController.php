@@ -116,8 +116,12 @@ class FilesController extends Controller
                     }
                     else if ($tab[1] <= 1) {
                         $url = base64_encode($tab[2]);
+                        $extention = substr($tab[2], -3);
                         if ($extention == "pdf") {
                         $li .= "<a href=\"../$tab[2]\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key</a>";
+                        }
+                        else if ($extention == "jar") {
+                            $li .= "<a ><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p></a>";
                         }
                         else $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p></a>";
                     }
@@ -127,6 +131,9 @@ class FilesController extends Controller
                     if ($extention == "pdf") {
                         $li .= "<a href=\"../$tab[2]\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key</a>";
                     }
+                    else if ($extention == "jar") {
+                            $li .= "<i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p>";
+                        }
                     else $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p></a>";
                     }
                 } else {
