@@ -89,7 +89,11 @@ class FilesController extends Controller
             $list = explode('/', trim($path, '/'));
             $last_dir = &$path_tree;
             foreach ($list as $dir) {
-                $last_dir =& $last_dir[$dir];
+                
+                if ($dir!= "."&& $dir!= "INFOGITPROJET" ) {
+                   $last_dir =& $last_dir[$dir];
+                }
+                
             }
             $path = substr($path, 2);
             $last_dir['__title'] = "$title@$path";
