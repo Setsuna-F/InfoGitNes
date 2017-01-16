@@ -22,10 +22,10 @@
         <div class="col-lg-12 article-base-sans-padding">
             <h3 class="petit-titre centerblock"><u>Informations personnelles</u></h3>
             <hr />
-            <p class=" tabulation">Nom: {{name}}</p>
+            <p class=" tabulation">Nom : {{name}}</p>
             <hr />
             <div class="row">
-                <p  class="col-lg-2 col-md-2 col-sm-2 col-xs-12 tabulation-margin">Mail(s):</p>
+                <p  class="col-lg-2 col-md-2 col-sm-2 col-xs-12 tabulation-margin">Mail(s) :</p>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 double-tabulation-margin">
                     {% for mail in infoContributor.getMailsByContributor(name) %}
                         <p>{{mail}}</p>
@@ -34,7 +34,7 @@
             </div>
             <hr />
             <div class="row">
-                <p  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabulation-margin">Il a contribué à {# {infoContributor.getBranchesByUser() | length} #} {{infoBranches | length}} branches:</p>
+                <p  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabulation-margin">Il a contribué à {# {infoContributor.getBranchesByUser() | length} #} {{infoBranches | length}} branches :</p>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 double-tabulation-margin">
                     {% for branch in infoBranches %}
                         <p><a href="{{ path('ign_info_git_a_contributor_with_a_branch', {'contributor':  name, 'branch': branch.getFormatedName()}) }}">{{branch.getName()}}</a></p>
@@ -47,10 +47,10 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 double-tabulation-margin">
                     <ul>
                         <li>{{infoContributor.getNbCommitsByContributor(name)}} commits</li>
-                        <li>{{infoContributor.getNbAddByContributor(name)}} ajout</li>
-                        <li>{{infoContributor.getNbRemoveByContributor(name)}} suppression</li>
-                        <li>{{infoContributor.getNbRenameByContributor(name)}} renommage</li>
-                        <li>{{infoContributor.getNbModifyByContributor(name)}} modification</li>
+                        <li>{{infoContributor.getNbAddByContributor(name)}} ajouts</li>
+                        <li>{{infoContributor.getNbRemoveByContributor(name)}} suppressions</li>
+                        <li>{{infoContributor.getNbRenameByContributor(name)}} renommages</li>
+                        <li>{{infoContributor.getNbModifyByContributor(name)}} modifications</li>
                     </ul>
                 </div>
             </div>
@@ -271,7 +271,7 @@
                             data: b_val_suppression,
                         },
                         {
-                            label: "renommage",
+                            label: "Renommage",
                             backgroundColor: b_color_renommage,
                             borderColor: b_border_color_renommage,
                             borderWidth: 1,
