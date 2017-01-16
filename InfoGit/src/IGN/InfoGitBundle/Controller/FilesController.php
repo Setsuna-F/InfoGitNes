@@ -80,12 +80,12 @@ class FilesController extends Controller
                         $this->compteur++;
                     }
                     else if ($tab[1] <= 1) {
-                        $li .= "<a href=\"\\\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p></a>";
+                        $url = base64_encode($tab[2]);
+                        $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p></a>";
                     }
-                    //else $li .= "<a href=\"../$tab[2]\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p></a>";
                    else {
                     $url = base64_encode($tab[2]);
-                    $li .= "<a href=\"../file/$url\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p></a>";
+                    $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p></a>";
                     }
                 } else {
                     $li .= "$key";
