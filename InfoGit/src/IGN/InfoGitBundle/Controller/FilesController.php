@@ -52,7 +52,11 @@ class FilesController extends Controller
         $this->parse_json = new parserjson();
         $code = file_get_contents(base64_decode($url));
         $fichier = base64_decode($url);
-        switch (substr($fichier, -3)) {
+        $nom = explode("/", $fichier);
+        $nom = $nom[sizeof($nom)-1];
+        $ext = explode(".", $nom);
+        $ext = $ext[sizeof($ext)-1];
+        switch ($ext) {
             case 'png':
                 return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
                 break;
@@ -80,7 +84,7 @@ class FilesController extends Controller
 
 
             default:
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => $code , 'gitType'=> $this->parse_json->getGitType(), 'img' => true ));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => $code , 'gitType'=> $this->parse_json->getGitType(), 'img' => false, 'nom'=> $nom, 'class'=>"language-$ext" ));
                 break;
         }
     }

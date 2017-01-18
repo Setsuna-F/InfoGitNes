@@ -23,8 +23,12 @@
 {% endautoescape %}
 {%endif%}
 {%if img != true%}
-<pre>
-  {{code}}
-</pre>
+<article class="container">
+    <header>
+        <h1 id="nom-fic">{{nom}}</h1>
+    </header>
+            {{code}}
+</article>
+
 {%endif%}
 {% endblock %}
