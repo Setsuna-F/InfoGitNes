@@ -18,6 +18,7 @@
 {% block body %}
 
     <script type="text/javascript">
+    var nbLine={{nblignes}};
     var nbCommits=0;
     var nbBranches=0;
     var nbContributeur=0;
@@ -41,7 +42,7 @@
         <li class=""><span id="resultNbBranches"></span> branches</li>
         <li class=""><span id="resultNbContributeur"></span> contributeurs</li>
         <li class=""><span id="resultNbCommits"></span> commits</li>
-        <li class="">{{nblignes}} lignes de code</li>
+        <li class=""><span id="resultNbLine"></span> lignes de code</li>
         <li class="">Les contributeurs les plus actifs
             <ul>
                 {% for key, user in infoGeneral.mostActif() %}

@@ -93,21 +93,83 @@
 
     var config = {
       template: "metro", // could be: "blackarrow" or "metro" or `myTemplate` (custom Template object)
-      reverseArrow: false, // to make arrows point to ancestors, if displayed
+      reverseArrow: true, // to make arrows point to ancestors, if displayed
       orientation: "vertical",
       // mode: "compact" // special compact mode: hide messages & compact graph
     };
     var gitGraph = new GitGraph(config);
 
-    var master = gitGraph.branch("master");
-    gitGraph.commit("Initial commit");
+    //var master = gitGraph.branch("master");
+    //master.commit("Initial commit");
 
+    //var dev = gitGraph.branch("dev");
+    //dev.commit("Init dev");
 
+    //var myArray = new Array();
+/*
+    myArray['master'] = gitGraph.branch('master');
+    myArray['master'].commit("Initial commit");
 
+    myArray['dev'] = gitGraph.branch('dev');
+    myArray['dev'].commit("Init dev");
+    myArray['master'].commit("Rajour du readme");
+    myArray['dev'].commit("ajout d'un fichier de test sur la branche dev");
+*/
 
+    /*for (var i = 0; i < { {nbBranches} }; i++) {
 
+    }*/
+    var myArray = new Array();
+    var mergeDefine = new Array();
+    var isMergeDefine = false;
+    //myArray['MASTER'] = gitGraph.branch('Master');
 
-
+{% for key, value in graphe %}
+    for (var i = 0; i < mergeDefine.length; i++) {
+        if(mergeDefine[i] == '{{value['branch']}}')
+            isMergeDefine = true;
+    }
+    if(isMergeDefine){
+        myArray['{{value['branch']}}'].commit({ message: '{{value['msg']}}' ,  author: "nom <so@so.com>" });
+    }
+    else{
+        mergeDefine.push('{{value['branch']}}');
+        myArray['{{value['branch']}}'] = gitGraph.branch('{{value['branch']}}');
+        myArray['{{value['branch']}}'].commit({ message: '{{value['msg']}}' ,  author: "nom <so@so.com>" });
+    }
+    isMergeDefine = false;
+    //{ % if myArray['MASTER'] is defined %}
+    //    console.log('IF : { {value['branch']}}');
+        //myArray['{ {value['branch']}}'].commit('{ {value['msg']}}');
+    //{ % else %}
+    //    console.log('ELSE : { {value['branch']}}');
+        //myArray['{ {value['branch']}}'] = gitGraph.branch('{ {value['branch']}}');
+    //    myArray['MASTER'] = gitGraph.branch('{ {value['branch']}}');
+    //{ % endif %}
+    /*    myArray['{ {key}}'] = gitGraph.branch('{ {key}}');
+        //var a = { {value} };
+        myArray['{ {key}}'].commit("");*/
+{% endfor %}
+/*
+myArray['dev'] = gitGraph.branch('dev');
+myArray['dev'].commit("Init dev");
+myArray['dev'] = gitGraph.branch('dev');
+myArray['dev'].commit("Init dev");
+myArray['dev'] = gitGraph.branch('dev');
+myArray['dev'].commit("Init dev");
+myArray['dev'] = gitGraph.branch('dev');
+myArray['dev'].commit("Init dev");
+myArray['dev'] = gitGraph.branch('dev');
+myArray['dev'].commit("Init dev");
+myArray['dev'] = gitGraph.branch('dev');
+myArray['dev'].commit("Init dev");
+myArray['dev'] = gitGraph.branch('dev');
+myArray['dev'].commit("Init dev");
+myArray['dev'] = gitGraph.branch('dev');
+myArray['dev'].commit("Init dev");
+myArray['dev'] = gitGraph.branch('dev');
+myArray['dev'].commit("Init dev");
+*/
 
 
     </script>

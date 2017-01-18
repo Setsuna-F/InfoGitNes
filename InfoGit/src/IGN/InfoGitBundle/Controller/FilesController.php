@@ -3,6 +3,7 @@
 namespace IGN\InfoGitBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use IGN\InfoGitBundle\Model\parserjson;
 use IGN\InfoGitBundle\Model\json2tree;
 
 class FilesController extends Controller
@@ -18,6 +19,7 @@ class FilesController extends Controller
 
     public function treeAction()
     {
+        $this->parse_json = new parserjson();
         $this->listeFile = new json2tree();
         $liste = $this->listeFile->getFiles();
         foreach ($liste as $key => $value) {
@@ -42,7 +44,7 @@ class FilesController extends Controller
         }
         $tree = $this->build_tree($paths);
         $list = $this->build_list($tree);
-        return $this->render('IGNInfoGitBundle:Files:files.html.twig', array('list' => $list));
+        return $this->render('IGNInfoGitBundle:Files:files.html.twig', array('list' => $list, 'gitType'=> $this->parse_json->getGitType()));
     }
 
 
@@ -69,7 +71,7 @@ class FilesController extends Controller
                     if($tab[0] == "Directory")
                     {
                         $t = $this->compteur;
-                        $li .= "<input type=\"checkbox\" id=\"c$t\" /><i class=\"glyphicon glyphicon-folder-close\"></i><i class=\"glyphicon glyphicon-folder-open\"></i><label for=\"c$t\"> $key </label>";
+                        $li .= "<input style='color:red;' type=\"checkbox\" id=\"c$t\" /><i class=\"glyphicon glyphicon-folder-close\"></i><i class=\"glyphicon glyphicon-folder-open\"></i><label for=\"c$t\"> $key </label>";
                         $this->compteur++;
                     }
                     else if ($tab[1] <= 1) {

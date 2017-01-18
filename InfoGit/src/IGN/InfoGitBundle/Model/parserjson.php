@@ -16,6 +16,7 @@ class parserjson {
     private $branchesByContributor  = array();
     private $commitsList=array();
     private $gitType    = "";
+    private $parents_branch=array();
 
 
     private $parsed_json;
@@ -28,9 +29,148 @@ class parserjson {
         $this->nbUsers = $this->parsed_json->{'nbUsers'};
         $this->nbCommits = $this->parsed_json->{'nbCommits'};
         $this->nbBranches = $this->parsed_json->{'nbBranches'};
+        $this->nbBranches = $this->parsed_json->{'nbBranches'};
         //$this->person = $this->parsed_json->{'person'};
         $this->allPerson = $this->parsed_json->personName;
+        //$this->$parents_branch = $this->parsed_json->{'branches'}->{'parents'};
+        $this->initAllNodes();
     }
+
+    public function initAllNodes(){
+        for ($i=0; $i < $this->nbBranches; $i++) {
+            $this->parents_branch[$this->parsed_json->{'branches'}[$i]->{'branchName'}] = $this->parsed_json->{'branches'}[$i]->{'parents'};
+            // = $this->parsed_json->{'url'};
+        }
+    }
+
+    public function getGraphe(){
+        return $this->parents_branch;
+    }
+
+
+    public function createChartArray(){
+        $beginRef = "493f96cc2562c06cc5e389bffe5aa674b8d87a06";
+        $currentRef = $beginRef;
+        $arrayOfNode=array();
+
+        $countNbCommit = 0;
+
+        for ($i=0; $i < $this->nbBranches; $i++) {
+            $obj = get_object_vars($this->parsed_json->{'branches'}[$i]->parents);
+
+            $countNbCommit = 0;
+
+
+            foreach ($obj as $key => $value){
+
+                $o = $this->getNode($currentRef);
+                $currentRef= $o[0][0];
+                if($o[1])
+                    $arrayOfNode[] = $o[1];
+
+                //echo  $currentRef;
+                //echo "   \n";
+                //if( count($value) > 1)
+                //    echo ''; //TODO On a un new branche
+                //else
+                /*for ($j=0; $j < count($value); $j++) {
+                    if($value[$j][0] == $currentRef){
+                        $arrayOfNode[] = array('ref' => $value[$j][0], 'msg' => $value[$j][1]);
+                        $currentRef = $this->getKeyNode($key);
+                    }
+                }*/
+                /*$tab = $this->getKeyNode($key);
+                if($tab[0] == $currentRef) {
+                    echo $tab[0];
+                    echo "   \n";
+                    echo $tab[1];
+                    echo "   \n";
+                    die(var_dump($value));
+                }*/
+            }
+            //die(var_dump($arrayOfNode));
+
+        /*    for ($j=0; $j < count($obj); $j++) {
+                //die(var_dump(getKeyNode($obj[$j])));
+                //echo $j;
+                //echo " ";
+            }
+
+            echo "\n";
+            $s=" ";
+
+            die(var_dump($s));*/
+
+
+            //for ($j=0; $j < ; $j++) {
+            //    echo "SOKA ";
+            //}
+        }
+        return $arrayOfNode;
+    }
+
+
+
+    public function getKeyNode($valString){
+        $refKey = preg_replace('#\[\[(.+), .+\]\]#i', '$1', $valString);
+        $RefValue = preg_replace('#\[\[.+, (.+)\]\]#i', '$1', $valString);
+        return array($refKey, $RefValue);
+    }
+
+
+
+
+    public function getNode($cRef){
+        $arrayOfNode=array();
+        $node = array();
+        for ($i=0; $i < $this->nbBranches; $i++) {
+            $obj = get_object_vars($this->parsed_json->{'branches'}[$i]->parents);
+            $branchName = $this->parsed_json->{'branches'}[$i]->branchName;
+            foreach ($obj as $key => $value){
+                //if( count($value) > 1)
+                //    echo ''; //TODO On a un new branche
+                //else
+                for ($j=0; $j < count($value); $j++) {
+                    if($value[$j][0] == $cRef){
+                        $arrayOfNode = array('ref' => $value[$j][0], 'msg' => $value[$j][1], 'branch' => $this->getFormatedNameOfBranch($branchName), 'type' => "");
+                        $node[] = $this->getKeyNode($key);
+                        $node[] = $arrayOfNode;
+                        return $node;
+                        //$currentRef = $this->getKeyNode($key);
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function mostActif(){
         $commits_tmp = $this->getCommitsByAllContributor();

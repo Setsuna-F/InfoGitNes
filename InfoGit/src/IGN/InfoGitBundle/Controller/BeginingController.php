@@ -82,7 +82,12 @@ class BeginingController extends Controller
     public function treeAction()
     {
         $this->parse_json = new parserjson();
+        $graphe = $this->parse_json->getGraphe();
+        $ListGraphe = $this->parse_json->createChartArray();
 
-        return $this->render('IGNInfoGitBundle:Begining:tree.html.twig',  array('gitType'=> $this->parse_json->getGitType()));
+        //die(var_dump($graphe));
+        //die(var_dump($ListGraphe));
+
+        return $this->render('IGNInfoGitBundle:Begining:tree.html.twig',  array('gitType'=> $this->parse_json->getGitType(), 'graphe' => $ListGraphe, 'nbBranches'=> $this->parse_json->getNbBranches()));
     }
 }

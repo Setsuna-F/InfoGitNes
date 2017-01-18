@@ -49,4 +49,19 @@ var interval1710670 = setInterval(function() {
         }
         counter1710670+=valcount;
     }}, 0)
+
+
+var resultNodeNbLine = document.getElementById("resultNbLine");
+var counterLine = 0;
+
+var intervalLine = setInterval(function() {
+    if(resultNodeNbLine){
+       resultNodeNbLine.innerHTML=counterLine;
+       var valcount=((nbLine>10000)?100:((nbLine>1000)?50:((nbLine>400)?10:1)));
+       if(counterLine > nbLine) {
+            clearInterval(intervalLine);
+            resultNodeNbLine.innerHTML = nbLine;
+        }
+        counterLine+=valcount;
+    }}, 0)
 /* ----------------------------------------   FIN JS pour l'incrementation auto */

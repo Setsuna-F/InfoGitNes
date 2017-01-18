@@ -33,7 +33,7 @@ public class InfoGit {
 
 	private ArrayList<InfoBranch> branches;
 	private ArrayList<InfoFile> infoFiles;
-	
+
 	private Repository repo;
 	private RevWalk walk;
 	private Git git;
@@ -41,35 +41,35 @@ public class InfoGit {
 	private Hashtable<String, ArrayList<String>> person;
 	private int nbUsers = 0;
 	private int nbCommits = 0;
-	
-	
+
+
 	/**
 	 * \brief constructeur
-	 * 
+	 *
 	 * \param url  url du depot git.
-	 * \param dir  repertoire ou le cloner 
-	 * 
+	 * \param dir  repertoire ou le cloner
+	 *
 	 **/
 	InfoGit(String url, File dir) throws InvalidRemoteException, TransportException, GitAPIException, IOException{
-		this.url 		= url;	
+		this.url 		= url;
 		this.person		= new Hashtable<String, ArrayList<String> >();
 		this.branches 	= new ArrayList<InfoBranch>();
 		this.infoFiles	= new ArrayList<InfoFile>();
-		
+
 		//Clonage du git
 		git = Git.cloneRepository()
 					.setURI(url)
 					.setDirectory(dir)
 					.call();
 		repo = git.getRepository();
-		
+
 		walk = new RevWalk(repo);
 	}
-	
-	
+
+
 	/**
 	 * \brief collecte toutes les branches du git.
-	 * 
+	 *
 	 **/
 	public void collectBranches() throws IOException, GitAPIException{
     	InfoBranch infoBranch;
@@ -78,24 +78,24 @@ public class InfoGit {
 	    for (Ref branch : lBranches) {
 	        String branchName = branch.getName();
 	        infoBranch = new InfoBranch(branchName, branch.getObjectId().getName());
-	        
+
 	        collectCommitByBranch(infoBranch);
 	        branches.add(infoBranch);
 	    }
 	}
-	
-	
+
+
 	/**
 	 * \brief collecte tous les commits de la branche passee en parametre.
-	 * 
+	 *
 	 **/
 	public void collectCommitByBranch(InfoBranch infoBranch) throws GitAPIException, IOException{
 		Iterable<RevCommit> commits = git.log().add(repo.resolve(infoBranch.getBranchName())).call();
 		int cpt = 0;
-	
+
         for (RevCommit commit : commits) {
         	InfoCommit infoCommit = new InfoCommit(commit.getName(),  new Date(commit.getCommitTime()), commit.getFullMessage());
-        	this.setPerson(commit.getAuthorIdent().getName(), commit.getAuthorIdent().getEmailAddress());	
+        	this.setPerson(commit.getAuthorIdent().getName(), commit.getAuthorIdent().getEmailAddress());
         	setNbCommits(getNbCommits() + 1);
         	if(commit.getParents().length != 0){
             	RevCommit parent = walk.parseCommit(commit.getParent(0).getId());
@@ -107,7 +107,7 @@ public class InfoGit {
             	List<DiffEntry> diffs = df.scan(parent.getTree(), commit.getTree());
             	for (DiffEntry diff : diffs) {
             		if(diff.getChangeType().name().equals("MODIFY"))
-            			infoCommit.setModify();           		
+            			infoCommit.setModify();
             		if(diff.getChangeType().name().equals("ADD"))
             			infoCommit.setAdd();
             		if(diff.getChangeType().name().equals("RENAME"))
@@ -116,7 +116,7 @@ public class InfoGit {
             			infoCommit.setDelete();
                	}
         	}
-        	
+
         	//Arborescence
         	if(cpt == 0){
         		ArrayList<String> s = new ArrayList<String>();
@@ -141,45 +141,45 @@ public class InfoGit {
         	}
         	infoBranch.setParents(fils, parentList);
         	//Fin Arborescence
-        	
+
         	infoBranch.setCommits(commit.getAuthorIdent().getName(), infoCommit);
         }
 	}
 
-	
-	/** 
+
+	/**
 	 * \return tous les utilisateurs avec leurs adresses mail.
-	 * 
+	 *
 	 **/
 	public Hashtable<String, ArrayList<String>> getPerson() {
 		return person;
 	}
 
-	
+
 	/**
 	 * \return une liste contenant le nom d'utilisateurs qui ont fait un commit.
 	 **/
 	public ArrayList<String> getPersonName(){
 		ArrayList<String> noms=new ArrayList<String>();
 		Iterator it=person.keySet().iterator();
-		
+
 		while(it.hasNext())
 			noms.add(it.next().toString());
-		
+
 		return noms;
 	}
-	
-	
+
+
 	/**
 	 * \brief retourne tous les mails d'un utilisateur donnee.
-	 * 
-	 * \return une arraylist d'adresse mail. 
+	 *
+	 * \return une arraylist d'adresse mail.
 	 **/
 	public ArrayList<String> getAllMailOf(String nom){
 		return person.get(nom);
 	}
-	
-	
+
+
 	/**
 	 * \brief ajoute l'utilisateur et son email a la liste person.
 	 **/
@@ -197,8 +197,8 @@ public class InfoGit {
 			this.person.put(utilisateur, mel);/*On ajoute son adresse mail*/
 		}
 	}
-	
-	
+
+
 	/**
 	 * \return l'url du git.
 	 **/
@@ -206,7 +206,7 @@ public class InfoGit {
 		return url;
 	}
 
-	
+
 	/**
 	 * \return toutes les branches du git.
 	 **/
@@ -214,15 +214,15 @@ public class InfoGit {
 		return branches;
 	}
 
-	
+
 	/**
 	 * \return le nombre de branches.
 	 **/
 	public int getNbBranches(){
 		return branches.size();
 	}
-	
-	
+
+
 	/**
 	 * \return le nombre de personnes.
 	 **/
@@ -238,7 +238,7 @@ public class InfoGit {
 		this.nbUsers = nbUsers;
 	}
 
-	
+
 	/**
 	 * \return toutes le nombre de commits.
 	 **/
@@ -246,20 +246,20 @@ public class InfoGit {
 		return nbCommits;
 	}
 
-	
+
 	/**
 	 * \brief modifie le nombre de commits.
 	 **/
 	public void setNbCommits(int nbCommits) {
 		this.nbCommits = nbCommits;
 	}
-	
-	
+
+
 	/**
 	 * Permet de compter le nombre de dossiers, fichiers, et lignes.
-	 * crée un objetInfoFile et l'envoie dans une liste pour que le 
+	 * crï¿½e un objetInfoFile et l'envoie dans une liste pour que le
 	 * convertisseur JSON s'en charge tout seul
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public ArrayList<InfoFile> lsGit() throws IOException {
 		Ref head = repo.getRef("HEAD");
@@ -280,11 +280,11 @@ public class InfoGit {
 		}
 		return infoFiles;
 	}
-	
-	
+
+
 	/**
 	 * Compte le nombre de lignes d'un fichier
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public int countLines(String path) throws IOException
 	{
