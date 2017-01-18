@@ -12,13 +12,19 @@
     {% endif %}
 {% endblock %}
 
-{% block fileSelected %}<span class="sub_icon glyphicon glyphicon-tree-deciduous" style="color:white;"></span>{% endblock %}
+{% block arbreSelected %}<span class="sub_icon glyphicon glyphicon-tree-deciduous" style="color:white;"></span>{% endblock %}
 {% block urlSelected %}<span class="sub_icon glyphicon glyphicon-plus-sign"></span>{% endblock %}
 
 
 {% block body %}
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<div id="tree">
-{{list|raw}}
-</div>
+{%if img == true%}
+{% autoescape %}
+{{code|raw}}
+{% endautoescape %}
+{%endif%}
+{%if img != true%}
+<pre>
+  {{code}}
+</pre>
+{%endif%}
 {% endblock %}

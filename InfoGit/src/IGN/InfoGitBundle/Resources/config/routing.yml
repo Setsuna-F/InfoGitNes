@@ -26,7 +26,7 @@ ign_info_git_a_branch:
 ign_info_git_a_contributor_with_a_branch:
     path:     /contributor/{contributor}/{branch}
     defaults: { _controller: IGNInfoGitBundle:Branches:acontributorwithbranch }
-
+    
 
 ##### Contributors
 ign_info_git_all_contributors:
@@ -41,3 +41,7 @@ ign_info_git_a_contributor:
 ign_info_git_files_tree:
     path:     /files/
     defaults: { _controller: IGNInfoGitBundle:Files:tree }
+
+ign_info_git_file:
+    path:     /file/{url}
+    defaults: { _controller: IGNInfoGitBundle:Files:show }

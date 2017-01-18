@@ -47,6 +47,43 @@ class FilesController extends Controller
         return $this->render('IGNInfoGitBundle:Files:files.html.twig', array('list' => $list, 'gitType'=> $this->parse_json->getGitType()));
     }
 
+    public function showAction($url)
+    {
+        $code = file_get_contents(base64_decode($url));
+        $fichier = base64_decode($url);
+        switch (substr($fichier, -3)) {
+            case 'png':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'PNG':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'jpeg':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'JPEG':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'gif':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+            case 'GIF':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+             case 'ico':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+             case 'ICO':
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                break;
+
+            
+            default:
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => $code ));
+                break;
+        }
+    }
+
 
     function build_tree($path_list) {
         $path_tree = array();
@@ -54,9 +91,14 @@ class FilesController extends Controller
             $list = explode('/', trim($path, '/'));
             $last_dir = &$path_tree;
             foreach ($list as $dir) {
-                $last_dir =& $last_dir[$dir];
+                
+                if ($dir!= "."&& $dir!= "INFOGITPROJET" ) {
+                   $last_dir =& $last_dir[$dir];
+                }
+                
             }
-            $last_dir['__title'] = $title;
+            $path = substr($path, 2);
+            $last_dir['__title'] = "$title@$path";
         }
         return $path_tree;
     }
@@ -75,9 +117,27 @@ class FilesController extends Controller
                         $this->compteur++;
                     }
                     else if ($tab[1] <= 1) {
-                        $li .= "<i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p>";
+                        $url = base64_encode($tab[2]);
+                        $extention = substr($tab[2], -3);
+                        if ($extention == "pdf") {
+                        $li .= "<a href=\"../$tab[2]\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key</a>";
+                        }
+                        else if ($extention == "jar") {
+                            $li .= "<a ><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p></a>";
+                        }
+                        else $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] ligne</p></a>";
                     }
-                    else $li .= "<i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p>";
+                   else {
+                    $url = base64_encode($tab[2]);
+                    $extention = substr($tab[2], -3);
+                    if ($extention == "pdf") {
+                        $li .= "<a href=\"../$tab[2]\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key</a>";
+                    }
+                    else if ($extention == "jar") {
+                            $li .= "<i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p>";
+                        }
+                    else $li .= "<a href=\"../file/$url\" target=\"about_blank\"><i class=\"glyphicon glyphicon-file\"></i>$key<p>$tab[1] lignes</p></a>";
+                    }
                 } else {
                     $li .= "$key";
                 }
