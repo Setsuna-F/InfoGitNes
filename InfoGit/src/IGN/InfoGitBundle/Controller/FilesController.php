@@ -49,6 +49,7 @@ class FilesController extends Controller
 
     public function showAction($url)
     {
+        $this->parse_json = new parserjson();
         $code = file_get_contents(base64_decode($url));
         $fichier = base64_decode($url);
         switch (substr($fichier, -3)) {
@@ -77,9 +78,9 @@ class FilesController extends Controller
                 return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
                 break;
 
-            
+
             default:
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => $code ));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => $code , 'gitType'=> $this->parse_json->getGitType(), 'img' => true ));
                 break;
         }
     }
@@ -91,11 +92,11 @@ class FilesController extends Controller
             $list = explode('/', trim($path, '/'));
             $last_dir = &$path_tree;
             foreach ($list as $dir) {
-                
+
                 if ($dir!= "."&& $dir!= "INFOGITPROJET" ) {
                    $last_dir =& $last_dir[$dir];
                 }
-                
+
             }
             $path = substr($path, 2);
             $last_dir['__title'] = "$title@$path";

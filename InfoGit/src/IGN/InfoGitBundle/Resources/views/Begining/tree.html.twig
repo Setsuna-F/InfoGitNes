@@ -123,7 +123,14 @@
     var mergeDefine = new Array();
     var isMergeDefine = false;
     //myArray['MASTER'] = gitGraph.branch('Master');
+/*    myArray['master'] = gitGraph.branch('master');
+    myArray['master'].commit("Initial commit");
 
+    myArray['dev'] = gitGraph.branch('dev');
+    myArray['dev'].commit("Init dev");
+    myArray['master'].commit("Rajour du readme");
+    myArray['dev'].commit("ajout d'un fichier de test sur la branche dev");
+*/
 {% for key, value in graphe %}
     for (var i = 0; i < mergeDefine.length; i++) {
         if(mergeDefine[i] == '{{value['branch']}}')
@@ -150,6 +157,9 @@
         //var a = { {value} };
         myArray['{ {key}}'].commit("");*/
 {% endfor %}
+
+//myArray['master'].commit("Initial commit");
+
 /*
 myArray['dev'] = gitGraph.branch('dev');
 myArray['dev'].commit("Init dev");
