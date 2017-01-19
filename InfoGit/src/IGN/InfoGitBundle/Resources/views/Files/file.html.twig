@@ -19,7 +19,12 @@
 {% block body %}
 {%if img == true%}
 {% autoescape %}
-{{code|raw}}
+<article class="container">
+    <header>
+        <h1 id="nom-fic">{{nom}}</h1>
+    </header>
+    {{code|raw}}
+</article>
 {% endautoescape %}
 {%endif%}
 {%if img != true%}
