@@ -58,28 +58,28 @@ class FilesController extends Controller
         $ext = $ext[sizeof($ext)-1];
         switch ($ext) {
             case 'png':
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true, 'nom'=> $nom,));
                 break;
             case 'PNG':
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true, 'nom'=> $nom,));
                 break;
             case 'jpeg':
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true, 'nom'=> $nom,));
                 break;
             case 'JPEG':
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true, 'nom'=> $nom,));
                 break;
             case 'gif':
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true, 'nom'=> $nom,));
                 break;
             case 'GIF':
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true, 'nom'=> $nom,));
                 break;
              case 'ico':
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true, 'nom'=> $nom,));
                 break;
              case 'ICO':
-                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true));
+                return $this->render('IGNInfoGitBundle:Files:file.html.twig', array('code' => html_entity_decode("<img src=\"../$fichier\" alt=\"image\" />"), 'img' => true, 'nom'=> $nom,));
                 break;
 
 
